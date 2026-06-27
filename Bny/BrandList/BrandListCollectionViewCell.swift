@@ -21,7 +21,7 @@ class BrandListCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         self.setupUI()
     }
-    
+    //commit test
     func setupUI() {
         self.cardView.layer.cornerRadius = 20
         self.cardView.clipsToBounds = true
