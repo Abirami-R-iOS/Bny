@@ -7,7 +7,7 @@
 
 import Foundation
 struct AppStrings {
-
+    
     //Welcome
     static let Whenever_You_Shop = "Whenever You Shop"
     static let Get_exclusive_Discounts = "Get exclusive Discounts, Privileges\nand Gift Vouchers!"
@@ -43,5 +43,38 @@ struct AppStrings {
     static let Do_You_Want_To_Add = "Do you want to add"
     static let To_Your_Favorites = "to your favorites?"
     
+    //Rewards
+    static let Rewards_Title = "Rewards"
+    static let Rewards_SubTitle = "Track your rewards & exclusive benefits"
+    static let Rewards_Welcome_Title = "WELCOME TO THE"
+    static let Bny_Rewards = "BNY REWARDS!"
+    static let Rewards_Banner_Title_Sub = "Earn points and redeem exclusive vouchers"
+    static let Gift_Voucher = "Gift Vouchers will be credited on the following occasions"
+    static let Joining_Bonus = "BNY\nJoining Bonus"
+    static let Special_Occasions = "Special\nOccasions"
+    static let Retail_Brand = "Retail Brands\n Redemptions"
+    static let Your_Rewards = "YOUR REWARDS"
+    static let View_All = "View all"
+    static let Voucher = "VOUCHER"
+    static let Redeem_Voucher = "REDEEM\nVOUCHER"
+    static let Gift_This_Voucher = "GIFT THIS VOUCHER"
+    static let Specials = "Specials"
+    static let History = "History"
+    static let Redeem_Info = "HOW IT WORKS"
+    static let earnPoints = "Earn Points"
+    static let earnPoints_sub = "Earn points on every redeem"
+    static let redeemPoints = "Redeem"
+    static let redeemPoints_sub = "Redeem your gift voucher"
+    static let VoucherTitle = "Voucher"
+    static let Voucher_sub = "Select the voucher"
+    static let Enjoy = "Enjoy"
+    static let Enjoy_sub = "Use voucher & enjoy more"
     
+    static let History_Title = "Your Voucher\nHistory"
+    static let History_SubTitle = "Track all your promocodes and transactions"
+    static let Your_History = "Your History"
+    static let Your_Coupon = "Your Coupons"
+    static let No_Rewards_Title = "No Rewards Available!"
+    static let No_History_Title = "No History Found!"
+    static let nocoupons = "No Coupons Available!"
 }

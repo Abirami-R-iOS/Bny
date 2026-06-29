@@ -58,24 +58,6 @@ class BrandListViewController: UIViewController {
         super.viewWillAppear(animated)
     }
     
-    func animateBackButton() {
-
-        UIView.animate(withDuration: 0.12, animations: {
-
-            self.backContainerView.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
-
-            self.backContainerView.alpha = 0.8
-
-        }) { _ in
-
-            UIView.animate(withDuration: 0.12) {
-
-                self.backContainerView.transform = .identity
-
-                self.backContainerView.alpha = 1
-            }
-        }
-    }
     
     func setUpUI() {
         self.menuContainerView.isHidden = true
@@ -124,11 +106,15 @@ class BrandListViewController: UIViewController {
         self.menuContainerView.layer.shadowOffset = CGSize(width: 0, height: 8)
         
         //back
+        self.setUpBackView()
+        self.setUpText()
+    }
+    
+    func setUpBackView() {
         self.backContainerView.layer.cornerRadius = self.backContainerView.frame.height / 2
         self.backContainerView.layer.masksToBounds = true
         self.backContainerView.layer.borderWidth = 1
         self.backContainerView.layer.borderColor = UIColor.whiteClr.withAlphaComponent(0.12).cgColor
-        self.setUpText()
     }
     
     func setupCollectionView() {
@@ -148,7 +134,7 @@ class BrandListViewController: UIViewController {
     }
     
     @IBAction func backBtn(_ sender: Any) {
-        self.animateBackButton()
+        UIView.animateBackButton(view: self.backContainerView)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
             
             self.navigationController?.popViewController(animated: true)

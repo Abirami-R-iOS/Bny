@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="poppins_semibold.ttf">
+            <string>Poppins-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RewardsHeaderTableViewCell" rowHeight="50" id="KGk-i7-Jjw" customClass="RewardsHeaderTableViewCell" customModule="Bny" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="347" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="347" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOP-7k-M3x">
+                        <rect key="frame" x="10" y="0.0" width="327" height="45"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOUR REWARDS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ToM-hE-jRY">
+                                <rect key="frame" x="0.0" y="14" width="94.666666666666671" height="17"/>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="12"/>
+                                <color key="textColor" name="White_Clr"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQY-AQ-h0U">
+                                <rect key="frame" x="267.33333333333331" y="9.3333333333333339" width="59.666666666666686" height="26.666666666666664"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="View All">
+                                    <fontDescription key="titleFontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="9"/>
+                                    <color key="baseForegroundColor" name="Bny_Red"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="viewAllTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ooS-1G-1kr"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ToM-hE-jRY" firstAttribute="centerY" secondItem="cOP-7k-M3x" secondAttribute="centerY" id="79u-1I-HPX"/>
+                            <constraint firstItem="UQY-AQ-h0U" firstAttribute="centerY" secondItem="cOP-7k-M3x" secondAttribute="centerY" id="Q1g-e6-mKt"/>
+                            <constraint firstAttribute="trailing" secondItem="UQY-AQ-h0U" secondAttribute="trailing" id="VAr-hM-RTB"/>
+                            <constraint firstItem="ToM-hE-jRY" firstAttribute="leading" secondItem="cOP-7k-M3x" secondAttribute="leading" id="iUk-Lw-Jz8"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="cOP-7k-M3x" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Bgr-0F-r0t"/>
+                    <constraint firstAttribute="trailing" secondItem="cOP-7k-M3x" secondAttribute="trailing" constant="10" id="Gpv-kk-r3t"/>
+                    <constraint firstItem="cOP-7k-M3x" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="LWn-NP-9Zz"/>
+                    <constraint firstAttribute="bottom" secondItem="cOP-7k-M3x" secondAttribute="bottom" constant="5" id="xDp-qS-lwX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="containerView" destination="cOP-7k-M3x" id="ffv-eS-Mgs"/>
+                <outlet property="titleLbl" destination="ToM-hE-jRY" id="Rqs-9K-hUJ"/>
+                <outlet property="viewAllBtn" destination="UQY-AQ-h0U" id="lc6-Qg-EXB"/>
+            </connections>
+            <point key="canvasLocation" x="-95.419847328244273" y="119.36619718309859"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="Bny_Red">
+            <color red="0.88235294117647056" green="0.11372549019607843" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="White_Clr">
+            <color red="0.96078431372549022" green="0.96862745098039216" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

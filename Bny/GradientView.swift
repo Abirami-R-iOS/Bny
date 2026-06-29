@@ -239,4 +239,154 @@ extension UIView {
                 .withAlphaComponent(0.50)
                 .cgColor
         }
+    
+    func applyRewardBackgroundGradient() {
+        applyGradient(
+            colors: [
+                UIColor(hex: "#091326"),
+                UIColor(hex: "#0A1322"),
+                UIColor(hex: "#050B14")
+            ],
+            startPoint: CGPoint(x: 0.5, y: 0.0), // Top
+            endPoint: CGPoint(x: 0.5, y: 1.0)    // Bottom (270°)
+        )
+        
+        
+        addRadialGradient(
+            center: CGPoint(x: 1.15, y: -0.10),
+            radius: 260,
+            colors: [
+                UIColor(hex: "#E11D48").withAlphaComponent(0.27),
+                UIColor(hex: "#E11D48").withAlphaComponent(0.07),
+                UIColor.clear
+            ]
+        )
+        
+        addRadialGradient(
+            center: CGPoint(x: -0.10, y: 0.55),
+            radius: 180,
+            colors: [
+                UIColor(hex: "#2B5CFF").withAlphaComponent(0.03),
+                UIColor.clear
+            ]
+        )
+        
+        addRadialGradient(
+            center: CGPoint(x: 0.5, y: 1.20),
+            radius: 320,
+            colors: [
+                UIColor(hex: "#0F172A").withAlphaComponent(0.07),
+                UIColor.clear
+            ]
+        )
+    }
+}
+
+extension UIView {
+    
+    func addRadialGradient(
+        center: CGPoint,
+        radius: CGFloat,
+        colors: [UIColor]
+    ) {
+        
+        let size = CGSize(width: radius * 2, height: radius * 2)
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        
+        let cgColors = colors.map { $0.cgColor } as CFArray
+        
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        
+        let locations: [CGFloat] = [0.0, 0.6, 1.0]
+        
+        guard let gradient = CGGradient(
+            colorsSpace: colorSpace,
+            colors: cgColors,
+            locations: locations
+        ) else { return }
+        
+        context.drawRadialGradient(
+            gradient,
+            startCenter: CGPoint(x: radius, y: radius),
+            startRadius: 0,
+            endCenter: CGPoint(x: radius, y: radius),
+            endRadius: radius,
+            options: .drawsAfterEndLocation
+        )
+        
+        guard let image = UIGraphicsGetImageFromCurrentImageContext()?.cgImage else {
+            UIGraphicsEndImageContext()
+            return
+        }
+        
+        UIGraphicsEndImageContext()
+        
+        let layer = CALayer()
+        layer.contents = image
+        layer.frame = CGRect(
+            x: bounds.width * center.x - radius,
+            y: bounds.height * center.y - radius,
+            width: radius * 2,
+            height: radius * 2
+        )
+        
+        self.layer.insertSublayer(layer, at: 0)
+    }
+    
+    func applyTabParentStyle() {
+        layer.backgroundColor = UIColor(hex: "#161D2E").cgColor
+        layer.cornerRadius = 16
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.white.withAlphaComponent(0.08).cgColor // #14FFFFFF
+        clipsToBounds = true
+    }
+    
+    func applyRewardBannerGradient() {
+        applyGradient(
+            colors: [
+                UIColor(hex: "#111827"),
+                UIColor(hex: "#220000"),
+                UIColor(hex: "#4D0000")
+            ],
+            startPoint: CGPoint(x: 0.0, y: 0.5),
+            endPoint: CGPoint(x: 1.0, y: 0.5),
+            cornerRadius: 24
+        )
+    }
+}
+
+extension UIButton {
+    
+    func removeSelectedTabGradient() {
+            layer.sublayers?.removeAll {
+                $0 is CAGradientLayer
+            }
+        }
+
+    func applySelectedTabGradient() {
+
+        // பழைய gradient remove
+        layer.sublayers?.removeAll {
+            $0 is CAGradientLayer
+        }
+
+        let gradient = CAGradientLayer()
+        gradient.frame = bounds
+        gradient.cornerRadius = layer.cornerRadius
+
+        gradient.colors = [
+            UIColor(hex: "#6E0B1F").cgColor,
+            UIColor(hex: "#A50E2D").cgColor,
+            UIColor(hex: "#D81B45").cgColor
+        ]
+
+        // Bottom Left → Top Right (315°)
+        gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
+        gradient.endPoint = CGPoint(x: 1.0, y: 0.0)
+
+        layer.insertSublayer(gradient, at: 0)
+    }
 }

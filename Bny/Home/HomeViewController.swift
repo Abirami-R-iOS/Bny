@@ -172,6 +172,8 @@ class HomeViewController: UIViewController {
     
     @IBAction func giftBtnTapped(_ sender: UIButton) {
         self.highlightMenuButton(sender)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "RewardsViewController") as! RewardsViewController
+        navigationController?.pushViewController(vc, animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
             self.closeMenu()
         }

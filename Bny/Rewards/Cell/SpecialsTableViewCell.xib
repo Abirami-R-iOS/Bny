@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="poppins_semibold.ttf">
+            <string>Poppins-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SpecialsTableViewCell" rowHeight="180" id="KGk-i7-Jjw" customClass="SpecialsTableViewCell" customModule="Bny" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="321" height="180"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="321" height="180"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sn2-bE-wul">
+                        <rect key="frame" x="10" y="0.0" width="301" height="172"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_special_reward 1" translatesAutoresizingMaskIntoConstraints="NO" id="DKS-qI-QNb">
+                                <rect key="frame" x="0.0" y="0.0" width="301" height="172"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have a promo code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qo0-aA-QmV">
+                                <rect key="frame" x="5" y="12" width="291" height="14"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="12"/>
+                                <color key="textColor" name="White_Clr"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlock Special Gift Vouchers!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x9f-kR-mcB">
+                                <rect key="frame" x="5" y="31" width="291" height="19"/>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
+                                <color key="textColor" name="White_Clr"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ticket.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Qg9-o3-jPO">
+                                <rect key="frame" x="29" y="75.666666666666671" width="25" height="21.333333333333329"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="QOy-9O-gVJ"/>
+                                    <constraint firstAttribute="width" constant="25" id="b08-89-v7p"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter Promo code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cyM-ZC-PBc">
+                                <rect key="frame" x="64" y="71" width="217" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NlZ-OR-Gs5">
+                                <rect key="frame" x="75.666666666666686" y="116" width="150" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="33s-Oj-2V4"/>
+                                    <constraint firstAttribute="height" constant="35" id="9gO-Xh-wPo"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Apply coupon">
+                                    <fontDescription key="titleFontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
+                                </buttonConfiguration>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cyM-ZC-PBc" firstAttribute="leading" secondItem="Qg9-o3-jPO" secondAttribute="trailing" constant="10" id="1Zg-Uf-HCm"/>
+                            <constraint firstItem="Qg9-o3-jPO" firstAttribute="leading" secondItem="sn2-bE-wul" secondAttribute="leading" constant="29" id="2t3-aN-Dk8"/>
+                            <constraint firstItem="Qg9-o3-jPO" firstAttribute="centerY" secondItem="sn2-bE-wul" secondAttribute="centerY" id="5BT-Dd-zJT"/>
+                            <constraint firstItem="cyM-ZC-PBc" firstAttribute="centerY" secondItem="Qg9-o3-jPO" secondAttribute="centerY" id="C6N-kG-Rrv"/>
+                            <constraint firstItem="x9f-kR-mcB" firstAttribute="leading" secondItem="Qo0-aA-QmV" secondAttribute="leading" id="Kx2-9o-7ik"/>
+                            <constraint firstAttribute="trailing" secondItem="DKS-qI-QNb" secondAttribute="trailing" id="OZr-pK-RDs"/>
+                            <constraint firstItem="x9f-kR-mcB" firstAttribute="top" secondItem="Qo0-aA-QmV" secondAttribute="bottom" constant="5" id="RgE-WW-88P"/>
+                            <constraint firstItem="x9f-kR-mcB" firstAttribute="trailing" secondItem="Qo0-aA-QmV" secondAttribute="trailing" id="SSg-kR-0bJ"/>
+                            <constraint firstItem="Qo0-aA-QmV" firstAttribute="leading" secondItem="sn2-bE-wul" secondAttribute="leading" constant="5" id="T43-Ei-hzi"/>
+                            <constraint firstAttribute="bottom" secondItem="DKS-qI-QNb" secondAttribute="bottom" id="Uqp-pk-tDe"/>
+                            <constraint firstItem="DKS-qI-QNb" firstAttribute="top" secondItem="sn2-bE-wul" secondAttribute="top" id="YKi-yK-lsB"/>
+                            <constraint firstAttribute="trailing" secondItem="cyM-ZC-PBc" secondAttribute="trailing" constant="20" id="df2-De-p5x"/>
+                            <constraint firstAttribute="trailing" secondItem="Qo0-aA-QmV" secondAttribute="trailing" constant="5" id="e8L-uz-mpH"/>
+                            <constraint firstItem="NlZ-OR-Gs5" firstAttribute="centerX" secondItem="sn2-bE-wul" secondAttribute="centerX" id="h7y-kL-GgR"/>
+                            <constraint firstItem="DKS-qI-QNb" firstAttribute="leading" secondItem="sn2-bE-wul" secondAttribute="leading" id="kaA-Tm-Beg"/>
+                            <constraint firstItem="NlZ-OR-Gs5" firstAttribute="top" secondItem="cyM-ZC-PBc" secondAttribute="bottom" constant="15" id="khp-dG-jSL"/>
+                            <constraint firstItem="Qo0-aA-QmV" firstAttribute="top" secondItem="sn2-bE-wul" secondAttribute="top" constant="12" id="loh-7w-Dju"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="sn2-bE-wul" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="0ep-Pb-bLm"/>
+                    <constraint firstAttribute="bottom" secondItem="sn2-bE-wul" secondAttribute="bottom" constant="8" id="FaU-3A-s7N"/>
+                    <constraint firstItem="sn2-bE-wul" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Hwi-Sv-2rE"/>
+                    <constraint firstAttribute="trailing" secondItem="sn2-bE-wul" secondAttribute="trailing" constant="10" id="U8M-AD-8Wh"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <point key="canvasLocation" x="-115.26717557251908" y="102.11267605633803"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="bg_special_reward 1" width="1536" height="1024"/>
+        <image name="ticket.fill" catalog="system" width="128" height="86"/>
+        <namedColor name="White_Clr">
+            <color red="0.96078431372549022" green="0.96862745098039216" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
