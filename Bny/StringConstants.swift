@@ -8,7 +8,7 @@
 import Foundation
 struct AppStrings {
     
-    //Welcome
+    // MARK: - Welcome
     static let Whenever_You_Shop = "Whenever You Shop"
     static let Get_exclusive_Discounts = "Get exclusive Discounts, Privileges\nand Gift Vouchers!"
     static let Brands_Near_you = "Brands Near you"
@@ -19,7 +19,9 @@ struct AppStrings {
     static let Welcome_SubTitle2 = "Exclusive & Straight forward deals\n\nFrom the Finest Retail Brands\nNo Marketing Gimmicks"
     static let Welcome_SubTitle3 = "When you can strike\nBig deals with\nBrands Near You"
     
-    //OTP
+    //Login
+    static let enter_phone_number = "Enter Phone Number"
+    // MARK: - OTP
     static let OTP = "OTP"
     static let OTP_Message = "We have sent a verification code to"
     static let OTP_Message_Sub = "Check text messages for your OTP"
@@ -27,7 +29,7 @@ struct AppStrings {
     static let Resend_OTP = "Resend SMS in "
     static let Submit = "Submit"
     
-    //Home
+    // MARK: - Home
     static let Home_Header_Title = "Hello, User !"
     static let Home_Header_SubTitle = "Discover the best Deals"
     static let Deals = "Deals"
@@ -35,15 +37,8 @@ struct AppStrings {
     static let Find_The_Best_Offers = "find the best offers around you"
     static let SearchTF_Placeholder = "Search for stores, categories..."
     
-    //Fav
-    static let Remove_from_Favorites = "Remove from Favorites?"
-    static let Add_to_Favorites = "Add to Favorites?"
-    static let Do_You_Want_To_Remove = "Do you want to remove"
-    static let From_Your_Favorites = "from your favorites?"
-    static let Do_You_Want_To_Add = "Do you want to add"
-    static let To_Your_Favorites = "to your favorites?"
-    
     //Rewards
+    // MARK: - Profile
     static let Rewards_Title = "Rewards"
     static let Rewards_SubTitle = "Track your rewards & exclusive benefits"
     static let Rewards_Welcome_Title = "WELCOME TO THE"
@@ -69,7 +64,6 @@ struct AppStrings {
     static let Voucher_sub = "Select the voucher"
     static let Enjoy = "Enjoy"
     static let Enjoy_sub = "Use voucher & enjoy more"
-    
     static let History_Title = "Your Voucher\nHistory"
     static let History_SubTitle = "Track all your promocodes and transactions"
     static let Your_History = "Your History"
@@ -77,4 +71,45 @@ struct AppStrings {
     static let No_Rewards_Title = "No Rewards Available!"
     static let No_History_Title = "No History Found!"
     static let nocoupons = "No Coupons Available!"
+    
+    
+    // MARK: - Profile
+    static let Profile_Information_Title = "INFORMATION & SUPPORT"
+    static let Profile_Rate_Title = "Rate this App"
+    static let Profile_Rate_SubTitle = "Share your feedback"
+    static let Profile_Refer_Title = "Refer Friends"
+    static let Profile_Refer_SubTitle = "Invite & Earn"
+    static let Profile_Edit = "Edit Profile"
+    static let Profile_Edit_SubTitle = "Keep your profile updated"
+    static let Profile_Share = "Share this App"
+    static let Profile_Share_SubTitle = "Tell your world about us"
+    static let Profile_About = "About Us"
+    static let Profile_HowToUse = "How to Use"
+    static let Profile_HelpSupport = "Help & Support"
+    static let Profile_Logout = "Sign Out"
+    
+   
+    // MARK: - Favourite
+    
+    static let Remove_from_Favorites = "Remove from Favorites?"
+    static let Add_to_Favorites = "Add to Favorites?"
+    static let Do_You_Want_To_Remove = "Do you want to remove"
+    static let From_Your_Favorites = "from your favorites?"
+    static let Do_You_Want_To_Add = "Do you want to add"
+    static let To_Your_Favorites = "to your favorites?"
+
+    static let Favourites_Title = "Favourites"
+    static let Favourites_SubTitle = "Your saved categories and brands"
+    static let Favourite_Categories_Tab = "Categories"
+    static let Favourite_Brands_Tab = "Brands & Shops"
+    static let Favourite_Banner_Title = "Your favourites, all in one place"
+    static let Favourite_Banner_SubTitle = "Quick access to your favourite categories and brands."
+    static let Favourite_Categories_Title = "Favourite Categories"
+    static let Favourite_Brands_Title = "Favourite Brands"
+    static let Favourite_View_All = "View All"
+    static let Favourite_Category_HomeAppliances = "Home Appliances"
+    static let Favourite_Category_Electronics = "Electronics"
+    static let Favourite_Category_Fashion = "Fashion"
+    static let Favourite_Category_Groceries = "Groceries"
+    static let Favourite_Category_Restaurants = "Restaurants"
 }

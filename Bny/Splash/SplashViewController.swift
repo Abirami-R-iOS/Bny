@@ -33,6 +33,7 @@ class SplashViewController: UIViewController {
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        self.hyphenView.layer.cornerRadius = 3
         self.subView.applyGradient(
             colors: [
                 UIColor(named: "gradientTop")!,

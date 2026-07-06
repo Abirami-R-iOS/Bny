@@ -32,15 +32,15 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         self.setupUI()
-        self.setUpTextField()
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        self.continueBtn.applyButtonRedGradient()
+        self.setUpTextField()
+//        self.continueBtn.applyButtonRedGradient()
         self.phoneContainerView.applyGlassBackground()
-        self.googleBtn.applyPremiumNavyCard()
+//        self.googleBtn.applyPremiumNavyCard()
     }
     
     // MARK: - SETUP UI
@@ -52,7 +52,8 @@ class LoginViewController: UIViewController {
             string: "Sign Up",
             attributes: [
                 .underlineStyle:
-                    NSUnderlineStyle.single.rawValue
+                    NSUnderlineStyle.single.rawValue,
+                .font: UIFont.poppinsSemiBold(size: 14.0)
             ]
         )
 
@@ -86,13 +87,13 @@ class LoginViewController: UIViewController {
         
         // Google Button
         googleBtn.layer.cornerRadius = 20
-        googleBtn.backgroundColor =
-        UIColor(hex: "#10192A")
+//        googleBtn.backgroundColor =
+//        UIColor(hex: "#10192A")
         
         googleBtn.layer.borderWidth = 1
         
         googleBtn.layer.borderColor =
-        UIColor.white.withAlphaComponent(0.1).cgColor
+        UIColor.whiteClr.withAlphaComponent(0.1).cgColor
         
         countryPickerView.delegate = self
 
@@ -109,15 +110,16 @@ class LoginViewController: UIViewController {
     func setUpTextField() {
         self.phoneTextField.keyboardType = .numbersAndPunctuation
         phoneTextField.enablesReturnKeyAutomatically = true
-        self.phoneTextField.textColor = .white
+        self.phoneTextField.textColor = UIColor.whiteClr
         
-        self.phoneTextField.tintColor = .white
+        self.phoneTextField.tintColor = UIColor.whiteClr
         
         self.phoneTextField.attributedPlaceholder = NSAttributedString(
-            string: "Enter Phone Number",
+            string: AppStrings.enter_phone_number,
             attributes: [
                 .foregroundColor:
-                    UIColor.white.withAlphaComponent(0.7)
+                    UIColor.whiteClr.withAlphaComponent(0.7),
+                .font: UIFont.poppinsMedium(size: 15)
             ]
         )
         
@@ -283,7 +285,7 @@ extension LoginViewController: UITextFieldDelegate {
 
         // Allow only numbers
         let allowedCharacters = CharacterSet.decimalDigits
-
+        self.phoneTextField.font = UIFont.poppinsMedium(size: 16)
         let characterSet = CharacterSet(
             charactersIn: string
         )

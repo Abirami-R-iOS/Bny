@@ -108,7 +108,7 @@ class OTPViewController: UIViewController {
             view?.layer.borderWidth = 1.5
 //            view?.backgroundColor = .clear
             view?.layer.borderColor =
-            UIColor.white.withAlphaComponent(0.2).cgColor
+            UIColor.whiteClr.withAlphaComponent(0.2).cgColor
           
             
         }
@@ -186,25 +186,25 @@ class OTPViewController: UIViewController {
 
         otpViews.forEach {
             $0?.layer.borderColor =
-            UIColor.white.withAlphaComponent(0.4).cgColor
+            UIColor.whiteClr.withAlphaComponent(0.4).cgColor
         }
 
         switch textField {
 
         case otpTF1:
-            otpView1.layer.borderColor = UIColor.white.cgColor
+            otpView1.layer.borderColor = UIColor.whiteClr.cgColor
 
         case otpTF2:
-            otpView2.layer.borderColor = UIColor.white.cgColor
+            otpView2.layer.borderColor = UIColor.whiteClr.cgColor
 
         case otpTF3:
-            otpView3.layer.borderColor = UIColor.white.cgColor
+            otpView3.layer.borderColor = UIColor.whiteClr.cgColor
 
         case otpTF4:
-            otpView4.layer.borderColor = UIColor.white.cgColor
+            otpView4.layer.borderColor = UIColor.whiteClr.cgColor
 
         case otpTF5:
-            otpView5.layer.borderColor = UIColor.white.cgColor
+            otpView5.layer.borderColor = UIColor.whiteClr.cgColor
 
         default:
             break
@@ -385,7 +385,17 @@ class OTPViewController: UIViewController {
     }
 
     @objc func dismissKeyboard() {
+        let otpViews = [
+            otpView1,
+            otpView2,
+            otpView3,
+            otpView4,
+            otpView5
+        ]
 
+        otpViews.forEach {
+            $0?.layer.borderColor = UIColor.whiteClr.withAlphaComponent(0.2).cgColor
+        }
         self.view.endEditing(true)
     }
 }

@@ -160,6 +160,8 @@ class HomeViewController: UIViewController {
     
     @IBAction func profileBtnTapped(_ sender: UIButton) {
         self.highlightMenuButton(sender)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        navigationController?.pushViewController(vc, animated: true)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
                 self.closeMenu()
                 // Navigate here
@@ -182,6 +184,8 @@ class HomeViewController: UIViewController {
     
     @IBAction func notificationBtnTapped(_ sender: UIButton) {
         self.highlightMenuButton(sender)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController
+        navigationController?.pushViewController(vc, animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
             self.closeMenu()
         }
@@ -190,6 +194,8 @@ class HomeViewController: UIViewController {
     
     @IBAction func favouriteBtnTapped(_ sender: UIButton) {
         self.highlightMenuButton(sender)
+        let vc = storyboard?.instantiateViewController(withIdentifier: "FavouritesViewController") as! FavouritesViewController
+        navigationController?.pushViewController(vc, animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
             self.closeMenu()
         }

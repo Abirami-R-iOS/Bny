@@ -27,4 +27,11 @@ extension UIView {
             }
         }
     }
+    
+    static func setUpBackView(view: UIView) {
+        view.layer.cornerRadius = view.frame.height / 2
+        view.layer.masksToBounds = true
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.whiteClr.withAlphaComponent(0.12).cgColor
+    }
 }

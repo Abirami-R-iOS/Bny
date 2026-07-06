@@ -110,6 +110,18 @@ extension UIView {
         layer.insertSublayer(gradient, at: 0)
     }
     
+    func rewardHeaderGradient() {
+        applyGradient(
+            colors: [
+                UIColor(hex: "#D3163A"),
+                UIColor(hex: "#091326"),
+                UIColor(hex: "#091326")
+            ],
+            startPoint: CGPoint(x: 0.5, y: 0.0), // Top
+            endPoint: CGPoint(x: 0.5, y: 1.0)    // Bottom
+        )
+    }
+    
     func applyPremiumCardStyle() {
 
            // Gradient
@@ -227,7 +239,7 @@ extension UIView {
     func applyGlassBackground() {
 
             // Background
-            backgroundColor = UIColor.white.withAlphaComponent(0.20)
+            backgroundColor = UIColor.whiteClr.withAlphaComponent(0.20)
 
             // Corner Radius
             layer.cornerRadius = 12
@@ -235,7 +247,7 @@ extension UIView {
 
             // Border
             layer.borderWidth = 1
-            layer.borderColor = UIColor.white
+            layer.borderColor = UIColor.whiteClr
                 .withAlphaComponent(0.50)
                 .cgColor
         }
@@ -354,6 +366,18 @@ extension UIView {
             startPoint: CGPoint(x: 0.0, y: 0.5),
             endPoint: CGPoint(x: 1.0, y: 0.5),
             cornerRadius: 24
+        )
+    }
+    
+    func premiumCardGradient() {
+        applyGradient(
+            colors: [
+                UIColor(hex: "#5A1126"),
+                UIColor(hex: "#4A1625"),
+                UIColor(hex: "#161D2E")
+            ],
+            startPoint: CGPoint(x: 0.0, y: 0.0), // Top Left
+            endPoint: CGPoint(x: 1.0, y: 1.0)    // Bottom Right (315°)
         )
     }
 }

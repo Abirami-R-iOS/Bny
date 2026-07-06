@@ -55,7 +55,8 @@ class WelcomeViewController: UIViewController {
         self.setupUI()
         self.addkeyboardGesture()
         self.updateUI()
-        self.setupGradientBackground()
+//        self.setupGradientBackground()
+        self.view.rewardHeaderGradient()
         self.setupCollectionView()
     }
     
@@ -67,7 +68,7 @@ class WelcomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.gradientLayer.frame = self.view.bounds
-        
+        self.nextBtn.titleLabel?.font = UIFont.poppinsMedium(size: 16)
         self.buttonView.applyPremiumCardStyle()
     }
     
@@ -109,25 +110,25 @@ class WelcomeViewController: UIViewController {
     
     // MARK: - COLLECTIONVIEW SETUP
     
-    private func setupGradientBackground() {
-        
-        gradientLayer.colors = [
-            UIColor(hex: "#D3163A").cgColor,
-            UIColor(hex: "#10192A").cgColor,
-            UIColor(hex: "#050B16").cgColor
-        ]
-        
-        gradientLayer.locations = [
-            0.0,
-            0.42,
-            1.0
-        ]
-        
-        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
-        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
-        
-        self.view.layer.insertSublayer(gradientLayer, at: 0)
-    }
+//    private func setupGradientBackground() {
+//        
+//        gradientLayer.colors = [
+//            UIColor(hex: "#D3163A").cgColor,
+//            UIColor(hex: "#10192A").cgColor,
+//            UIColor(hex: "#050B16").cgColor
+//        ]
+//        
+//        gradientLayer.locations = [
+//            0.0,
+//            0.42,
+//            1.0
+//        ]
+//        
+//        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+//        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
+//        
+//        self.view.layer.insertSublayer(gradientLayer, at: 0)
+//    }
     
     func updateUI() {
 
