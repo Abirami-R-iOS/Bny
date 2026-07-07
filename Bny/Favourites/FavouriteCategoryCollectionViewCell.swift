@@ -45,7 +45,7 @@ class FavouriteCategoryCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Configure
 
-    func configure(image: String, title: String, count: Int, isFavourite: Bool) {
+    func configure(image: String, title: String, count: Int, isFavourite: Bool = false) {
         self.categoryImageView.image = UIImage(named: image)
         self.categoryTitleLbl.text = title
         self.countLbl.text = "\(count)"

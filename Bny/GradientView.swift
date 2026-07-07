@@ -348,6 +348,7 @@ extension UIView {
         self.layer.insertSublayer(layer, at: 0)
     }
     
+    
     func applyTabParentStyle() {
         layer.backgroundColor = UIColor(hex: "#161D2E").cgColor
         layer.cornerRadius = 16
