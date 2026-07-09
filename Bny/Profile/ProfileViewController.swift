@@ -168,6 +168,9 @@ class ProfileViewController: UIViewController {
     
     @IBAction func editProfileTapped(_ sender: UIButton) {
         
+        let vc = storyboard?.instantiateViewController(withIdentifier: "EditProfileViewController") as! EditProfileViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     @IBAction func shareAppTapped(_ sender: UIButton) {

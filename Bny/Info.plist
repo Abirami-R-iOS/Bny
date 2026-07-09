@@ -29,5 +29,11 @@
 			</array>
 		</dict>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow location access to fetch your address.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow access to Camera.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow access to Photos.</string>
 </dict>
 </plist>

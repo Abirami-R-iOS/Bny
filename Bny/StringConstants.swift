@@ -112,4 +112,101 @@ struct AppStrings {
     static let Favourite_Category_Fashion = "Fashion"
     static let Favourite_Category_Groceries = "Groceries"
     static let Favourite_Category_Restaurants = "Restaurants"
+    
+    // MARK: - Edit Profile
+
+    static let Edit_Profile_Title = "Edit Profile"
+    static let Edit_Profile_SubTitle = "Keep your profile updated"
+
+    // MARK: - Labels
+
+    static let Edit_Profile_Name = "Name"
+    static let Edit_Profile_Date_Of_Birth = "Date Of Birth"
+    static let Edit_Profile_Address = "Address"
+    static let Edit_Profile_Gender = "Gender"
+
+    // MARK: - Placeholders
+
+    static let Edit_Profile_Name_Placeholder = "Enter your name"
+    static let Edit_Profile_DOB_Placeholder = "Select Date Of Birth"
+    static let Edit_Profile_Address_Placeholder = "Enter your address"
+    static let Edit_Profile_Gender_Placeholder = "Select Gender"
+
+    // MARK: - Buttons
+
+    static let Edit_Profile_Update_Button = "Update"
+    static let back = "Back"
+//    static let Edit_Profile_Cancel_Button = "Cancel"
+//    static let Edit_Profile_Done_Button = "Done"
+    static let OK = "OK"
+
+    static let cancel = "Cancel"
+    static let done = "Done"
+    // MARK: - Profile Image
+
+    static let Edit_Profile_Change_Photo = "Change Profile Photo"
+    static let Edit_Profile_Select_Image = "Select Image"
+    static let Edit_Profile_Take_Photo = "Take Photo"
+    static let Edit_Profile_Choose_From_Gallery = "Choose From Gallery"
+    static let Edit_Profile_Remove_Photo = "Remove Photo"
+
+    // MARK: - Gender Options
+
+    static let Edit_Profile_Gender_Male = "Male"
+    static let Edit_Profile_Gender_Female = "Female"
+    static let Edit_Profile_Gender_Other = "Other"
+    static let Edit_Profile_Gender_Prefer_Not_To_Say = "Prefer Not To Say"
+
+    // MARK: - Validation
+
+    static let Edit_Profile_Name_Validation = "Please enter your name."
+    static let Edit_Profile_Valid_Name_Validation = "Please enter a valid name."
+    static let Edit_Profile_DOB_Validation = "Please select your date of birth."
+    static let Edit_Profile_Address_Validation = "Please enter your address."
+    static let Edit_Profile_Gender_Validation = "Please select your gender."
+
+    // MARK: - Alerts
+
+    static let Edit_Profile_Alert = "Alert"
+    static let Edit_Profile_Success = "Success"
+    static let Edit_Profile_Error = "Error"
+    static let Edit_Profile_Warning = "Warning"
+
+    // MARK: - Success Messages
+
+    static let Edit_Profile_Update_Success = "Profile updated successfully."
+
+    // MARK: - Network
+
+    static let Edit_Profile_Loading = "Loading..."
+    static let Edit_Profile_Please_Wait = "Please wait..."
+    static let Edit_Profile_No_Internet = "No Internet Connection"
+    static let Edit_Profile_Something_Went_Wrong = "Something went wrong. Please try again."
+    static let Edit_Profile_Server_Error = "Unable to connect to the server."
+    static let Edit_Profile_Request_Timeout = "Request timed out."
+
+    // MARK: - Location
+
+    static let Edit_Profile_Enable_Location = "Enable Location"
+    static let Edit_Profile_Location_Permission = "Location permission is required to fetch your current address."
+    static let Edit_Profile_Fetching_Location = "Fetching current location..."
+    static let Edit_Profile_Location_Failed = "Unable to fetch your location."
+
+    // MARK: - Camera
+
+    static let Edit_Profile_Camera_Not_Available = "Camera is not available on this device."
+    static let Edit_Profile_Camera_Permission = "Camera permission is required."
+    static let Edit_Profile_Photo_Library_Permission = "Photo Library permission is required."
+
+    // MARK: - Image Upload
+
+    static let Edit_Profile_Uploading_Image = "Uploading image..."
+    static let Edit_Profile_Image_Upload_Failed = "Failed to upload profile image."
+
+    // MARK: - Confirmation
+
+    static let Edit_Profile_Discard_Changes = "Discard Changes?"
+    static let Edit_Profile_Discard_Changes_Message = "You have unsaved changes. Are you sure you want to leave?"
+    static let Edit_Profile_Yes = "Yes"
+    static let Edit_Profile_No = "No"
 }
