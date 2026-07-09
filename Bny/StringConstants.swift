@@ -20,6 +20,7 @@ struct AppStrings {
     static let Welcome_SubTitle3 = "When you can strike\nBig deals with\nBrands Near You"
     
     //Login
+    static let login = "Login"
     static let enter_phone_number = "Enter Phone Number"
     // MARK: - OTP
     static let OTP = "OTP"

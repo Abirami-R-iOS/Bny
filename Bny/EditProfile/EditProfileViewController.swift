@@ -53,72 +53,6 @@ class EditProfileViewController: UIViewController {
     private let datePickerContainer = UIView()
     private let dateOverlayView = UIView()
     
-//    lazy var dateToolbar: UIToolbar = {
-//
-//        let toolbar = UIToolbar()
-//        toolbar.sizeToFit()
-//
-//        let cancelButton = UIBarButtonItem(
-//            title: AppStrings.cancel,
-//            style: .plain,
-//            target: self,
-//            action: #selector(cancelDate)
-//        )
-//        cancelButton.tintColor = .gray
-//
-//        let flexibleSpace = UIBarButtonItem.flexibleSpace()
-//
-//        let doneButton = UIBarButtonItem(
-//            title: AppStrings.done,
-//            style: .plain,
-//            target: self,
-//            action: #selector(doneDate)
-//        )
-//        doneButton.tintColor = .systemBlue
-//
-//        toolbar.items = [
-//            cancelButton,
-//            flexibleSpace,
-//            doneButton
-//        ]
-//
-//        return toolbar
-//    }()
-    
-//    lazy var genderToolbar: UIToolbar = {
-//
-//        let toolbar = UIToolbar()
-//        toolbar.sizeToFit()
-//
-//        let cancelButton = UIBarButtonItem(
-//            title: AppStrings.cancel,
-//            style: .plain,
-//            target: self,
-//            action: #selector(cancelGender)
-//        )
-//        cancelButton.customView?.backgroundColor = .clear
-//        cancelButton.tintColor = .silverClr
-//
-//        let flexibleSpace = UIBarButtonItem.flexibleSpace()
-//
-//        let doneButton = UIBarButtonItem(
-//            title: AppStrings.done,
-//            style: .plain,
-//            target: self,
-//            action: #selector(doneGender)
-//        )
-//        doneButton.tintColor = .bnyRed
-//
-//        toolbar.items = [
-//            cancelButton,
-//            flexibleSpace,
-//            doneButton
-//        ]
-//
-//        return toolbar
-//    }()
-    
-    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -317,8 +251,7 @@ extension EditProfileViewController {
         showGenderPicker()
     }
     
-    @objc
-    func hideDatePicker() {
+    @objc func hideDatePicker() {
 
         UIView.animate(withDuration: 0.25, animations: {
 
