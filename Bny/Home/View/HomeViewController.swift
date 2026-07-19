@@ -38,7 +38,10 @@ class HomeViewController: UIViewController {
         Deals(image: "Deal5", title: "Desserts", distance: "5 km", offer: "20-35% Off", isFavourite: false),
         Deals(image: "Deal6", title: "Restaurants - Dine In", distance: "4 km", offer: "20-50% Off", isFavourite: false)
     ]
-       
+    
+    private let viewModel = HomeViewModel()
+    private var categories: [CategoryResponseModel] = []
+    
     var isMenuOpen = false
     var selectedIndexPath: IndexPath?
     var favouritePopup: FavouritePopupView?
@@ -50,6 +53,8 @@ class HomeViewController: UIViewController {
         self.setUpUI()
         self.setupMenuAnimation()
         self.setupCollectionView()
+        self.loadViewModel()
+        self.viewModel.getCategories()
         
     }
     
@@ -68,7 +73,7 @@ class HomeViewController: UIViewController {
         self.gridView.layer.borderWidth = 1
         self.bnyImageView.layer.borderColor = UIColor(hex: "#20FFFFFF").cgColor
         self.gridView.layer.backgroundColor = UIColor.backgroundClr.cgColor
-        self.searchContainerView.layer.cornerRadius = 20
+        self.searchContainerView.layer.cornerRadius = 12
         self.searchContainerView.layer.borderWidth = 1
         self.searchContainerView.layer.borderColor = UIColor.white.withAlphaComponent(0.15).cgColor
         self.searchTextField.delegate = self
@@ -149,6 +154,194 @@ class HomeViewController: UIViewController {
         
         self.subTitleLbl.attributedText = attributedString
     }
+    
+    func loadViewModel() {
+
+        self.viewModel.didFetchCategories = { [weak self] categories in
+
+            guard let self = self else { return }
+
+            self.categories = categories
+//            self.calculateImageHeights()
+            self.downloadCategoryImages()
+            
+        }
+
+        self.viewModel.didReceiveError = { [weak self] message in
+
+            guard let self = self else { return }
+
+            print(message)
+
+            // self.showAlert(message)
+        }
+    }
+    
+    
+//    func downloadCategoryImages() {
+//
+//        let group = DispatchGroup()
+//
+//        let columnWidth = (self.collectionView.frame.width / 2) - 16
+//
+//        for index in self.categories.indices {
+//
+//            // Test only index 4
+//            if index == 4 {
+//
+//                guard let url = URL(string: "https://picsum.photos/id/237/600/1200") else {
+//                    continue
+//                }
+//
+//                group.enter()
+//
+//                URLSession.shared.dataTask(with: url) { data, _, _ in
+//
+//                    defer { group.leave() }
+//
+//                    guard let data = data,
+//                          let image = UIImage(data: data) else {
+//                        return
+//                    }
+//
+//                    self.categories[index].image = image
+//
+//                    let ratio = image.size.height / image.size.width
+//
+//                    self.categories[index].imageHeight = columnWidth * ratio
+//
+//                }.resume()
+//
+//                continue
+//            }
+//
+//            guard let picture = self.categories[index].picture,
+//                  let url = URL(string: APIConstants.baseURLImage + picture) else {
+//
+//                self.categories[index].image = UIImage(named: "Placeholder")
+//                self.categories[index].imageHeight = 220
+//                continue
+//            }
+//
+//            group.enter()
+//
+//            URLSession.shared.dataTask(with: url) { data, _, _ in
+//
+//                defer { group.leave() }
+//
+//                guard let data = data,
+//                      let image = UIImage(data: data) else {
+//                    return
+//                }
+//
+//                self.categories[index].image = image
+//
+//                let ratio = image.size.height / image.size.width
+//
+//                self.categories[index].imageHeight = columnWidth * ratio
+//
+//            }.resume()
+//        }
+//
+//        group.notify(queue: .main) {
+//
+//            self.collectionView.collectionViewLayout.invalidateLayout()
+//
+//            self.collectionView.reloadData()
+//        }
+//    }
+    
+    func downloadCategoryImages() {
+
+        let group = DispatchGroup()
+
+        let columnWidth = (self.collectionView.frame.width / 2) - 16
+
+        for index in self.categories.indices {
+
+            guard let picture = self.categories[index].picture,
+                  let url = URL(string: APIConstants.baseURLImage + picture) else {
+
+                self.categories[index].image = UIImage(named: "Placeholder")
+                self.categories[index].imageHeight = 220
+                continue
+            }
+
+            group.enter()
+
+            URLSession.shared.dataTask(with: url) { data, response, error in
+
+                defer {
+                    group.leave()
+                }
+
+                guard let data = data,
+                      let image = UIImage(data: data) else {
+
+                    self.categories[index].image = UIImage(named: "Placeholder")
+                    self.categories[index].imageHeight = 220
+                    return
+                }
+
+                self.categories[index].image = image
+
+                let ratio = image.size.height / image.size.width
+
+                self.categories[index].imageHeight = columnWidth * ratio
+
+            }.resume()
+        }
+
+        group.notify(queue: .main) {
+
+            self.collectionView.collectionViewLayout.invalidateLayout()
+
+            self.collectionView.reloadData()
+        }
+    }
+    
+//    func calculateImageHeights() {
+//
+//        let group = DispatchGroup()
+//
+//        for index in categories.indices {
+//
+//            guard let picture = categories[index].picture,
+//                  let url = URL(string: APIConstants.baseURLImage + picture) else {
+//
+//                categories[index].imageHeight = 180
+//                continue
+//            }
+//
+//            group.enter()
+//
+//            URLSession.shared.dataTask(with: url) { data, _, _ in
+//
+//                defer { group.leave() }
+//
+//                guard let data = data,
+//                      let image = UIImage(data: data) else {
+//
+//                    self.categories[index].imageHeight = 180
+//                    return
+//                }
+//
+//                let columnWidth = (self.collectionView.frame.width / 2) - 16
+//
+//                let ratio = image.size.height / image.size.width
+//
+//                self.categories[index].imageHeight = columnWidth * ratio
+//
+//            }.resume()
+//        }
+//
+//        group.notify(queue: .main) {
+//
+//            self.collectionView.collectionViewLayout.invalidateLayout()
+//
+//            self.collectionView.reloadData()
+//        }
+//    }
     
     @IBAction func hamburgerBtnTapped(_ sender: UIButton) {
             if self.isMenuOpen {
@@ -353,39 +546,37 @@ extension HomeViewController: UITextFieldDelegate {
 }
 
 extension HomeViewController: PinterestLayoutDelegate {
+    
+//    func getImage() -> UIImage? {
+//        let url = "https://picsum.photos/id/237/600/1200"
+//        guard let imageURL = URL(string: url) else { return UIImage() }
+//        let imageData = try? Data(contentsOf: imageURL)
+//        guard let data = imageData else { return UIImage()}
+//        guard let imager = UIImage(data: data) else { return UIImage()}
+//        return imager
+//    }
+    
 
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAt indexPath: IndexPath) -> CGFloat {
-
-        let image = UIImage(named: self.deals[indexPath.item].image)
-
-        guard let image = image else {
-            return 200
-        }
-
-        let columnWidth = (collectionView.frame.width / 2) - 12
-
-        let ratio = image.size.height / image.size.width
-
-        return columnWidth * ratio
+        return self.categories[indexPath.item].imageHeight
     }
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.deals.count
+        return self.categories.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BrandCollectionViewCell", for: indexPath) as! BrandCollectionViewCell
-
-        let deal = self.deals[indexPath.item]
-        cell.dealImageView.image = UIImage(named: deal.image)
-        cell.titleLbl.text = deal.title
-        cell.subtitleLbl.text = deal.distance + " " + deal.offer
-        let imageName = deal.isFavourite ? "Fav_Fill" : "Fav_Unfill"
-        cell.favouriteBtn.setImage(UIImage(named: imageName), for: .normal)
+        let item = self.categories[indexPath.item]
+        cell.configure(with: item)
+        
+        
+        let deal = self.categories[indexPath.item]
+       
         cell.favouriteAction = { [weak self] in
 
             guard let self = self else {
@@ -394,7 +585,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
             self.selectedIndexPath = indexPath
 
-            self.showFavouritePopup(deal: deal)
+//            self.showFavouritePopup(deal: deal)
             self.collectionView.reloadData()
         }
         return cell
@@ -403,6 +594,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "BrandListViewController") as! BrandListViewController
         vc.headerTitle = self.titleLbl.text ?? ""
+        vc.categoryId = self.categories[indexPath.item].id ?? 0
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

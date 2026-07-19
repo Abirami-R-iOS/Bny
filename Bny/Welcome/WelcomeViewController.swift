@@ -51,7 +51,6 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.setupUI()
         self.addkeyboardGesture()
         self.updateUI()
@@ -173,6 +172,7 @@ class WelcomeViewController: UIViewController {
     // MARK: - BUTTON ACTIONS
     
     @IBAction func nextBtnTapped(_ sender: UIButton) {
+        UserDefaults.standard.set(true, forKey: "isFirstTime")
             if currentIndex < welcomeData.count - 1 {
 
                 currentIndex += 1
@@ -185,23 +185,27 @@ class WelcomeViewController: UIViewController {
 
                 updateUI()
 
-            } else {
-
-                let vc = storyboard?.instantiateViewController(
-                        withIdentifier: "LoginViewController"
-                    ) as! LoginViewController
-                
-                    navigationController?.pushViewController(
-                        vc,
-                        animated: true
-                    )
+            } else  {
+                self.navigateToHome()
             }
         
     }
     
     @IBAction func skipBtnTapped(_ sender: UIButton) {
+        self.navigateToHome()
+    }
+    
+    
+    func navigateToHome() {
+        UserDefaults.standard.set(true, forKey: "isFirstTime")
+        let vc = self.storyboard?.instantiateViewController(
+            withIdentifier: "HomeViewController"
+        ) as! HomeViewController
         
-        print("Skip")
+        self.navigationController?.pushViewController(
+            vc,
+            animated: true
+        )
     }
 }
 

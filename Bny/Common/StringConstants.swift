@@ -20,6 +20,7 @@ struct AppStrings {
     static let Welcome_SubTitle3 = "When you can strike\nBig deals with\nBrands Near You"
     
     //Login
+    static let signIn = "Sign In"
     static let login = "Login"
     static let enter_phone_number = "Enter Phone Number"
     // MARK: - OTP
@@ -132,6 +133,8 @@ struct AppStrings {
     static let Edit_Profile_DOB_Placeholder = "Select Date Of Birth"
     static let Edit_Profile_Address_Placeholder = "Enter your address"
     static let Edit_Profile_Gender_Placeholder = "Select Gender"
+    static let Enter_Referal_Code = "Enter Referral Code"
+    static let enter_name = "Enter name"
 
     // MARK: - Buttons
 

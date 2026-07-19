@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		926DF70C2FC45C560066137A /* CountryPickerView in Frameworks */ = {isa = PBXBuildFile; productRef = 926DF70B2FC45C560066137A /* CountryPickerView */; };
+		92971CD23003DA59003D4530 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 92971CD13003DA59003D4530 /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				926DF70C2FC45C560066137A /* CountryPickerView in Frameworks */,
+				92971CD23003DA59003D4530 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +86,7 @@
 			name = Bny;
 			packageProductDependencies = (
 				926DF70B2FC45C560066137A /* CountryPickerView */,
+				92971CD13003DA59003D4530 /* Alamofire */,
 			);
 			productName = Bny;
 			productReference = 926DF6C42FC09A690066137A /* Bny.app */;
@@ -115,6 +118,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				926DF70A2FC45C550066137A /* XCRemoteSwiftPackageReference "CountryPickerView" */,
+				92971CD03003DA59003D4530 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 926DF6C52FC09A690066137A /* Products */;
@@ -366,6 +370,14 @@
 				minimumVersion = 3.3.0;
 			};
 		};
+		92971CD03003DA59003D4530 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.12.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -373,6 +385,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 926DF70A2FC45C550066137A /* XCRemoteSwiftPackageReference "CountryPickerView" */;
 			productName = CountryPickerView;
+		};
+		92971CD13003DA59003D4530 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 92971CD03003DA59003D4530 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

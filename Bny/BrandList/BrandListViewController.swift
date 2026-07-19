@@ -31,14 +31,18 @@ class BrandListViewController: UIViewController {
     @IBOutlet weak var closeBtn: UIButton!
     @IBOutlet weak var backgroundView: UIView!
     
-    var brandList: [BrandList] = [
-        BrandList(image: "Deal3", title: "A2B", Location: "Anna Nagar", distance: "2 km", offer: "20-50% Off", isFavourite: false),
-        BrandList(image: "Deal2", title: "Pizza Corner", Location: "Egmore", distance: "4 km", offer: "15-40% Off", isFavourite: true),
-        BrandList(image: "Deal3", title: "South Indian Meals", Location: "T nagar", distance: "1 km", offer: "10-30% Off", isFavourite: true),
-        BrandList(image: "Deal4", title: "Cafe & Coffee", Location: "Saidapet", distance: "3 km", offer: "25-50% Off", isFavourite: false),
-        BrandList(image: "Deal5", title: "Desserts", Location: "Guindy", distance: "5 km", offer: "20-35% Off", isFavourite: false),
-        BrandList(image: "Deal6", title: "Restaurants - Dine In", Location: "Tharamani", distance: "4 km", offer: "20-50% Off", isFavourite: false)
-    ]
+//    var brandList: [BrandList] = [
+//        BrandList(image: "Deal3", title: "A2B", Location: "Anna Nagar", distance: "2 km", offer: "20-50% Off", isFavourite: false),
+//        BrandList(image: "Deal2", title: "Pizza Corner", Location: "Egmore", distance: "4 km", offer: "15-40% Off", isFavourite: true),
+//        BrandList(image: "Deal3", title: "South Indian Meals", Location: "T nagar", distance: "1 km", offer: "10-30% Off", isFavourite: true),
+//        BrandList(image: "Deal4", title: "Cafe & Coffee", Location: "Saidapet", distance: "3 km", offer: "25-50% Off", isFavourite: false),
+//        BrandList(image: "Deal5", title: "Desserts", Location: "Guindy", distance: "5 km", offer: "20-35% Off", isFavourite: false),
+//        BrandList(image: "Deal6", title: "Restaurants - Dine In", Location: "Tharamani", distance: "4 km", offer: "20-50% Off", isFavourite: false)
+//    ]
+    
+    var categoryId = 0
+    let viewModel = BrandViewModel()
+    private var brandList: [BrandListResponseModel] = []
     var headerTitle = ""
     var isMenuOpen = false
     var selectedIndexPath: IndexPath?
@@ -51,7 +55,8 @@ class BrandListViewController: UIViewController {
         self.setUpUI()
         self.setupMenuAnimation()
         self.setupCollectionView()
-        
+        self.viewModel.getBrandList(categoryId: self.categoryId)
+        self.loadViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -241,6 +246,34 @@ class BrandListViewController: UIViewController {
     }
 }
 
+extension BrandListViewController {
+
+    
+    func loadViewModel() {
+
+        self.viewModel.didFetchBrandList = { [weak self] brandList in
+
+            guard let self = self else { return }
+
+            self.brandList = brandList
+//            self.calculateImageHeights()
+            self.downloadCategoryImages()
+            
+        }
+
+        self.viewModel.didReceiveError = { [weak self] message in
+
+            guard let self = self else { return }
+
+            print(message)
+
+            // self.showAlert(message)
+        }
+    }
+    
+   
+}
+
 
 extension BrandListViewController {
     func animateHamburger(isOpen: Bool) {
@@ -321,6 +354,55 @@ extension BrandListViewController {
         }
     }
     
+    
+    func downloadCategoryImages() {
+
+        let group = DispatchGroup()
+
+        let columnWidth = (self.collectionView.frame.width / 2) - 16
+
+        for index in self.brandList.indices {
+
+            guard let picture = self.brandList[index].picture,
+                  let url = URL(string: APIConstants.baseURLImage + picture) else {
+
+                self.brandList[index].image = UIImage(named: "Placeholder")
+                self.brandList[index].imageHeight = 220
+                continue
+            }
+
+            group.enter()
+
+            URLSession.shared.dataTask(with: url) { data, response, error in
+
+                defer {
+                    group.leave()
+                }
+
+                guard let data = data,
+                      let image = UIImage(data: data) else {
+
+                    self.brandList[index].image = UIImage(named: "Placeholder")
+                    self.brandList[index].imageHeight = 220
+                    return
+                }
+
+                self.brandList[index].image = image
+
+                let ratio = image.size.height / image.size.width
+
+                self.brandList[index].imageHeight = columnWidth * ratio
+
+            }.resume()
+        }
+
+        group.notify(queue: .main) {
+
+            self.collectionView.collectionViewLayout.invalidateLayout()
+
+            self.collectionView.reloadData()
+        }
+    }
 }
 
 extension BrandListViewController: UITextFieldDelegate {
@@ -341,64 +423,55 @@ extension BrandListViewController: PinterestLayoutDelegate {
 
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAt indexPath: IndexPath) -> CGFloat {
 
-        let image = UIImage(named: self.brandList[indexPath.item].image)
-
-        guard let image = image else {
-            return 200
-        }
-
-        let columnWidth = (collectionView.frame.width / 2) - 12
-
-        let ratio = image.size.height / image.size.width
-
-        return columnWidth * ratio
+        return self.brandList[indexPath.item].imageHeight
     }
 }
 
 extension BrandListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.brandList.count
+        return self.viewModel.brandsList.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BrandListCollectionViewCell", for: indexPath) as! BrandListCollectionViewCell
 
-        let brandList = self.brandList[indexPath.item]
-        cell.dealImageView.image = UIImage(named: brandList.image)
-        cell.titleLbl.text = brandList.title
-        cell.LocationLbl.text = brandList.Location
-        cell.distanceLbl.text = brandList.distance + " " + brandList.offer
-        let imageName = brandList.isFavourite ? "Fav_Fill" : "Fav_Unfill"
-        cell.favouriteBtn.setImage(UIImage(named: imageName), for: .normal)
-        cell.favouriteAction = { [weak self] in
+         cell.configure(with: self.viewModel.brandsList[indexPath.item])
 
-            guard let self = self else {
-                return
-            }
+         return cell
 
-            self.selectedIndexPath = indexPath
-
-            self.showFavouritePopup(brandList: brandList)
-            self.collectionView.reloadData()
-        }
-        return cell
+//        let brandList = self.brandList[indexPath.item]
+       
+//        let imageName = brandList.isFavourite == 1 ? "Fav_Fill" : "Fav_Unfill"
+//        cell.favouriteBtn.setImage(UIImage(named: imageName), for: .normal)
+//        cell.favouriteAction = { [weak self] in
+//
+//            guard let self = self else {
+//                return
+//            }
+//
+//            self.selectedIndexPath = indexPath
+//
+//            self.showFavouritePopup(brandList: brandList)
+//            self.collectionView.reloadData()
+//        }
+//        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "BrandListViewController") as! BrandListViewController
-        vc.headerTitle = self.titleLbl.text ?? ""
+        let vc = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+//        vc.headerTitle = self.titleLbl.text ?? ""
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    func showFavouritePopup(brandList: BrandList) {
+    func showFavouritePopup(brandList: BrandListResponseModel) {
 
         let popup = Bundle.main.loadNibNamed("FavouritePopupView", owner: self, options: nil)?.first as! FavouritePopupView
 
         popup.frame = self.view.bounds
 
-        popup.configure(title: brandList.isFavourite ? AppStrings.Remove_from_Favorites : AppStrings.Add_to_Favorites, message: brandList.isFavourite ? AppStrings.Do_You_Want_To_Remove + " \(brandList.title) " + AppStrings.From_Your_Favorites : AppStrings.Do_You_Want_To_Add + " \(brandList.title) " + AppStrings.To_Your_Favorites, isFavourite: brandList.isFavourite)
+        //popup.configure(title: brandList.isFavourite ? AppStrings.Remove_from_Favorites : AppStrings.Add_to_Favorites, message: brandList.isFavourite ? AppStrings.Do_You_Want_To_Remove + " \(brandList.title) " + AppStrings.From_Your_Favorites : AppStrings.Do_You_Want_To_Add + " \(brandList.title) " + AppStrings.To_Your_Favorites, isFavourite: brandList.isFavourite)
 
         popup.cancelHandler = { [weak popup] in
 
@@ -407,19 +480,19 @@ extension BrandListViewController: UICollectionViewDelegate, UICollectionViewDat
 
         popup.actionHandler = { [weak self, weak popup] in
             
-            guard let self = self else {
-                return
-            }
-
-            guard let indexPath = self.selectedIndexPath else {
-                return
-            }
-
-            self.brandList[indexPath.item].isFavourite.toggle()
-
-            self.collectionView.reloadItems(at: [indexPath])
-
-            popup?.removeFromSuperview()
+//            guard let self = self else {
+//                return
+//            }
+//
+//            guard let indexPath = self.selectedIndexPath else {
+//                return
+//            }
+//
+//            self.brandList[indexPath.item].isFavourite.toggle()
+//
+//            self.collectionView.reloadItems(at: [indexPath])
+//
+//            popup?.removeFromSuperview()
         }
 
         self.view.addSubview(popup)

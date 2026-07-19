@@ -75,6 +75,7 @@
 //}
 //
 import UIKit
+import Foundation
 
 final class InputAccessoryView: UIView {
 
@@ -204,7 +205,7 @@ final class InputAccessoryView: UIView {
 
         button.backgroundColor = backgroundColor
 
-        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        button.titleLabel?.font = .poppinsSemiBold(size: 15)
 
         button.layer.cornerRadius = 10
         button.layer.masksToBounds = true

@@ -37,10 +37,24 @@ class OTPViewController: UIViewController {
 
     // MARK: - VARIABLES
 
+    private var resendTimer: Timer?
+    private var remainingSeconds = 30
+    let loginViewModel = LoginViewModel()
+    
     var otpFields: [UITextField] = []
     var countryCode = ""
     var mobileNumber = ""
-
+    var responseOTP = ""
+    var name = ""
+    var dob = ""
+    var gender = ""
+    var referralCode = ""
+    var cameFrom = ""
+    var address = ""
+    var picture = ""
+    
+    var viewModel = OTPViewModel()
+    
     var timer: Timer?
 
     var totalTime = 30
@@ -49,7 +63,8 @@ class OTPViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.viewModel.delegate = self
+        self.loginViewModel.delegate = self
         self.setupUI()
         self.setupOTPFields()
         self.startResendTimer()
@@ -73,6 +88,7 @@ class OTPViewController: UIViewController {
     }
     
     func setupUI() {
+        AlertManager.showAlert(on: self, message: self.responseOTP)
         self.setUpLabelText()
         //signup
         let attributdString = NSAttributedString(
@@ -217,49 +233,142 @@ class OTPViewController: UIViewController {
 
         self.otpTF1.becomeFirstResponder()
     }
-
-    // MARK: - TIMER
-    func updateResendText() {
-
-        let fullText = "Resend in \(totalTime)s"
-
-        let attributed =
-        NSMutableAttributedString(string: fullText)
-
-        attributed.addAttribute(
-            .foregroundColor,
-            value: UIColor.white.withAlphaComponent(0.7),
-            range: NSRange(location: 0, length: 10)
-        )
-
-        attributed.addAttribute(
-            .foregroundColor,
-            value: UIColor.bnyRed,
-            range: NSRange(
-                location: 10,
-                length: "\(totalTime)s".count
-            )
-        )
-
-        resendBtn.setAttributedTitle(
-            attributed,
-            for: .normal
-        )
-    }
     
     func startResendTimer() {
 
-        self.resendBtn.isEnabled = false
-        self.updateResendText()
-        self.timer?.invalidate()
-        self.timer = Timer.scheduledTimer(
-                timeInterval: 1,
-                target: self,
-                selector: #selector(self.updateTimer),
-                userInfo: nil,
-                repeats: true
-            )
+        resendTimer?.invalidate()
+        remainingSeconds = 30
+
+        updateResendText()
+
+        resendTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
+
+            self.remainingSeconds -= 1
+
+            if self.remainingSeconds > 0 {
+
+                self.updateResendText()
+
+            } else {
+
+                timer.invalidate()
+                self.showResendOTP()
+            }
+        }
     }
+    
+    private func updateResendText() {
+
+        let normalText = "Didn't get the OTP? Resend SMS in "
+        let secondText = "\(remainingSeconds)s"
+
+        let attributed = NSMutableAttributedString(
+            string: normalText + secondText
+        )
+
+        attributed.addAttribute(
+            .foregroundColor,
+            value: UIColor.systemRed,
+            range: NSRange(
+                location: normalText.count,
+                length: secondText.count
+            )
+        )
+
+        resendLbl.attributedText = attributed
+        resendLbl.isUserInteractionEnabled = false
+    }
+    
+    private func showResendOTP() {
+
+        let normalText = "Didn't get the OTP? "
+        let clickText = "Resend OTP"
+
+        let attributed = NSMutableAttributedString(
+            string: normalText + clickText
+        )
+
+        attributed.addAttribute(
+            .foregroundColor,
+            value: UIColor.systemRed,
+            range: NSRange(
+                location: normalText.count,
+                length: clickText.count
+            )
+        )
+
+        resendLbl.attributedText = attributed
+        resendLbl.isUserInteractionEnabled = true
+
+        let tap = UITapGestureRecognizer(
+            target: self,
+            action: #selector(resendOTPClicked)
+        )
+
+        resendLbl.gestureRecognizers?.removeAll()
+        resendLbl.addGestureRecognizer(tap)
+    }
+    
+    @objc
+    private func resendOTPClicked() {
+        self.loginViewModel.login(mobile: self.mobileNumber, countryCode: self.countryCode, entry: self.cameFrom)
+//        callLoginApi()
+    }
+    
+    deinit {
+        
+        resendTimer?.invalidate()
+    }
+    
+    
+
+    // MARK: - TIMER
+//    func updateResendText() {
+//
+//        let fullText = "Resend in \(totalTime)s"
+//
+//        let attributed =
+//        NSMutableAttributedString(string: fullText)
+//
+//        attributed.addAttribute(
+//            .foregroundColor,
+//            value: UIColor.white.withAlphaComponent(0.7),
+//            range: NSRange(location: 0, length: 10)
+//        )
+//
+//        attributed.addAttribute(
+//            .foregroundColor,
+//            value: UIColor.bnyRed,
+//            range: NSRange(
+//                location: 10,
+//                length: "\(totalTime)s".count
+//            )
+//        )
+//
+//        resendBtn.setAttributedTitle(
+//            attributed,
+//            for: .normal
+//        )
+//    }
+    
+//    func startResendTimer() {
+//
+//        self.resendBtn.isEnabled = false
+//        self.updateResendText()
+//        self.timer?.invalidate()
+//        self.timer = Timer.scheduledTimer(
+//                timeInterval: 1,
+//                target: self,
+//                selector: #selector(self.updateTimer),
+//                userInfo: nil,
+//                repeats: true
+//            )
+//    }
     
     @objc func updateTimer() {
         
@@ -321,53 +430,60 @@ class OTPViewController: UIViewController {
 
     @IBAction func submitBtnTapped(
         _ sender: UIButton
-    ) {
-        let vc = self.storyboard?.instantiateViewController(
-            withIdentifier: "HomeViewController"
-        ) as! HomeViewController
+    )  {
+        self.callOTPApi()
+    }
     
-        self.navigationController?.pushViewController(
-            vc,
-            animated: true
-        )
-
-        let otp =
+    func callOTPApi(isFrom: String = "") {
+        
+        let enteredOTP =
         self.otpTF1.text! +
         self.otpTF2.text! +
         self.otpTF3.text! +
         self.otpTF4.text! +
         self.otpTF5.text!
 
-        if otp.count < 5 {
+        if enteredOTP.count < 5 {
 
-            self.showAlert(
-                message: "Enter Complete OTP"
-            )
+            AlertManager.showAlert(on: self, message: "Enter Complete OTP")
 
-        } else {
-
-            print("OTP:", otp)
+            return
         }
-    }
 
-    // MARK: - ALERT
+        if enteredOTP != self.responseOTP {
 
-    func showAlert(message: String) {
+            AlertManager.showAlert(on: self, message: "Invalid OTP")
 
-        let alert = UIAlertController(
-            title: "Bny",
-            message: message,
-            preferredStyle: .alert
-        )
+            self.otpFields.forEach {
+                $0.text = ""
+            }
 
-        alert.addAction(
-            UIAlertAction(
-                title: "OK",
-                style: .default
+            self.otpTF1.becomeFirstResponder()
+
+            return
+        }
+        if self.cameFrom == "signin" {
+            self.viewModel.generateToken(mobile: self.mobileNumber, otp: enteredOTP, countryCode: self.countryCode)
+        } else if self.cameFrom == "signup" {
+            
+            let request = SignupRequestModel(
+                mobile: self.mobileNumber,
+                name: self.name,
+                address: self.address,
+                dob: self.dob,
+                referralCode: self.referralCode,
+                deviceId: DeviceInfo.deviceId,
+                deviceToken: "Dummy",
+                gender: self.gender,
+                password: self.responseOTP,
+                deviceType: "ios",
+                picture: self.picture,
+                countryCode: self.countryCode
             )
-        )
 
-        self.present(alert, animated: true)
+            self.viewModel.signUp(request: request)
+        }
+
     }
 
     // MARK: - KEYBOARD
@@ -397,6 +513,114 @@ class OTPViewController: UIViewController {
             $0?.layer.borderColor = UIColor.whiteClr.withAlphaComponent(0.2).cgColor
         }
         self.view.endEditing(true)
+    }
+}
+
+
+extension OTPViewController: LoginViewModelDelegate {
+    
+    func didReceiveLoginOTP() {
+        
+        print("OTP",self.loginViewModel.otp ?? 0)
+        self.responseOTP = String(self.loginViewModel.otp ?? 0)
+        self.otpFields.forEach {
+              $0.text = ""
+          }
+        self.otpTF1.becomeFirstResponder()
+        self.totalTime = 30
+        self.startResendTimer()
+    }
+    
+    func didReceiveLoginError(_ message: String) {
+        AlertManager.showAlert(on: self, message: message)
+        print(message)
+    }
+}
+
+extension OTPViewController: OTPViewModelDelegate {
+    func didReceiveSignup() {
+
+        let user = self.viewModel.signupResponse
+
+        UserSession.shared.accessToken = user?.accessToken ?? ""
+        UserSession.shared.userId = user?.id ?? 0
+        UserSession.shared.name = user?.name ?? ""
+        UserSession.shared.mobile = user?.mobile ?? ""
+        UserSession.shared.gender = user?.gender ?? ""
+        UserSession.shared.address = user?.address ?? ""
+        UserSession.shared.dob = user?.dob ?? ""
+        UserSession.shared.countryCode = user?.countryCode ?? ""
+        UserSession.shared.referralCode = user?.referralCode ?? ""
+
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func didReceiveUserDetails() {
+
+        guard let user = self.viewModel.userDetails else {
+            return
+        }
+
+        let session = UserSession.shared
+
+
+        session.userId = user.id ?? 0
+        session.name = user.name ?? ""
+        session.countryCode = user.countryCode ?? ""
+        session.mobile = user.mobile ?? ""
+        session.address = user.address ?? ""
+        session.dob = user.dob ?? ""
+        session.picture = user.picture ?? ""
+        session.deviceType = user.deviceType ?? ""
+        session.deviceId = user.deviceId ?? ""
+        session.deviceToken = user.deviceToken ?? ""
+        session.referralCode = user.referralCode ?? ""
+        session.aboutUs = user.aboutUs ?? ""
+        session.terms = user.terms ?? ""
+        session.howToUse = user.howToUse ?? ""
+        session.gender = user.gender ?? ""
+        
+        
+        let vc = self.storyboard?.instantiateViewController(
+            withIdentifier: "BrandDetailViewController"
+        ) as! BrandDetailViewController
+
+        self.navigationController?.pushViewController(
+            vc,
+            animated: true
+        )
+    }
+    
+
+    func didReceiveToken() {
+
+            
+            let session = UserSession.shared
+            session.accessToken = self.viewModel.tokenResponse?.accessToken ?? ""
+            session.refreshToken = self.viewModel.tokenResponse?.refreshToken ?? ""
+            session.tokenType = self.viewModel.tokenResponse?.tokenType ?? ""
+//            UserDefaults.standard.set(response.accessToken, forKey: "AccessToken")
+//            UserDefaults.standard.set(response.refreshToken, forKey: "RefreshToken")
+//            UserDefaults.standard.set(response.tokenType, forKey: "TokenType")
+//            UserDefaults.standard.set(response.expiresIn, forKey: "ExpiresIn")
+            
+            self.viewModel.getUserDetails(accessToken: session.accessToken)
+        
+
+//        let vc = self.storyboard?.instantiateViewController(
+//            withIdentifier: "HomeViewController"
+//        ) as! HomeViewController
+//
+//        self.navigationController?.pushViewController(
+//            vc,
+//            animated: true
+//        )
+    }
+
+    func didReceiveError(_ message: String) {
+
+        AlertManager.showAlert(on: self, message: message)
     }
 }
 

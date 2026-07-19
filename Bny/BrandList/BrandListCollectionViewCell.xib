@@ -94,7 +94,7 @@
                 <outlet property="LocationLbl" destination="ARO-GW-x60" id="71U-Or-NM0"/>
                 <outlet property="cardView" destination="Pc1-lF-0MX" id="5dU-xa-4CC"/>
                 <outlet property="dealImageView" destination="ipm-2B-E5W" id="A4c-2Y-dU7"/>
-                <outlet property="distanceLbl" destination="czG-JD-sMQ" id="dMw-hw-bc1"/>
+                <outlet property="descriptionLbl" destination="czG-JD-sMQ" id="hrq-ol-HDY"/>
                 <outlet property="favouriteBtn" destination="yvh-ZX-Wlk" id="PWw-de-rXX"/>
                 <outlet property="titleLbl" destination="i0s-SN-Kgt" id="3x4-CU-RKG"/>
             </connections>

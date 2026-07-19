@@ -33,4 +33,19 @@ class BrandCollectionViewCell: UICollectionViewCell {
         self.favouriteAction?()
     }
     
+    func configure(with category: CategoryResponseModel) {
+
+        self.titleLbl.text = category.name
+
+        self.subtitleLbl.text = category.offerDescription
+
+        self.dealImageView.image = category.image ?? UIImage(named: "Placeholder")
+
+        let imageName = category.isFavourite == 1 ? "Fav_Fill" : "Fav_Unfill"
+
+        self.favouriteBtn.setImage(UIImage(named: imageName), for: .normal)
+    }
+    
+    
 }
+

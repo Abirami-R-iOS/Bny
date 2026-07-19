@@ -12,6 +12,7 @@ class LoginViewController: UIViewController {
     
     // MARK: - OUTLETS
     
+    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var bgImageView: UIImageView!
     @IBOutlet weak var overlayView: UIView!
     @IBOutlet weak var logoImageView: UIImageView!
@@ -26,12 +27,14 @@ class LoginViewController: UIViewController {
     
     private let gradientLayer = CAGradientLayer()
     let countryPickerView = CountryPickerView()
+    let viewModel = LoginViewModel()
     // MARK: - LIFE CYCLE
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupUI()
+        self.viewModel.delegate = self
         
     }
     
@@ -160,18 +163,16 @@ class LoginViewController: UIViewController {
             return
         }
 
-        if phone.count < 10 {
-            AlertManager.showAlert(
-                on: self,
-                title: "Error",
-                message: "Enter Valid Phone Number"
-            )
-            return
-        }
-        let vc = storyboard?.instantiateViewController(withIdentifier: "OTPViewController") as! OTPViewController
-        vc.countryCode = self.countryBtn.titleLabel?.text ?? ""
-        vc.mobileNumber = self.phoneTextField.text ?? ""
-        self.navigationController?.pushViewController(vc, animated: true)
+//        if phone.count < 10 {
+//            AlertManager.showAlert(
+//                on: self,
+//                title: "Error",
+//                message: "Enter Valid Phone Number"
+//            )
+//            return
+//        }
+        self.viewModel.login(mobile: self.phoneTextField.text ?? "",
+                             countryCode: "+91")
         
     }
     
@@ -228,8 +229,27 @@ class LoginViewController: UIViewController {
     }
 }
 
-extension LoginViewController:
-CountryPickerViewDelegate {
+extension LoginViewController: LoginViewModelDelegate {
+
+    func didReceiveLoginOTP() {
+        
+        print("OTP",self.viewModel.otp ?? 0)
+        
+        let vc = storyboard?.instantiateViewController(withIdentifier: "OTPViewController") as! OTPViewController
+        vc.responseOTP = "\(self.viewModel.otp ?? 0)"
+        vc.countryCode = self.countryBtn.titleLabel?.text ?? ""
+        vc.mobileNumber = self.phoneTextField.text ?? ""
+        vc.cameFrom = "signin"
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func didReceiveLoginError(_ message: String) {
+        AlertManager.showAlert(on: self, message: message)
+        print(message)
+    }
+}
+
+extension LoginViewController: CountryPickerViewDelegate {
 
     func countryPickerView(
         _ countryPickerView: CountryPickerView,

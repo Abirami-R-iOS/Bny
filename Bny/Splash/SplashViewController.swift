@@ -16,9 +16,12 @@ class SplashViewController: UIViewController {
     @IBOutlet weak var subView: UIView!
     @IBOutlet weak var bgImageView: UIImageView!
     @IBOutlet weak var locationImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigateToWelcome()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            self.navigateToWelcome()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,12 +51,19 @@ class SplashViewController: UIViewController {
     }
     
     func navigateToWelcome() {
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-
+        if UserDefaults.standard.bool(forKey: "isFirstTime") == false {
             let vc = self.storyboard?.instantiateViewController(
                 withIdentifier: "WelcomeViewController"
             ) as! WelcomeViewController
+
+            self.navigationController?.pushViewController(
+                vc,
+                animated: true
+            )
+        } else {
+            let vc = self.storyboard?.instantiateViewController(
+                withIdentifier: "HomeViewController"
+            ) as! HomeViewController
 
             self.navigationController?.pushViewController(
                 vc,

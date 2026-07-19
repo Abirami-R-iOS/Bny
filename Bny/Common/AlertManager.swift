@@ -12,8 +12,8 @@ final class AlertManager {
 
     static func showAlert(
         on vc: UIViewController,
-        title: String,
-        message: String,
+        title: String = "",
+        message: String = "",
         buttonTitle: String = "OK"
     ) {
 

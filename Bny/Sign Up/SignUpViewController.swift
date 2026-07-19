@@ -22,8 +22,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var mobileTF: UITextField!
 
     @IBOutlet weak var dobTF: UITextField!
-
-    @IBOutlet weak var addressTF: UITextField!
+    @IBOutlet weak var referCodeTF: UITextField!
 
     @IBOutlet weak var genderTF: UITextField!
 
@@ -32,14 +31,13 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var signupBtn: UIButton!
 
     @IBOutlet weak var loginBtn: UIButton!
-
+    @IBOutlet weak var referCodeContainerView: UIView!
     @IBOutlet weak var nameContainerView: UIView!
 
     @IBOutlet weak var mobileContainerView: UIView!
 
     @IBOutlet weak var dobContainerView: UIView!
 
-    @IBOutlet weak var addressContainerView: UIView!
 
     @IBOutlet weak var genderContainerView: UIView!
     @IBOutlet weak var countryBtn: UIButton!
@@ -47,6 +45,7 @@ class SignUpViewController: UIViewController {
     // MARK: - VARIABLES
     let countryPickerView = CountryPickerView()
     let datePicker = UIDatePicker()
+    let viewModel = SignUpViewModel()
 
     let genderList = [
         "Male",
@@ -65,21 +64,14 @@ class SignUpViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.viewModel.delegate = self
         self.setupUI()
         self.setupTextFields()
         self.setupDatePicker()
     }
     func setupUI() {
-
-        let containerViews = [
-            self.nameContainerView,
-            self.mobileContainerView,
-            self.dobContainerView,
-            self.addressContainerView,
-            self.genderContainerView
-        ]
-        countryPickerView.delegate = self
+        
+        self.countryPickerView.delegate = self
 
         let country = countryPickerView.selectedCountry
         let flagImage = country.flag.withRenderingMode(.alwaysOriginal)
@@ -89,11 +81,19 @@ class SignUpViewController: UIViewController {
             " \(country.phoneCode)",
             for: .normal
         )
+
+        let containerViews = [
+            self.nameContainerView,
+            self.mobileContainerView,
+            self.dobContainerView,
+            self.genderContainerView,
+            self.referCodeContainerView
+        ]
         
         containerViews.forEach { view in
 
             view?.applyGlassBackground()
-            view?.layer.cornerRadius = 20
+//            view?.layer.cornerRadius = 13
 
             view?.layer.borderWidth = 1
 
@@ -107,12 +107,12 @@ class SignUpViewController: UIViewController {
         self.signupBtn.backgroundColor = .bnyRed
 
         let attributedString = NSAttributedString(
-            string: AppStrings.login,
+            string: AppStrings.signIn,
             attributes: [
                 .underlineStyle:
                     NSUnderlineStyle.single.rawValue,
                 .foregroundColor:
-                    UIColor.gradientTop
+                    UIColor.bnyRed
             ]
         )
 
@@ -127,39 +127,99 @@ class SignUpViewController: UIViewController {
             self.nameTF,
             self.mobileTF,
             self.dobTF,
-            self.addressTF,
-            self.genderTF
+            self.genderTF,
+            self.referCodeTF
         ]
 
         textFields.forEach { field in
-
+            if field == self.mobileTF {
+                field?.attributedPlaceholder = NSAttributedString(
+                    string: AppStrings.enter_phone_number,
+                    attributes: [
+                        .foregroundColor:
+                            UIColor.whiteClr.withAlphaComponent(0.7),
+                        .font: UIFont.poppinsMedium(size: 15)
+                    ]
+                )
+            } else if field == self.dobTF {
+                field?.attributedPlaceholder = NSAttributedString(
+                    string: AppStrings.Edit_Profile_DOB_Placeholder,
+                    attributes: [
+                        .foregroundColor:
+                            UIColor.whiteClr.withAlphaComponent(0.7),
+                        .font: UIFont.poppinsMedium(size: 15)
+                    ]
+                )
+            } else if field == self.genderTF {
+                field?.attributedPlaceholder = NSAttributedString(
+                    string: AppStrings.Edit_Profile_Gender_Placeholder,
+                    attributes: [
+                        .foregroundColor:
+                            UIColor.whiteClr.withAlphaComponent(0.7),
+                        .font: UIFont.poppinsMedium(size: 15)
+                    ]
+                )
+            } else if field == self.referCodeTF {
+                field?.attributedPlaceholder = NSAttributedString(
+                    string: AppStrings.Enter_Referal_Code,
+                    attributes: [
+                        .foregroundColor:
+                            UIColor.whiteClr.withAlphaComponent(0.7),
+                        .font: UIFont.poppinsMedium(size: 15)
+                    ]
+                )
+            } else if field == self.nameTF {
+                field?.attributedPlaceholder = NSAttributedString(
+                    string: AppStrings.enter_name,
+                    attributes: [
+                        .foregroundColor:
+                            UIColor.whiteClr.withAlphaComponent(0.7),
+                        .font: UIFont.poppinsMedium(size: 15)
+                    ]
+                )
+            }
             field?.tintColor = .whiteClr
 
             field?.delegate = self
             field?.textColor = UIColor.whiteClr
-            field?.attributedPlaceholder = NSAttributedString(
-                string: AppStrings.enter_phone_number,
-                attributes: [
-                    .foregroundColor:
-                        UIColor.whiteClr.withAlphaComponent(0.7),
-                    .font: UIFont.poppinsMedium(size: 15)
-                ]
-            )
         }
 
-        self.mobileTF.keyboardType = .numberPad
+        self.mobileTF.keyboardType = .phonePad
 
-//        self.mobileTF.returnKeyType = .done
+        self.mobileTF.returnKeyType = .done
 
-//        self.addressTF.returnKeyType = .done
         self.nameTF.returnKeyType = .next
-        self.mobileTF.returnKeyType = .next
+        
+        self.mobileTF.keyboardType = .numbersAndPunctuation
+        mobileTF.enablesReturnKeyAutomatically = true
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+
+        view.addGestureRecognizer(tapGesture)
+//        self.phoneTextField.addDoneButton(
+//            target: self,
+//            action: #selector(doneButtonTapped)
+//        )
+    
+    
+        
+//        self.mobileTF.returnKeyType = .next
         self.dobTF.returnKeyType = .next
-        self.addressTF.returnKeyType = .done
+        self.referCodeTF.returnKeyType = .done
         
         self.genderTF.isUserInteractionEnabled = false
         self.genderTF.inputView = UIView()
+        self.dobTF.isUserInteractionEnabled = false
+        self.dobTF.inputView = UIView()
     }
+    
+    @objc func dismissKeyboard() {
+
+        view.endEditing(true)
+    }
+    
     func setupDatePicker() {
 
         self.datePicker.datePickerMode = .date
@@ -167,8 +227,8 @@ class SignUpViewController: UIViewController {
         if #available(iOS 13.4, *) {
             self.datePicker.preferredDatePickerStyle = .wheels
         }
-
-        self.dobTF.inputView = self.datePicker
+//        self.dobTF.tintColor = .clear
+//        self.dobTF.inputView = self.datePicker
 
         self.datePicker.addTarget(
             self,
@@ -196,58 +256,84 @@ class SignUpViewController: UIViewController {
         )
     }
     
-    @IBAction func signupBtnTapped(
-        _ sender: UIButton
-    ) {
+    @IBAction func signupBtnTapped(_ sender: UIButton) {
 
-        guard let name = self.nameTF.text,
+        guard let name = self.nameTF.text?
+            .trimmingCharacters(in: .whitespacesAndNewlines),
               !name.isEmpty else {
+
             AlertManager.showAlert(
                 on: self,
                 title: "Error",
-                message: "Enter Name"
+                message: "Please enter your name."
             )
-            
             return
         }
 
-//        guard let mobile = self.mobileTF.text,
-//              mobile.count == 10 else {
-//            AlertManager.showAlert(
-//                on: self,
-//                title: "Error",
-//                message: "Enter Valid Mobile Number"
-//            )
-//            return
-//        }
-//
-//        print("Signup API")
-        
-        
-        guard let phone =
-                mobileTF.text,
+        let nameRegex = "^[A-Za-z ]+$"
+        let namePredicate = NSPredicate(format: "SELF MATCHES %@", nameRegex)
+
+        guard namePredicate.evaluate(with: name) else {
+
+            AlertManager.showAlert(
+                on: self,
+                title: "Error",
+                message: "Please enter a valid name."
+            )
+            return
+        }
+
+        guard let phone = self.mobileTF.text?
+            .trimmingCharacters(in: .whitespacesAndNewlines),
               !phone.isEmpty else {
+
             AlertManager.showAlert(
                 on: self,
                 title: "Error",
-                message: "Enter Phone Number"
+                message: "Please enter your mobile number."
             )
-           
             return
         }
 
-        if phone.count < 10 {
+        let phoneRegex = "^[0-9]{10}$"
+        let phonePredicate = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+
+        guard phonePredicate.evaluate(with: phone) else {
+
             AlertManager.showAlert(
                 on: self,
                 title: "Error",
-                message: "Enter Valid Phone Number"
+                message: "Please enter a valid 10-digit mobile number."
             )
             return
         }
-        let vc = storyboard?.instantiateViewController(withIdentifier: "OTPViewController") as! OTPViewController
-        vc.countryCode = self.countryBtn.titleLabel?.text ?? ""
-        vc.mobileNumber = self.mobileTF.text ?? ""
-        self.navigationController?.pushViewController(vc, animated: true)
+
+        guard let dob = self.dobTF.text?
+            .trimmingCharacters(in: .whitespacesAndNewlines),
+              !dob.isEmpty else {
+
+            AlertManager.showAlert(
+                on: self,
+                title: "Error",
+                message: "Please select your date of birth."
+            )
+            return
+        }
+
+        guard let gender = self.genderTF.text?
+            .trimmingCharacters(in: .whitespacesAndNewlines),
+              !gender.isEmpty else {
+
+            AlertManager.showAlert(
+                on: self,
+                title: "Error",
+                message: "Please select your gender."
+            )
+            return
+        }
+        self.viewModel.signUp(mobile: self.mobileTF.text ?? "", countryCode: "+91")
+
+        
     }
     
     @IBAction func calendarButtonTapped(_ sender: UIButton) {
@@ -272,6 +358,31 @@ class SignUpViewController: UIViewController {
             .popViewController(
                 animated: true
             )
+    }
+}
+
+
+extension SignUpViewController: SignUpViewModelDelegate {
+    
+    func didReceiveSignUpOTP() {
+        
+        print("OTP",self.viewModel.otp ?? 0)
+        
+        let vc = storyboard?.instantiateViewController(withIdentifier: "OTPViewController") as! OTPViewController
+        vc.name = self.nameTF.text ?? ""
+        vc.dob = self.dobTF.text ?? ""
+        vc.gender = self.genderTF.text ?? ""
+        vc.referralCode = self.referCodeTF.text ?? ""
+        vc.responseOTP = "\(self.viewModel.otp ?? 0)"
+        vc.countryCode = self.countryBtn.titleLabel?.text ?? ""
+        vc.mobileNumber = self.mobileTF.text ?? ""
+        vc.cameFrom = "signup"
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func didReceiveSignUpError(_ message: String) {
+        AlertManager.showAlert(on: self, message: message)
+        print(message)
     }
 }
 
@@ -588,14 +699,13 @@ extension SignUpViewController: UITextFieldDelegate {
             self.mobileTF.becomeFirstResponder()
 
         case self.mobileTF:
-
-            self.dobTF.becomeFirstResponder()
+            textField.resignFirstResponder()
 
         case self.dobTF:
 
-            self.addressTF.becomeFirstResponder()
+            self.referCodeTF.becomeFirstResponder()
 
-        case self.addressTF:
+        case self.referCodeTF:
 
             self.view.endEditing(true)
 
@@ -667,21 +777,21 @@ extension SignUpViewController: UITextFieldDelegate {
         _ textField: UITextField
     ) {
 
-        if textField == self.dobTF {
-
-            if self.dobTF.text?.isEmpty ?? true {
-
-                let formatter = DateFormatter()
-
-                formatter.dateFormat =
-                "dd/MM/yyyy"
-
-                self.dobTF.text =
-                formatter.string(
-                    from: self.datePicker.date
-                )
-            }
-        }
+//        if textField == self.dobTF {
+//
+//            if self.dobTF.text?.isEmpty ?? true {
+//
+//                let formatter = DateFormatter()
+//
+//                formatter.dateFormat =
+//                "dd/MM/yyyy"
+//
+////                self.dobTF.text =
+////                formatter.string(
+////                    from: self.datePicker.date
+////                )
+//            }
+//        }
     }
 
     func textFieldDidEndEditing(
