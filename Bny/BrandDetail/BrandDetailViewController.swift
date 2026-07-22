@@ -8,22 +8,32 @@
 import UIKit
 
 class BrandDetailViewController: UIViewController {
+    
+    @IBOutlet weak var backContainerView: UIView!
+    @IBOutlet weak var backBtn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.setUpUI()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setUpUI() {
+        UIView.setUpBackView(view: backContainerView)
     }
-    */
-
+    
+    
+    @IBAction func backBtn(_ sender: Any) {
+        UIView.animateBackButton(view: self.backContainerView)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            for vc in self.navigationController?.viewControllers ?? [] {
+                if let brandListVC = vc as? BrandListViewController {
+//                    brandListVC.isLoggedIn = UserSession.shared.isLoggedIn
+                    self.navigationController?.popToViewController(brandListVC, animated: true)
+                }
+            }
+            
+//            self.navigationController?.popViewController(animated: true)
+        }
+    }
 }

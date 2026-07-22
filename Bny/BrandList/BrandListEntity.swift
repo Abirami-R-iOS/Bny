@@ -10,11 +10,12 @@ import UIKit
 
 struct BrandRequestModel: Encodable {
 
-    let categoryId: Int
-    let latitude: Double
-    let longitude: Double
-    let userId: Int
-    let favourite: Int
+    let categoryId: String
+    let latitude: String
+    let longitude: String
+    let userId: String
+    let favourite: String
+    let radius: String
 
     enum CodingKeys: String, CodingKey {
 
@@ -23,6 +24,7 @@ struct BrandRequestModel: Encodable {
         case longitude = "u_longitude"
         case userId = "user_id"
         case favourite
+        case radius
     }
 }
 
@@ -50,7 +52,7 @@ struct BrandListResponseModel: Codable {
     let website: String?
     let createdAt: String?
     let updatedAt: String?
-    let distance: Int?
+    let distance: Double?
     let isFavourite: Int?
     let banners: [BrandBanner]?
 

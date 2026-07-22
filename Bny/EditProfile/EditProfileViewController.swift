@@ -36,6 +36,7 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var genderTitleLbl: UILabel!
     @IBOutlet weak var genderContainerView: UIView!
     @IBOutlet weak var dropDownBtn: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     // MARK: - Variables
     
@@ -43,7 +44,8 @@ class EditProfileViewController: UIViewController {
     let genderPicker = UIPickerView()
     let datePicker = UIDatePicker()
     let locationManager = CLLocationManager()
-    
+    private var keyboardHandler: KeyboardHandler!
+    let viewModel = EditProfileViewModel()
     let genders = ["Male","Female","Others"]
     
     var selectedImage: UIImage?
@@ -63,12 +65,39 @@ class EditProfileViewController: UIViewController {
         self.configurePickers()
         self.configureLocation()
         self.loadProfileData()
+        self.keyboardHandler = KeyboardHandler(
+                viewController: self,
+                scrollView: scrollView
+            )
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        keyboardHandler.registerKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        keyboardHandler.unregisterKeyboardNotifications()
     }
     
     // MARK: - Setup
     
     func setupUI() {
         UIView.setUpBackView(view: self.backContainerView)
+        let imageURL = APIConstants.baseURLImage + UserSession.shared.picture
+
+        self.profileImageView.loadImage(
+            from: imageURL,
+            placeholder: UIImage(named: "Bny_Logo")
+        )
+        if self.profileImageView.image == nil {
+            self.profileImageView.image = UIImage(named: "Bny_Logo")
+        } else {
+            let imageStr = APIConstants.baseURLImage + UserSession.shared.picture
+            self.profileImageView.image = UIImage(named: imageStr)
+        }
         self.nameTitleLbl.text = AppStrings.Edit_Profile_Name
         self.dobTitleLbl.text = AppStrings.Edit_Profile_Date_Of_Birth
         self.genderTitleLbl.text = AppStrings.Edit_Profile_Gender
@@ -114,10 +143,10 @@ class EditProfileViewController: UIViewController {
         
         // TODO: API Call
         
-        self.nameTextField.text = "Ram"
-        self.dobTextField.text = "1998-01-15"
-        self.addressTextView.text = "Chennai"
-        self.genderTextField.text = "Male"
+        self.nameTextField.text = UserSession.shared.name
+        self.dobTextField.text = UserSession.shared.dob
+        self.addressTextView.text = UserSession.shared.address
+        self.genderTextField.text = UserSession.shared.gender
     }
     
     // MARK: - Image
@@ -169,36 +198,58 @@ class EditProfileViewController: UIViewController {
         
         completion("profile_image_url")
     }
+
     
-    func updateProfile(imageURL:String) {
+    func updateProfile() {
         
-        let parameters:[String:Any] = [
-            
-            "name": self.nameTextField.text ?? "",
-            "dob": self.dobTextField.text ?? "",
-            "address": self.addressTextView.text ?? "",
-            "gender": self.genderTextField.text ?? "",
-            "profileImage":imageURL
-        ]
-        
-        print(parameters)
-        
-        // TODO:
-        // PUT Profile API
-        
-        //        hideLoader()
-        
-        let alert = UIAlertController(title: "Success",
-                                      message: "Profile Updated Successfully",
-                                      preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default){ _ in
-            self.navigationController?.popViewController(animated: true)
-        })
-        
-        present(alert, animated: true)
-    }
-    
+        let request = UpdateProfileRequestModel(
+            name: nameTextField.text ?? "",
+            mobile: UserSession.shared.mobile,
+            gender: genderTextField.text ?? "",
+            address: addressTextView.text ?? "",
+            dob: dobTextField.text ?? "",
+            picture: "",
+            countryCode: UserSession.shared.countryCode
+        )
+
+        viewModel.updateProfile(
+            request: request,
+            image: selectedImage
+        ) { [weak self] result in
+
+            guard let self = self else { return }
+
+            switch result {
+
+            case .success(let response):
+
+                print(response.message ?? "")
+                
+                if let user = response.data {
+
+                        UserSession.shared.name = user.name ?? ""
+                        UserSession.shared.mobile = user.mobile ?? ""
+                        UserSession.shared.gender = user.gender ?? ""
+                        UserSession.shared.address = user.address ?? ""
+                        UserSession.shared.dob = user.dob ?? ""
+                        UserSession.shared.picture = user.picture ?? ""
+                    }
+
+                AlertManager.showAlert(
+                    on: self,
+                    title: AppStrings.success,
+                    message: response.message ?? "") {
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                
+                
+
+            case .failure(let error):
+
+                print(error.localizedDescription)
+            }
+        }
+    }    
     
     // MARK: - Helpers
     
@@ -434,14 +485,22 @@ extension EditProfileViewController {
         
         self.uploadProfileImage { imageURL in
             
-            self.updateProfile(imageURL: imageURL)
+            self.updateProfile()
         }
+        
     }
 }
 
 // MARK: - UITextField
 extension EditProfileViewController: UITextFieldDelegate {
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+
+        keyboardHandler.scrollToTextField(textField)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
@@ -651,6 +710,8 @@ extension EditProfileViewController: UIPickerViewDelegate, UIPickerViewDataSourc
         if let image = info[.originalImage] as? UIImage {
             self.profileImageView.image = image
             self.selectedImage = image
+        } else {
+            self.profileImageView.image = UIImage(named: "Bny_Logo")
         }
         
         dismiss(animated: true)
@@ -698,6 +759,13 @@ extension EditProfileViewController: CLLocationManagerDelegate {
 }
 
 extension EditProfileViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        keyboardHandler.scrollToTextView(textView)
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        // Nothing needed
+    }
     
 }
 

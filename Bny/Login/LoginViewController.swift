@@ -194,6 +194,15 @@ class LoginViewController: UIViewController {
 //        present(alert, animated: true)
 //    }
     
+    
+    @IBAction func backBtn(_ sender: Any) {
+        UIView.animateBackButton(view: self.backButton)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
     @IBAction func signupBtnTapped(_ sender: UIButton) {
 
 //        print("Navigate Signup Screen")

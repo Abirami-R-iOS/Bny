@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 class SignUpService {
 
@@ -22,13 +23,13 @@ class SignUpService {
         }
     }
     
-    func signUp(request: SignupRequestModel,
+    func signUp(request: SignupRequestModel, image: UIImage?,
                 completion: @escaping(Result<SignupResponse, NetworkError>) -> Void) {
 
         APIManager.shared.upload(
             APIEndPoints.signUp,
             parameters: request.toDictionary(),
-            image: nil, // nil if no image
+            image: image, // nil if no image
             responseModel: SignupResponse.self
         ) { result in
 

@@ -39,11 +39,12 @@ class BrandListViewController: UIViewController {
 //        BrandList(image: "Deal5", title: "Desserts", Location: "Guindy", distance: "5 km", offer: "20-35% Off", isFavourite: false),
 //        BrandList(image: "Deal6", title: "Restaurants - Dine In", Location: "Tharamani", distance: "4 km", offer: "20-50% Off", isFavourite: false)
 //    ]
-    
+//    var isLoggedIn = false
     var categoryId = 0
     let viewModel = BrandViewModel()
     private var brandList: [BrandListResponseModel] = []
     var headerTitle = ""
+    var headerSubTitle = ""
     var isMenuOpen = false
     var selectedIndexPath: IndexPath?
     var favouritePopup: FavouritePopupView?
@@ -51,7 +52,10 @@ class BrandListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.setUpUI()
         self.setupMenuAnimation()
         self.setupCollectionView()
@@ -59,12 +63,16 @@ class BrandListViewController: UIViewController {
         self.loadViewModel()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     
     func setUpUI() {
+        if UserSession.shared.isLoggedIn == false {
+            self.gridView.isHidden = true
+            self.gridImageView.isHidden = true
+        } else {
+            self.gridView.isHidden = false
+            self.gridImageView.isHidden = false
+        }
+        
         self.menuContainerView.isHidden = true
         self.menuContainerView.alpha = 0
 //        self.menuContainerView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
@@ -75,7 +83,7 @@ class BrandListViewController: UIViewController {
         self.gridView.layer.borderWidth = 1
 //        self.bnyImageView.layer.borderColor = UIColor(hex: "#20FFFFFF").cgColor
         self.gridView.layer.backgroundColor = UIColor.backgroundClr.cgColor
-        self.searchContainerView.layer.cornerRadius = 20
+        self.searchContainerView.layer.cornerRadius = 12
         self.searchContainerView.layer.borderWidth = 1
         self.searchContainerView.layer.borderColor = UIColor.white.withAlphaComponent(0.15).cgColor
         self.searchTextField.delegate = self
@@ -111,16 +119,17 @@ class BrandListViewController: UIViewController {
         self.menuContainerView.layer.shadowOffset = CGSize(width: 0, height: 8)
         
         //back
-        self.setUpBackView()
+//        self.setUpBackView()
+        UIView.setUpBackView(view: backContainerView)
         self.setUpText()
     }
     
-    func setUpBackView() {
-        self.backContainerView.layer.cornerRadius = self.backContainerView.frame.height / 2
-        self.backContainerView.layer.masksToBounds = true
-        self.backContainerView.layer.borderWidth = 1
-        self.backContainerView.layer.borderColor = UIColor.whiteClr.withAlphaComponent(0.12).cgColor
-    }
+//    func setUpBackView() {
+//        self.backContainerView.layer.cornerRadius = self.backContainerView.frame.height / 2
+//        self.backContainerView.layer.masksToBounds = true
+//        self.backContainerView.layer.borderWidth = 1
+//        self.backContainerView.layer.borderColor = UIColor.whiteClr.withAlphaComponent(0.12).cgColor
+//    }
     
     func setupCollectionView() {
         let nib = UINib(nibName: "BrandListCollectionViewCell", bundle: nil)
@@ -135,7 +144,7 @@ class BrandListViewController: UIViewController {
     
     func setUpText() {
         self.titleLbl.text = self.headerTitle
-        self.subTitleLbl.text = AppStrings.Find_The_Best_Offers
+        self.subTitleLbl.text = self.headerSubTitle
     }
     
     @IBAction func backBtn(_ sender: Any) {
@@ -436,7 +445,7 @@ extension BrandListViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BrandListCollectionViewCell", for: indexPath) as! BrandListCollectionViewCell
-
+//        cell.isLoggedIn = self.isLoggedIn
          cell.configure(with: self.viewModel.brandsList[indexPath.item])
 
          return cell
@@ -460,9 +469,14 @@ extension BrandListViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-//        vc.headerTitle = self.titleLbl.text ?? ""
-        self.navigationController?.pushViewController(vc, animated: true)
+        if UserSession.shared.isLoggedIn {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "BrandDetailViewController") as! BrandDetailViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let vc = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            //        vc.headerTitle = self.titleLbl.text ?? ""
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     func showFavouritePopup(brandList: BrandListResponseModel) {

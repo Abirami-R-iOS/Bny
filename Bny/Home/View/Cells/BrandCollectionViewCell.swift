@@ -21,6 +21,7 @@ class BrandCollectionViewCell: UICollectionViewCell {
     }
     
     func setupUI() {
+//        self.favouriteBtn.isHidden = UserSession.shared.isLoggedIn == true ? false : true
         self.cardView.layer.cornerRadius = 20
         self.cardView.clipsToBounds = true
         self.dealImageView.layer.cornerRadius = 20
@@ -34,7 +35,9 @@ class BrandCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with category: CategoryResponseModel) {
-
+        DispatchQueue.main.async {
+            self.favouriteBtn.isHidden = UserSession.shared.isLoggedIn == true ? false : true
+        }
         self.titleLbl.text = category.name
 
         self.subtitleLbl.text = category.offerDescription

@@ -78,6 +78,10 @@ struct SignupResponseModel: Codable {
     let referralCode: String?
     let address: String?
     let accessToken: String?
+    let picture: String?
+    let aboutUs: String?
+    let terms: String?
+    let howToUse: String?
 
     enum CodingKeys: String, CodingKey {
 
@@ -90,6 +94,10 @@ struct SignupResponseModel: Codable {
         case referralCode = "referral_code"
         case address
         case accessToken = "accesstoken"
+        case aboutUs = "about_us"
+        case terms
+        case howToUse = "how_to_use"
+        case picture
     }
 }
 

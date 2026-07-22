@@ -50,19 +50,29 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.setUpUI()
         self.setupMenuAnimation()
         self.setupCollectionView()
         self.loadViewModel()
         self.viewModel.getCategories()
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
     
     func setUpUI() {
+        if UserSession.shared.isLoggedIn == false {
+            self.gridView.isHidden = true
+            self.gridImageView.isHidden = true
+            self.hamburgerView.isHidden = true
+            self.hamburgerBtn.isHidden = true
+        } else {
+            self.gridView.isHidden = false
+            self.gridImageView.isHidden = false
+            self.hamburgerView.isHidden = false
+            self.hamburgerBtn.isHidden = false
+        }
         self.menuContainerView.isHidden = true
         self.menuContainerView.alpha = 0
 //        self.menuContainerView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
@@ -123,7 +133,7 @@ class HomeViewController: UIViewController {
     }
     
     func setUpText() {
-        self.titleLbl.text = AppStrings.Home_Header_Title
+        self.titleLbl.text = UserSession.shared.name.isEmpty ? AppStrings.Home_Header_Title : "Hello, \(UserSession.shared.name)!"
         self.descriptionLbl.text = AppStrings.Home_Header_description
         let fullText = AppStrings.Home_Header_SubTitle
         
@@ -593,7 +603,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "BrandListViewController") as! BrandListViewController
-        vc.headerTitle = self.titleLbl.text ?? ""
+        vc.headerTitle = self.categories[indexPath.item].name ?? ""
+        vc.headerSubTitle = self.categories[indexPath.item].offerDescription ?? ""
         vc.categoryId = self.categories[indexPath.item].id ?? 0
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -633,3 +644,4 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         self.favouritePopup = popup
     }
 }
+

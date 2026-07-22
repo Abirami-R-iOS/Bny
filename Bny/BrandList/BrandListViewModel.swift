@@ -32,11 +32,11 @@ class BrandViewModel {
 
     func getBrandList(categoryId: Int) {
 
-        let request = BrandRequestModel(categoryId: categoryId,
-                                        latitude: 12.8658005,
-                                        longitude: 80.2053196,
-                                        userId: 132,
-                                        favourite: 0)
+        let request = BrandRequestModel(categoryId: String(categoryId),
+                                        latitude: "12.8658005",
+                                        longitude: "80.2053196",
+                                        userId: UserSession.shared.userId,
+                                        favourite: "0", radius: "")
 
         service.getBrandList(request: request) { [weak self] result in
 

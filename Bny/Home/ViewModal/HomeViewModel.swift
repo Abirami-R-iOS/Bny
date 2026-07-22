@@ -18,10 +18,10 @@ final class HomeViewModel {
     func getCategories() {
 
         let request = CategoryRequest(
-            latitude: 12.865796,
-            longitude: 80.2053096,
-            userId: 132,
-            favourite: 0
+            latitude: "12.865796",
+            longitude: "80.2053096",
+            userId: UserSession.shared.userId,
+            favourite: "0"
         )
 
         self.homeService.getCategories(request: request) { result in

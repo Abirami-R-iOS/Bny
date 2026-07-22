@@ -30,7 +30,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow location access to fetch your address.</string>
+	<string>Allow location access to fetch nearby stores and services.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow access to Camera.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

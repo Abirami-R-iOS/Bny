@@ -28,10 +28,10 @@ struct BrandList {
 
 struct CategoryRequest: Codable {
 
-    let latitude: Double
-    let longitude: Double
-    let userId: Int
-    let favourite: Int
+    let latitude: String
+    let longitude: String
+    let userId: String
+    let favourite: String
 
     enum CodingKeys: String, CodingKey {
         case latitude = "u_latitude"

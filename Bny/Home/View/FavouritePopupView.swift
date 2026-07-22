@@ -29,7 +29,7 @@ class FavouritePopupView: UIView {
 
     var actionHandler: (() -> Void)?
     
-    func configure(title: String, message: String, isFavourite: Bool) {
+    func configure(title: String, message: String, isFavourite: Bool = false, isFromLogout: Bool = false) {
         self.titleLbl.text = title
         self.descriptionLbl.text = message
         self.contentView.layer.cornerRadius = 30
@@ -37,13 +37,17 @@ class FavouritePopupView: UIView {
         self.contentView.layer.shadowOpacity = 0.35
         self.contentView.layer.shadowRadius = 18
         self.contentView.layer.shadowOffset = CGSize(width: 0, height: 8)
-        if isFavourite {
-            self.iconImageView.image = UIImage(named: "Delete_Icon")
-            self.addBtn.setTitle("Remove", for: .normal)
-
+        if isFromLogout {
+            self.addBtn.setTitle("Logout", for: .normal)
         } else {
-            self.iconImageView.image = UIImage(named: "Heart_Icon")
-            self.addBtn.setTitle("Add", for: .normal)
+            if isFavourite {
+                self.iconImageView.image = UIImage(named: "Delete_Icon")
+                self.addBtn.setTitle("Remove", for: .normal)
+                
+            } else {
+                self.iconImageView.image = UIImage(named: "Heart_Icon")
+                self.addBtn.setTitle("Add", for: .normal)
+            }
         }
     }
     @IBAction func cancelAction(_ sender: Any) {

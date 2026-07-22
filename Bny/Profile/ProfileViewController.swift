@@ -13,6 +13,8 @@ class ProfileViewController: UIViewController {
     // MARK: - Outlets
     
     @IBOutlet weak var backBtn: UIButton!
+    @IBOutlet weak var titleLbl: UILabel!
+    @IBOutlet weak var subTitleLbl: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var mobileLbl: UILabel!
@@ -22,6 +24,13 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var rateReferContainerView: UIView!
     
+    @IBOutlet weak var referralCodeButton: UIButton!
+    @IBOutlet weak var copyBtn: UIButton!
+    @IBOutlet weak var referralDescLbl: UILabel!
+    @IBOutlet weak var referralCodeLbl: UILabel!
+    @IBOutlet weak var referralCodeBackView: UIView!
+    @IBOutlet weak var referralTitleLbl: UILabel!
+    @IBOutlet weak var referralCodeView: UIView!
     @IBOutlet weak var rateView: UIView!
     @IBOutlet weak var rateIconBackView: UIView!
     @IBOutlet weak var rateImageView: UIImageView!
@@ -69,11 +78,11 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var howToUseTitleLbl: UILabel!
     @IBOutlet weak var howToUseBtn: UIButton!
     
-    @IBOutlet weak var helpSupportView: UIView!
+    @IBOutlet weak var TermsConditionView: UIView!
     @IBOutlet weak var helpSupportIconBackView: UIView!
     @IBOutlet weak var helpSupportImageView: UIImageView!
-    @IBOutlet weak var helpSupportTitleLbl: UILabel!
-    @IBOutlet weak var helpSupportBtn: UIButton!
+    @IBOutlet weak var TermsConditionTitleLbl: UILabel!
+    @IBOutlet weak var TermsConditionBtn: UIButton!
     
     @IBOutlet weak var logoutContainerView: UIView!
     @IBOutlet weak var logoutIconBackView: UIView!
@@ -81,30 +90,41 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var logoutLbl: UILabel!
     @IBOutlet weak var logoutBtn: UIButton!
     
+    private var keyboardHandler: KeyboardHandler!
+    private let viewModel = LogoutViewModel()
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
+        self.keyboardHandler = KeyboardHandler(
+            viewController: self,
+            scrollView: scrollView
+        )
     }
+    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.height / 2
         self.profileImageView.layer.borderWidth = 1
-        self.profileImageView.layer.borderColor = UIColor.whiteClr.withAlphaComponent(0.08).cgColor
+        self.profileImageView.layer.borderColor = UIColor.whiteClr.withAlphaComponent(0.13).cgColor//0.08
+        self.copyBtn.clipsToBounds = true
+        self.copyBtn.layer.masksToBounds = true
         
         [
             self.rateView,
             self.referView,
             self.profileOptionContainerView,
             self.informationContainerView,
-            self.logoutContainerView
+            self.logoutContainerView,
+            self.referralCodeView
         ].forEach {
-            $0?.layer.cornerRadius = 24
+            $0?.layer.cornerRadius = ($0 == logoutContainerView) ? 20 : 10//24
             $0?.layer.borderWidth = 1
-            $0?.layer.borderColor = UIColor.whiteClr.withAlphaComponent(0.08).cgColor
+            $0?.layer.borderColor = UIColor.whiteClr.withAlphaComponent(0.13).cgColor//0.08
         }
         
         [
@@ -115,19 +135,51 @@ class ProfileViewController: UIViewController {
             self.aboutIconBackView,
             self.howToUseIconBackView,
             self.helpSupportIconBackView,
+            self.referralCodeBackView,
             self.logoutIconBackView
         ].forEach {
             $0?.layer.cornerRadius = 12
         }
+        //        self.copyBtn.layer.cornerRadius = 0.20
+        self.copyBtn.layer.borderWidth = 1
+        self.copyBtn.layer.borderColor = UIColor.bnyRed.cgColor
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.keyboardHandler.registerKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.keyboardHandler.unregisterKeyboardNotifications()
     }
     
     // MARK: - UI
     
     func setupUI() {
         UIView.setUpBackView(view: self.backContainerView)
-        self.nameLbl.text = "Abirami"
+        let imageURL = APIConstants.baseURLImage + UserSession.shared.picture
         
-        self.mobileLbl.text = "+91 9876543210"
+        profileImageView.loadImage(
+            from: imageURL,
+            placeholder: UIImage(named: "Bny_Logo")
+        )
+        if self.profileImageView.image == nil {
+            self.profileImageView.image = UIImage(named: "Bny_Logo")
+        } else {
+            let imageStr = APIConstants.baseURLImage + UserSession.shared.picture
+            self.profileImageView.image = UIImage(named: imageStr)
+        }
+        self.nameLbl.text = UserSession.shared.name
+        self.referralTitleLbl.text = AppStrings.Your_referal_code
+        self.referralDescLbl.text = AppStrings.Desc_referal_code
+        self.referralCodeLbl.text = UserSession.shared.referralCode
+        self.mobileLbl.text = UserSession.shared.countryCode + " " + UserSession.shared.mobile
+        self.titleLbl.text = AppStrings.profile
+        self.subTitleLbl.text = AppStrings.profile_description
         
         self.informationTitleLbl.text = AppStrings.Profile_Information_Title
         
@@ -147,7 +199,7 @@ class ProfileViewController: UIViewController {
         
         self.howToUseTitleLbl.text = AppStrings.Profile_HowToUse
         
-        self.helpSupportTitleLbl.text = AppStrings.Profile_HelpSupport
+        self.TermsConditionTitleLbl.text = AppStrings.Profile_terms
         
         self.logoutLbl.text = AppStrings.Profile_Logout
     }
@@ -185,11 +237,79 @@ class ProfileViewController: UIViewController {
         
     }
     
-    @IBAction func helpSupportTapped(_ sender: UIButton) {
+    @IBAction func TermsConditionTapped(_ sender: UIButton) {
         
     }
     
-    @IBAction func logoutTapped(_ sender: UIButton) {
+    @IBAction func referralCodeBtnTapped(_ sender: Any) {
         
+    }
+    @IBAction func copyBtnAction(_ sender: Any) {
+        
+    }
+    
+    func showLogoutPopup() {
+        
+        let popup = Bundle.main.loadNibNamed("FavouritePopupView", owner: self, options: nil)?.first as! FavouritePopupView
+        
+        popup.frame = self.view.bounds
+        
+        popup.configure(title: "Log out", message: "Are you sure you want to logout?", isFromLogout: true)
+        
+        popup.cancelHandler = { [weak popup] in
+            
+            popup?.removeFromSuperview()
+        }
+        
+        popup.actionHandler = { [weak self, weak popup] in
+            
+            guard let self = self else {
+                return
+            }
+            self.logOutService()
+            
+            
+            popup?.removeFromSuperview()
+        }
+        
+        self.view.addSubview(popup)
+        
+    }
+    @IBAction func logoutTapped(_ sender: UIButton) {
+        self.showLogoutPopup()
+    }
+    
+    func logOutService() {
+        
+        self.viewModel.logout { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            switch result {
+                
+            case .success(let response):
+                
+                AlertManager.showAlert(
+                    on: self,
+                    title: AppStrings.success,
+                    message: response.message ?? ""
+                ) {
+                    UserSession.shared.isLoggedIn = false
+                    UserSession.shared.clear()
+                    
+                    self.navigationController?.popViewController(animated: true)
+                    
+                    
+                }
+                
+            case .failure(let error):
+                
+                AlertManager.showAlert(
+                    on: self,
+                    title: AppStrings.error,
+                    message: error.localizedDescription
+                )
+            }
+        }
     }
 }

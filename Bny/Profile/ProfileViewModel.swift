@@ -6,3 +6,18 @@
 //
 
 import Foundation
+final class LogoutViewModel {
+
+    private let service: LogoutServiceProtocol
+
+    init(service: LogoutServiceProtocol = LogoutService()) {
+        self.service = service
+    }
+
+    func logout(
+        completion: @escaping (Result<LogoutResponseModel, NetworkError>) -> Void
+    ) {
+
+        self.service.logout(completion: completion)
+    }
+}

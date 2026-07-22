@@ -14,7 +14,7 @@ final class APIManager {
     static let shared = APIManager()
 
     private init() { }
-
+    
     func request<T: Decodable>(_ endPoint: String,
                                method: HTTPMethod = .get,
                                parameters: Parameters? = nil,
@@ -24,28 +24,104 @@ final class APIManager {
 
         let url = APIConstants.baseURL + endPoint
 
+        print("\n================ API REQUEST ================")
+        print("URL        :", url)
+        print("Method     :", method.rawValue)
+        print("Headers    :", headers ?? [:])
+
+        if let parameters = parameters,
+           let data = try? JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted),
+           let json = String(data: data, encoding: .utf8) {
+            print("Parameters :\n\(json)")
+        } else {
+            print("Parameters :", parameters ?? [:])
+        }
+
+        print("=============================================\n")
+
         AF.request(url,
                    method: method,
                    parameters: parameters,
                    encoding: method == .get ? URLEncoding.default : JSONEncoding.default,
                    headers: headers)
         .validate()
-        .responseDecodable(of: responseModel) { response in
+        .responseData { response in
+
+            print("\n================ API RESPONSE ================")
+            print("URL         :", response.request?.url?.absoluteString ?? "")
+            print("Status Code :", response.response?.statusCode ?? 0)
+            print("ContentType :", response.response?.mimeType ?? "")
+
+            if let data = response.data,
+               let raw = String(data: data, encoding: .utf8) {
+                print("Raw Response:\n\(raw)")
+            }
+
+            print("==============================================\n")
 
             switch response.result {
 
-            case .success(let value):
+            case .success(let data):
 
-                completion(.success(value))
+                do {
+
+                    let decoder = JSONDecoder()
+                    let value = try decoder.decode(responseModel, from: data)
+
+                    completion(.success(value))
+
+                } catch {
+
+                    print("\n************ DECODING ERROR ************")
+
+                    if let decodingError = error as? DecodingError {
+
+                        switch decodingError {
+
+                        case .keyNotFound(let key, let context):
+                            print("❌ Missing Key :", key.stringValue)
+                            print("Reason :", context.debugDescription)
+
+                        case .typeMismatch(let type, let context):
+                            print("❌ Type Mismatch :", type)
+                            print("Reason :", context.debugDescription)
+
+                        case .valueNotFound(let type, let context):
+                            print("❌ Value Not Found :", type)
+                            print("Reason :", context.debugDescription)
+
+                        case .dataCorrupted(let context):
+                            print("❌ Data Corrupted :", context.debugDescription)
+
+                        @unknown default:
+                            print(error)
+                        }
+
+                    } else {
+                        print(error)
+                    }
+
+                    print("***************************************\n")
+
+                    completion(.failure(.serverError(error.localizedDescription)))
+                }
 
             case .failure(let error):
 
+                print("❌ Request Failed :", error.localizedDescription)
                 completion(.failure(.serverError(error.localizedDescription)))
             }
         }
     }
     
+    func authorizedHeaders() -> HTTPHeaders {
 
+        return [
+            "Authorization": "Bearer \(UserSession.shared.accessToken)",
+            "Accept": "application/json"
+        ]
+    }
+    
     func upload<T: Decodable>(
         _ endPoint: String,
         method: HTTPMethod = .post,
@@ -58,33 +134,39 @@ final class APIManager {
 
         let url = APIConstants.baseURL + endPoint
 
-        print("======================================")
-        print("UPLOAD URL : \(url)")
-        print("PARAMETERS : \(parameters ?? [:])")
-        print("======================================")
+        print("\n================ API REQUEST ================")
+        print("URL        :", url)
+        print("Method     :", method.rawValue)
+        print("Headers    :", headers ?? [:])
 
-        print("Original URL :", url)
+        if let parameters = parameters,
+           let data = try? JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted),
+           let json = String(data: data, encoding: .utf8) {
+            print("Parameters :\n\(json)")
+        } else {
+            print("Parameters :", parameters ?? [:])
+        }
+
+        if image != nil {
+            print("Image       : Yes")
+        } else {
+            print("Image       : No")
+        }
+
+        print("=============================================\n")
+
         AF.upload(
             multipartFormData: { multipart in
 
                 parameters?.forEach { key, value in
 
                     guard key != "picture" else { return }
-
-                    if let stringValue = value as? String {
-
-                        multipart.append(
-                            Data(stringValue.utf8),
-                            withName: key
-                        )
-
-                    } else {
-
-                        multipart.append(
-                            Data("\(value)".utf8),
-                            withName: key
-                        )
-                    }
+                    
+                    
+                    multipart.append(
+                        Data("\(value)".utf8),
+                        withName: key
+                    )
                 }
 
                 if let image = image,
@@ -96,8 +178,6 @@ final class APIManager {
                         fileName: "profile.jpg",
                         mimeType: "image/jpeg"
                     )
-
-                    print("Image Added")
                 }
 
             },
@@ -105,24 +185,20 @@ final class APIManager {
             method: method,
             headers: headers
         )
-        .validate(statusCode: 200...299)
+        .validate()
         .responseData { response in
 
-            print("Request URL")
-                print(response.request?.url?.absoluteString ?? "")
-            
-            print("Response URL")
-                print(response.response?.url?.absoluteString ?? "")
-            
-            print("======================================")
-            print("STATUS : \(response.response?.statusCode ?? 0)")
+            print("\n================ API RESPONSE ================")
+            print("URL         :", response.request?.url?.absoluteString ?? "")
+            print("Status Code :", response.response?.statusCode ?? 0)
+            print("ContentType :", response.response?.mimeType ?? "")
 
-            if let data = response.data {
-
-                print(String(data: data, encoding: .utf8) ?? "")
+            if let data = response.data,
+               let raw = String(data: data, encoding: .utf8) {
+                print("Raw Response:\n\(raw)")
             }
 
-            print("======================================")
+            print("==============================================\n")
 
             switch response.result {
 
@@ -131,35 +207,54 @@ final class APIManager {
                 do {
 
                     let decoder = JSONDecoder()
+                    let value = try decoder.decode(responseModel, from: data)
 
-                    let result = try decoder.decode(
-                        responseModel,
-                        from: data
-                    )
-
-                    completion(.success(result))
+                    completion(.success(value))
 
                 } catch {
 
-                    print("Decode Error :", error)
+                    print("\n************ DECODING ERROR ************")
 
-                    completion(
-                        .failure(
-                            .decodingError(error.localizedDescription)
-                        )
-                    )
+                    if let decodingError = error as? DecodingError {
+
+                        switch decodingError {
+
+                        case .keyNotFound(let key, let context):
+                            print("❌ Missing Key :", key.stringValue)
+                            print("Reason :", context.debugDescription)
+
+                        case .typeMismatch(let type, let context):
+                            print("❌ Type Mismatch :", type)
+                            print("Reason :", context.debugDescription)
+
+                        case .valueNotFound(let type, let context):
+                            print("❌ Value Not Found :", type)
+                            print("Reason :", context.debugDescription)
+
+                        case .dataCorrupted(let context):
+                            print("❌ Data Corrupted :", context.debugDescription)
+
+                        @unknown default:
+                            print(error)
+                        }
+
+                    } else {
+
+                        print(error)
+                    }
+
+                    print("***************************************\n")
+
+                    completion(.failure(.decodingError(error.localizedDescription)))
+
                 }
 
             case .failure(let error):
 
-                completion(
-                    .failure(
-                        .serverError(error.localizedDescription)
-                    )
-                )
+                print("❌ Request Failed :", error.localizedDescription)
+
+                completion(.failure(.serverError(error.localizedDescription)))
             }
-
         }
-
     }
 }

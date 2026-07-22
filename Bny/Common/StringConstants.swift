@@ -22,6 +22,8 @@ struct AppStrings {
     //Login
     static let signIn = "Sign In"
     static let login = "Login"
+    static let success = "Success"
+    static let error = "Error"
     static let enter_phone_number = "Enter Phone Number"
     // MARK: - OTP
     static let OTP = "OTP"
@@ -32,7 +34,7 @@ struct AppStrings {
     static let Submit = "Submit"
     
     // MARK: - Home
-    static let Home_Header_Title = "Hello, User !"
+    static let Home_Header_Title = "Hello, User!"
     static let Home_Header_SubTitle = "Discover the best Deals"
     static let Deals = "Deals"
     static let Home_Header_description = "Find top stores, offers and more"
@@ -76,25 +78,29 @@ struct AppStrings {
     
     
     // MARK: - Profile
-    static let Profile_Information_Title = "INFORMATION & SUPPORT"
-    static let Profile_Rate_Title = "Rate this App"
-    static let Profile_Rate_SubTitle = "Share your feedback"
-    static let Profile_Refer_Title = "Refer Friends"
-    static let Profile_Refer_SubTitle = "Invite & Earn"
-    static let Profile_Edit = "Edit Profile"
+    static let Profile_Information_Title = "Information & support"
+    static let Profile_Rate_Title = "Rate this app"
+    static let Profile_Rate_SubTitle = "Your feedback helps us"
+    static let Profile_Refer_Title = "Refer friends"
+    static let Profile_Refer_SubTitle = "Invite & earn rewards"
+    static let Profile_Edit = "Edit profile"
+    static let Your_referal_code = "Your referral code"
+    static let Desc_referal_code = "Share your code with friends and earn rewards!"
+    static let profile = "Profile"
+    static let profile_description = "Manage your accounts & preferences"
     static let Profile_Edit_SubTitle = "Keep your profile updated"
-    static let Profile_Share = "Share this App"
+    static let Profile_Share = "Share this app"
     static let Profile_Share_SubTitle = "Tell your world about us"
-    static let Profile_About = "About Us"
-    static let Profile_HowToUse = "How to Use"
-    static let Profile_HelpSupport = "Help & Support"
-    static let Profile_Logout = "Sign Out"
+    static let Profile_About = "About us"
+    static let Profile_HowToUse = "How to use this app"
+    static let Profile_terms = "Terms & Condition"
+    static let Profile_Logout = "Sign out"
     
    
     // MARK: - Favourite
     
-    static let Remove_from_Favorites = "Remove from Favorites?"
-    static let Add_to_Favorites = "Add to Favorites?"
+    static let Remove_from_Favorites = "Remove from favorites?"
+    static let Add_to_Favorites = "Add to favorites?"
     static let Do_You_Want_To_Remove = "Do you want to remove"
     static let From_Your_Favorites = "from your favorites?"
     static let Do_You_Want_To_Add = "Do you want to add"

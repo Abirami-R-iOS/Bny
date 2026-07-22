@@ -7,8 +7,9 @@
 
 import UIKit
 import Foundation
+import CoreLocation
 
-class OTPViewController: UIViewController {
+class OTPViewController: UIViewController,CLLocationManagerDelegate {
 
     // MARK: - OUTLETS
 
@@ -465,23 +466,29 @@ class OTPViewController: UIViewController {
         if self.cameFrom == "signin" {
             self.viewModel.generateToken(mobile: self.mobileNumber, otp: enteredOTP, countryCode: self.countryCode)
         } else if self.cameFrom == "signup" {
-            
-            let request = SignupRequestModel(
-                mobile: self.mobileNumber,
-                name: self.name,
-                address: self.address,
-                dob: self.dob,
-                referralCode: self.referralCode,
-                deviceId: DeviceInfo.deviceId,
-                deviceToken: "Dummy",
-                gender: self.gender,
-                password: self.responseOTP,
-                deviceType: "ios",
-                picture: self.picture,
-                countryCode: self.countryCode
-            )
+            LocationManager.shared.getCurrentAddress { address in
 
-            self.viewModel.signUp(request: request)
+                print(address ?? "")
+
+                // Signup API call
+
+                let request = SignupRequestModel(
+                    mobile: self.mobileNumber,
+                    name: self.name,
+                    address: address ?? "",
+                    dob: self.dob,
+                    referralCode: self.referralCode,
+                    deviceId: DeviceInfo.deviceId,
+                    deviceToken: "Dummy",
+                    gender: self.gender,
+                    password: self.responseOTP,
+                    deviceType: "ios",
+                    picture: self.picture,
+                    countryCode: self.countryCode
+                )
+                
+                self.viewModel.signUp(request: request)
+            }
         }
 
     }
@@ -543,7 +550,7 @@ extension OTPViewController: OTPViewModelDelegate {
         let user = self.viewModel.signupResponse
 
         UserSession.shared.accessToken = user?.accessToken ?? ""
-        UserSession.shared.userId = user?.id ?? 0
+        UserSession.shared.userId = String(user?.id ?? 0)
         UserSession.shared.name = user?.name ?? ""
         UserSession.shared.mobile = user?.mobile ?? ""
         UserSession.shared.gender = user?.gender ?? ""
@@ -551,6 +558,10 @@ extension OTPViewController: OTPViewModelDelegate {
         UserSession.shared.dob = user?.dob ?? ""
         UserSession.shared.countryCode = user?.countryCode ?? ""
         UserSession.shared.referralCode = user?.referralCode ?? ""
+        UserSession.shared.aboutUs = user?.aboutUs ?? ""
+        UserSession.shared.terms = user?.terms ?? ""
+        UserSession.shared.howToUse = user?.howToUse ?? ""
+        UserSession.shared.picture = user?.picture ?? ""
 
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
         self.navigationController?.pushViewController(vc, animated: true)
@@ -565,7 +576,7 @@ extension OTPViewController: OTPViewModelDelegate {
         let session = UserSession.shared
 
 
-        session.userId = user.id ?? 0
+        session.userId = String(user.id ?? 0)
         session.name = user.name ?? ""
         session.countryCode = user.countryCode ?? ""
         session.mobile = user.mobile ?? ""
@@ -580,6 +591,7 @@ extension OTPViewController: OTPViewModelDelegate {
         session.terms = user.terms ?? ""
         session.howToUse = user.howToUse ?? ""
         session.gender = user.gender ?? ""
+        session.isLoggedIn = true
         
         
         let vc = self.storyboard?.instantiateViewController(

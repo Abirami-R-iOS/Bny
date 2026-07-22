@@ -14,7 +14,8 @@ final class AlertManager {
         on vc: UIViewController,
         title: String = "",
         message: String = "",
-        buttonTitle: String = "OK"
+        buttonTitle: String = "OK",
+        completion: (() -> Void)? = nil
     ) {
 
         let alert = UIAlertController(
@@ -26,7 +27,9 @@ final class AlertManager {
         alert.addAction(
             UIAlertAction(
                 title: buttonTitle,
-                style: .default
+                style: .default, handler: { _ in
+                    completion?()
+                }
             )
         )
 

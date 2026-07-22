@@ -16,13 +16,22 @@ class BrandListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var descriptionLbl: UILabel!
     @IBOutlet weak var LocationLbl: UILabel!
     
+    var isLoggedIn = false
     var favouriteAction: (() -> Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setupUI()
     }
+    
+    override func layoutIfNeeded() {
+        super.layoutIfNeeded()
+        
+        
+    }
     //commit test
     func setupUI() {
+        
+        
         self.cardView.layer.cornerRadius = 20
         self.cardView.clipsToBounds = true
         self.dealImageView.layer.cornerRadius = 20
@@ -36,7 +45,9 @@ class BrandListCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with brandList: BrandListResponseModel) {
-
+        DispatchQueue.main.async {
+            self.favouriteBtn.isHidden = UserSession.shared.isLoggedIn == true ? false : true
+        }
         self.titleLbl.text = brandList.name
         self.LocationLbl.text = (brandList.area ?? "") + " | " + String(brandList.distance ?? 0) + "km"
         self.descriptionLbl.text = brandList.offerDescription

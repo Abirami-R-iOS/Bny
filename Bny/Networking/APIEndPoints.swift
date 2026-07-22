@@ -16,4 +16,7 @@ struct APIEndPoints {
     static let Otp = "oauth/token"
     static let userDetails = "api/user/details"
     static let signUp = "api/user/signup"
+    static let rewards = "api/user/rewards"
+    static let updateProfile = "api/user/update/profile"
+    static let logout = "api/user/logout"
 }

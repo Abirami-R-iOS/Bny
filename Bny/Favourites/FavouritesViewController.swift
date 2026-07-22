@@ -50,17 +50,20 @@ class FavouritesViewController: UIViewController {
 
     var selectedTab: FavouriteTab = .categories
 
-    var favouriteCategories: [FavouriteCategory] = [
-        FavouriteCategory(image: "Deal1", title: "Home Appliances", count: 10),
-        FavouriteCategory(image: "Deal2", title: "Electronics", count: 18),
-        FavouriteCategory(image: "Deal3", title: "Fashion", count: 25)
-    ]
+//    var favouriteCategories: [FavouriteCategory] = [
+//        FavouriteCategory(image: "Deal1", title: "Home Appliances", count: 10),
+//        FavouriteCategory(image: "Deal2", title: "Electronics", count: 18),
+//        FavouriteCategory(image: "Deal3", title: "Fashion", count: 25)
+//    ]
 
     var favouriteBrands: [FavouriteBrand] = [
         FavouriteBrand(image: "Deal1", title: "A2B", subtitle: "Exciting Offer", distance: "5"),
         FavouriteBrand(image: "Deal2", title: "Star Biriyani", subtitle: "Limited Offer", distance: "5"),
         FavouriteBrand(image: "Deal3", title: "Salem RR", subtitle: "", distance: "5")
     ]
+    
+    private let viewModel = FavouriteViewModel()
+    private var favouriteCategories: [FavouriteResponseModel] = []
 
     // MARK: - Life Cycle
 
@@ -89,6 +92,8 @@ class FavouritesViewController: UIViewController {
     // MARK: - UI
 
     func setupUI() {
+        self.loadViewModel()
+        self.viewModel.getFavourites()
         UIView.setUpBackView(view: self.backContainerView)
         
         self.bannerContainerView.layer.cornerRadius = 24
@@ -129,6 +134,30 @@ class FavouritesViewController: UIViewController {
         self.headerTitleLbl.text = AppStrings.Favourite_Categories_Title
 
         self.viewAllBtn.setTitle(AppStrings.Favourite_View_All, for: .normal)
+    }
+    
+    
+    func loadViewModel() {
+
+        self.viewModel.didFetchFavouriteCategories = { [weak self] favouriteCategoriesData in
+
+            guard let self = self else { return }
+
+            self.favouriteCategories = favouriteCategoriesData
+            self.favouritesCollectionView.reloadData()
+//            self.calculateImageHeights()
+//            self.downloadCategoryImages()
+            
+        }
+
+        self.viewModel.didReceiveFavouriteCategoriesError = { [weak self] message in
+
+            guard let self = self else { return }
+
+            print(message)
+
+            // self.showAlert(message)
+        }
     }
 
     func setupCollectionView() {
@@ -286,11 +315,13 @@ extension FavouritesViewController: UICollectionViewDelegate, UICollectionViewDa
             ) as! FavouriteCategoryCollectionViewCell
 
             let item = self.favouriteCategories[indexPath.item]
+            
 
             cell.configure(
-                image: item.image,
-                title: item.title,
-                count: item.count
+                image: item.picture ?? "",
+                title: item.categoriesName ?? "",
+                description: item.offerDescription ?? "",
+                isFavourite: item.isFavourite ?? 0
             )
 
             return cell

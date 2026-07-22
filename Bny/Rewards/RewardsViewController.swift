@@ -40,7 +40,7 @@ class RewardsViewController: UIViewController {
     @IBOutlet weak var RewardsTableView: UITableView!
     
     // MARK: - Variables
-    
+    let viewModel = RewardsViewModel()
     var selectedTab: RewardTab = .rewards
     var rewards = [1,2,3]
     var history = [Int]()
@@ -48,11 +48,10 @@ class RewardsViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.viewModel.delegate = self
+        self.viewModel.getRewards()
         self.setupUI()
-        
         self.setupTableView()
-        
         self.updateTabs()
     }
     
@@ -649,3 +648,17 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+extension RewardsViewController: RewardViewModelDelegate {
+
+    func didReceiveRewards() {
+
+        print(self.viewModel.rewards)
+
+        self.RewardsTableView.reloadData()
+    }
+
+    func didReceiveRewardsError(_ message: String) {
+
+        print(message)
+    }
+}

@@ -4,7 +4,7 @@
 //
 //  Created by Abirami on 17/07/26.
 //
-
+import UIKit
 import Foundation
 
 protocol OTPViewModelDelegate: AnyObject {
@@ -79,7 +79,7 @@ class OTPViewModel {
     
     func signUp(request: SignupRequestModel) {
 
-        self.signupService.signUp(request: request) { [weak self] result in
+        self.signupService.signUp(request: request, image: nil) { [weak self] result in
 
             switch result {
 

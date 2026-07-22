@@ -15,8 +15,8 @@ final class UserSession {
 
     private let defaults = UserDefaults.standard
 
-    var userId: Int {
-        get { defaults.integer(forKey: "UserId") }
+    var userId: String {
+        get { defaults.string(forKey: "UserId") ?? "" }
         set { defaults.set(newValue, forKey: "UserId") }
     }
 
@@ -89,6 +89,11 @@ final class UserSession {
         get { defaults.string(forKey: "Gender") ?? "" }
         set { defaults.set(newValue, forKey: "Gender") }
     }
+    
+    var isLoggedIn: Bool {
+        get { defaults.bool(forKey: "IsLoggedIn") }
+        set { defaults.set(newValue, forKey: "IsLoggedIn") }
+    }
 
     var accessToken: String {
         get { defaults.string(forKey: "AccessToken") ?? "" }
@@ -103,5 +108,49 @@ final class UserSession {
     var tokenType: String {
         get { defaults.string(forKey: "TokenType") ?? "" }
         set { defaults.set(newValue, forKey: "TokenType") }
+    }
+    
+    func clear() {
+
+        accessToken = ""
+        userId = ""
+        name = ""
+        mobile = ""
+        gender = ""
+        address = ""
+        countryCode = ""
+        dob = ""
+        picture = ""
+        tokenType = ""
+        refreshToken = ""
+        terms = ""
+        howToUse = ""
+        aboutUs = ""
+        referralCode = ""
+        deviceToken = ""
+        deviceId = ""
+        deviceType = ""
+
+        let defaults = UserDefaults.standard
+
+            defaults.removeObject(forKey: "accessToken")
+            defaults.removeObject(forKey: "userId")
+            defaults.removeObject(forKey: "name")
+            defaults.removeObject(forKey: "mobile")
+            defaults.removeObject(forKey: "gender")
+            defaults.removeObject(forKey: "address")
+            defaults.removeObject(forKey: "countryCode")
+            defaults.removeObject(forKey: "dob")
+            defaults.removeObject(forKey: "picture")
+            defaults.removeObject(forKey: "tokenType")
+            defaults.removeObject(forKey: "refreshToken")
+            defaults.removeObject(forKey: "terms")
+            defaults.removeObject(forKey: "howToUse")
+            defaults.removeObject(forKey: "aboutUs")
+            defaults.removeObject(forKey: "referralCode")
+            defaults.removeObject(forKey: "deviceToken")
+            defaults.removeObject(forKey: "deviceId")
+            defaults.removeObject(forKey: "deviceType")
+            defaults.synchronize()
     }
 }
