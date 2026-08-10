@@ -25,7 +25,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RewardsTableViewCell" id="KGk-i7-Jjw" customClass="RewardsTableViewCell" customModule="Bny" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="420" height="150"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="420" height="150"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -188,7 +188,7 @@
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" name="White_Clr"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="vbx-5X-lLF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Bbu-Pg-LtU"/>
                     <constraint firstAttribute="bottom" secondItem="vbx-5X-lLF" secondAttribute="bottom" constant="8" id="b1w-V0-yGd"/>
@@ -197,7 +197,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <color key="backgroundColor" name="White_Clr"/>
+            <color key="backgroundColor" name="backgroundClr"/>
             <connections>
                 <outlet property="amountLbl" destination="WuV-mY-b9M" id="nfo-VZ-BIu"/>
                 <outlet property="bottomCircleView" destination="ePo-cN-c3Q" id="Cam-2s-km0"/>
@@ -225,6 +225,9 @@
         </namedColor>
         <namedColor name="White_Clr">
             <color red="0.96078431372549022" green="0.96862745098039216" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="backgroundClr">
+            <color red="0.094117647058823528" green="0.12941176470588237" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

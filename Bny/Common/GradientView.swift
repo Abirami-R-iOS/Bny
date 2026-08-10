@@ -358,6 +358,7 @@ extension UIView {
     }
     
     func applyRewardBannerGradient() {
+        self.layoutIfNeeded()
         applyGradient(
             colors: [
                 UIColor(hex: "#111827"),
@@ -366,9 +367,25 @@ extension UIView {
             ],
             startPoint: CGPoint(x: 0.0, y: 0.5),
             endPoint: CGPoint(x: 1.0, y: 0.5),
-            cornerRadius: 24
+            cornerRadius: self.layer.cornerRadius//24
         )
     }
+    
+//    func applyReferEarnGradient() {
+//
+//        self.layoutIfNeeded()
+//
+//        self.applyGradient(
+//            colors: [
+//                UIColor(hex: "#111827"),
+//                UIColor(hex: "#220000"),
+//                UIColor(hex: "#4D0000")
+//            ],
+//            startPoint: CGPoint(x: 0.0, y: 0.5),
+//            endPoint: CGPoint(x: 1.0, y: 0.5),
+//            cornerRadius: self.layer.cornerRadius
+//        )
+//    }
     
     func premiumCardGradient() {
         applyGradient(
@@ -390,17 +407,45 @@ extension UIButton {
                 $0 is CAGradientLayer
             }
         }
-
+//
+//    func applySelectedTabGradient() {
+//
+//        // பழைய gradient remove
+//        layer.sublayers?.removeAll {
+//            $0 is CAGradientLayer
+//        }
+//
+//        let gradient = CAGradientLayer()
+//        gradient.frame = bounds
+//        gradient.cornerRadius = layer.cornerRadius
+//
+//        gradient.colors = [
+//            UIColor(hex: "#6E0B1F").cgColor,
+//            UIColor(hex: "#A50E2D").cgColor,
+//            UIColor(hex: "#D81B45").cgColor
+//        ]
+//
+//        // Bottom Left → Top Right (315°)
+//        gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
+//        gradient.endPoint = CGPoint(x: 1.0, y: 0.0)
+//
+//        layer.insertSublayer(gradient, at: 0)
+//    }
+    
     func applySelectedTabGradient() {
 
-        // பழைய gradient remove
-        layer.sublayers?.removeAll {
-            $0 is CAGradientLayer
+        self.layoutIfNeeded()
+
+        if let gradient = self.layer.sublayers?.first(where: { $0.name == "SelectedTabGradient" }) as? CAGradientLayer {
+
+            gradient.frame = self.bounds
+            return
         }
 
         let gradient = CAGradientLayer()
-        gradient.frame = bounds
-        gradient.cornerRadius = layer.cornerRadius
+        gradient.name = "SelectedTabGradient"
+        gradient.frame = self.bounds
+        gradient.cornerRadius = self.layer.cornerRadius
 
         gradient.colors = [
             UIColor(hex: "#6E0B1F").cgColor,
@@ -408,10 +453,9 @@ extension UIButton {
             UIColor(hex: "#D81B45").cgColor
         ]
 
-        // Bottom Left → Top Right (315°)
         gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
         gradient.endPoint = CGPoint(x: 1.0, y: 0.0)
 
-        layer.insertSublayer(gradient, at: 0)
+        self.layer.insertSublayer(gradient, at: 0)
     }
 }

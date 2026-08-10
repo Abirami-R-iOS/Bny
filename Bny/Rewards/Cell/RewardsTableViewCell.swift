@@ -49,7 +49,16 @@ class RewardsTableViewCell: UITableViewCell {
         override func awakeFromNib() {
             super.awakeFromNib()
             self.setupUI()
+            self.setButtonUI()
+            self.setupFonts()
         }
+    
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//
+//        self.setupUI()
+//        self.setButtonUI()
+//    }
 
         override func layoutSubviews() {
             super.layoutSubviews()
@@ -69,13 +78,41 @@ class RewardsTableViewCell: UITableViewCell {
             self.rightView.layer.maskedCorners = [.layerMaxXMinYCorner,.layerMaxXMaxYCorner]
 
             self.logoImageView.layer.cornerRadius = self.logoImageView.frame.height / 2
-
-            self.setButtonUI()
-
             [self.topCircleView,self.centerCircleView,self.bottomCircleView].forEach {
                 $0?.layer.cornerRadius = ($0?.frame.height ?? 0) / 2
             }
         }
+    
+    private func setupFonts() {
+        
+        self.amountLbl.font = .poppinsBold(size: 21)
+        self.voucherLbl.font = .poppinsMedium(size: 11)
+        self.titleLbl.font = .poppinsSemiBold(size: 14)
+        self.locationLbl.font = .poppinsRegular(size: 12)
+        let font = UIFont.poppinsSemiBold(size: 12)
+        //
+        giftBtn.titleLabel?.font = font
+        redeemBtn.titleLabel?.font = font
+        
+        if #available(iOS 15.0, *) {
+            
+            giftBtn.configuration?.titleTextAttributesTransformer =
+            UIConfigurationTextAttributesTransformer { incoming in
+                var outgoing = incoming
+                outgoing.font = font
+                return outgoing
+            }
+            
+            redeemBtn.configuration?.titleTextAttributesTransformer =
+            UIConfigurationTextAttributesTransformer { incoming in
+                var outgoing = incoming
+                outgoing.font = font
+                return outgoing
+            }
+        }
+        
+    }
+    
     func setButtonUI() {
         self.giftBtn.layer.cornerRadius = 12
         self.redeemBtn.layer.cornerRadius = 12
@@ -102,12 +139,35 @@ class RewardsTableViewCell: UITableViewCell {
             self.rightView.clipsToBounds = true
             self.logoImageView.clipsToBounds = true
             self.dividerView.clipsToBounds = false
-
+//
 //            self.amountLbl.font = .poppinsBold(size: 28)
 //            self.voucherLbl.font = .poppinsMedium(size: 16)
 //            self.titleLbl.font = .poppinsSemiBold(size: 18)
 //            self.locationLbl.font = .poppinsRegular(size: 16)
-
+//
+//            
+//            let font = UIFont.poppinsSemiBold(size: 12)
+//
+//            giftBtn.titleLabel?.font = font
+//            redeemBtn.titleLabel?.font = font
+//
+//            if #available(iOS 15.0, *) {
+//
+//                giftBtn.configuration?.titleTextAttributesTransformer =
+//                UIConfigurationTextAttributesTransformer { incoming in
+//                    var outgoing = incoming
+//                    outgoing.font = font
+//                    return outgoing
+//                }
+//
+//                redeemBtn.configuration?.titleTextAttributesTransformer =
+//                UIConfigurationTextAttributesTransformer { incoming in
+//                    var outgoing = incoming
+//                    outgoing.font = font
+//                    return outgoing
+//                }
+//            }
+            
 //            self.giftBtn.titleLabel?.font = .poppinsSemiBold(size: 16)
 //            self.redeemBtn.titleLabel?.font = .poppinsSemiBold(size: 16)
 

@@ -76,6 +76,67 @@ struct AppStrings {
     static let No_History_Title = "No History Found!"
     static let nocoupons = "No Coupons Available!"
     
+    // MARK: - Reward Voucher
+
+    static let rewardVoucher = "Reward Voucher"
+    static let rewardVoucherSubtitle = "Redeem your reward at participating stores."
+
+    static let rewardTitle = "Congratulations! You earned this voucher as a"
+    static let rewardType = "Referral Reward"
+
+    static let voucherDetails = "Voucher Details"
+
+    static let validTill = "Valid Till"
+    static let applicableStore = "Applicable Store"
+    static let voucherId = "Voucher ID"
+
+    static let aboutVoucher = "About this Voucher"
+
+    static let howToRedeem = "How to Redeem?"
+
+    static let termsAndConditions = "Terms & Conditions"
+
+    static let redeemVoucher = "Redeem Voucher"
+    
+    static let aboutVoucherDescription = """
+    Use this voucher to get flat ₹54 off on your purchase.
+
+    Valid only at the selected store and its participating branches.
+    """
+
+    // MARK: - Redeem Steps
+
+    static let redeemStep1 = "Visit any shop or outlet"
+
+    static let redeemStep2 = "Choose your items or service"
+
+    static let redeemStep3 = "Proceed to billing counter"
+
+    static let redeemStep4 = "Show this voucher to the cashier"
+
+    static let redeemStep5 = "Enjoy your reward"
+
+    // MARK: - Terms
+
+    static let term1 = "Voucher can be used only once."
+
+    static let term2 = "Cannot be clubbed with any other offers or discounts."
+
+    static let term3 = "Valid only at the selected store and its participating branches."
+
+    static let term4 = "Voucher is non-transferable and cannot be redeemed for cash."
+
+    static let term5 = "Offer valid till the mentioned expiry date."
+
+    // MARK: - Alerts
+
+    static let voucherRedeemed = "Voucher redeemed successfully."
+
+    static let redeemFailed = "Unable to redeem voucher. Please try again."
+
+    static let rewardFetchFailed = "Unable to fetch reward voucher."
+
+    static let noVoucherAvailable = "No reward voucher available."
     
     // MARK: - Profile
     static let Profile_Information_Title = "Information & support"
@@ -219,4 +280,74 @@ struct AppStrings {
     static let Edit_Profile_Discard_Changes_Message = "You have unsaved changes. Are you sure you want to leave?"
     static let Edit_Profile_Yes = "Yes"
     static let Edit_Profile_No = "No"
+    
+    // MARK: - Refer & Earn
+
+    static let referAndEarn = "Refer & Earn"
+
+    static let referAndEarnSubTitle = "Invite your friends and earn exciting rewards together."
+
+    // MARK: - Referral Card
+
+    static let yourReferralCode = "Your Referral Code"
+
+    static let referralDescription = "Share your referral code with friends. Once they sign up using your code and complete the required steps, both of you become eligible for exciting rewards."
+
+    static let shareOnWhatsApp = "Share on\nWhatsApp"
+
+    static let shareNow = "Share\nNow"
+
+    // MARK: - Referral Summary
+
+    static let referralSummary = "Your Referral Summary"
+
+    static let totalReferrals = "Total Referrals"
+
+    static let redeemedRewards = "Redeemed Rewards"
+
+    static let referrals = "Referrals"
+
+    static let rewards = "Rewards"
+
+    // MARK: - Milestone Rewards
+
+    static let milestoneRewards = "Milestone Rewards"
+
+    static let unlocked = "UNLOCKED"
+
+    static let locked = "LOCKED"
+
+    static let referralCount = "Referrals"
+
+    static let mysteryGift = "Mystery Gift"
+
+    static let coupon = "Coupon"
+
+    // MARK: - How It Works
+
+    static let howItWorks = "How It Works"
+
+    static let stepOne = "Share\nReferral Code"
+
+    static let stepTwo = "Friend\nRegisters"
+
+    static let stepThree = "Friend\nCompletes Order"
+
+    static let stepFour = "Earn\nRewards"
+
+    // MARK: - Invite
+
+    static let inviteFriendsNow = "Invite Friends Now"
+
+    // MARK: - Alerts
+
+    static let referralCopied = "Referral code copied successfully."
+
+    static let referralShared = "Referral shared successfully."
+
+    static let unableToShare = "Unable to share referral."
+
+    static let referEarnFailed = "Unable to fetch referral details."
+
+    static let milestoneLocked = "Complete more referrals to unlock this reward."
 }

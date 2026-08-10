@@ -36,7 +36,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlock Special Gift Vouchers!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x9f-kR-mcB">
-                                <rect key="frame" x="5" y="31" width="291" height="19"/>
+                                <rect key="frame" x="5" y="31" width="291" height="19.666666666666671"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
                                 <color key="textColor" name="White_Clr"/>
                                 <nil key="highlightedColor"/>
@@ -87,6 +87,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="sn2-bE-wul" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="0ep-Pb-bLm"/>
                     <constraint firstAttribute="bottom" secondItem="sn2-bE-wul" secondAttribute="bottom" constant="8" id="FaU-3A-s7N"/>
@@ -95,6 +96,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <point key="canvasLocation" x="-115.26717557251908" y="102.11267605633803"/>
         </tableViewCell>
     </objects>

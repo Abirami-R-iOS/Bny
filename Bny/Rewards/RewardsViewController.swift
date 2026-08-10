@@ -55,13 +55,18 @@ class RewardsViewController: UIViewController {
         self.updateTabs()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.updateTabs()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
         mainView.applyRewardBackgroundGradient()
         tabContainerView.applyTabParentStyle()
 
-        updateTabs() // button bounds கிடைத்த பிறகு gradient apply ஆகும்
+        //updateTabs() // button bounds கிடைத்த பிறகு gradient apply ஆகும்
     }
     
     // MARK: - UI
@@ -87,8 +92,9 @@ class RewardsViewController: UIViewController {
         [self.rewardsBtn, self.specialsBtn, self.historyBtn].forEach {
 //            $0?.titleLabel?.font = UIFont(name: "poppins_medium", size: 12)
             $0?.titleLabel?.font = .poppinsMedium(size: 12)
-            $0?.layer.cornerRadius = 12
             $0?.clipsToBounds = true
+            $0?.layer.cornerRadius = 12
+            
         }
         
         self.setUpBackView()
@@ -324,7 +330,21 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource {
                             amount: "$700",
                             color: color
                         )
+                        
+                        cell.redeemAction = { [weak self] in
+                            guard let self = self else { return }
 
+                            let vc = self.storyboard?.instantiateViewController(
+                                withIdentifier: "RewardVoucherViewController"
+                            ) as? RewardVoucherViewController
+
+                            guard let vc else { return }
+
+                            self.navigationController?.pushViewController(
+                                vc,
+                                animated: true
+                            )
+                        }
                         return cell
                     }
                 }
