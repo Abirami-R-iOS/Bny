@@ -8,7 +8,7 @@
 import UIKit
 
 class BrandListViewController: UIViewController {
-
+    @IBOutlet weak var filterBtn: UIButton!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchIcon: UIImageView!
     @IBOutlet weak var searchContainerView: UIView!
@@ -68,9 +68,11 @@ class BrandListViewController: UIViewController {
         if UserSession.shared.isLoggedIn == false {
             self.gridView.isHidden = true
             self.gridImageView.isHidden = true
+            self.filterBtn.isHidden = true
         } else {
             self.gridView.isHidden = false
             self.gridImageView.isHidden = false
+            self.filterBtn.isHidden = false
         }
         
         self.menuContainerView.isHidden = true
@@ -175,6 +177,15 @@ class BrandListViewController: UIViewController {
 
     }
     
+    @IBAction func filterBtnAction(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "FilterNearbyShopsViewController") as! FilterNearbyShopsViewController
+        navigationController?.pushViewController(vc, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            self.closeMenu()
+        }
+    }
+    
+    
     @IBAction func giftBtnTapped(_ sender: UIButton) {
         self.highlightMenuButton(sender)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
@@ -257,6 +268,56 @@ class BrandListViewController: UIViewController {
 
 extension BrandListViewController {
 
+    
+    func downloadCategoryImages() {
+        
+        let group = DispatchGroup()
+
+        let columnWidth = (self.collectionView.frame.width / 2) - 16
+
+        for index in self.brandList.indices {
+
+            guard let picture = self.brandList[index].picture,
+                  let url = URL(string: APIConstants.baseURLImage + picture) else {
+
+                self.brandList[index].image = UIImage(named: "Placeholder")
+                self.brandList[index].imageHeight = 220
+                continue
+            }
+
+            group.enter()
+
+            URLSession.shared.dataTask(with: url) { data, response, error in
+
+                defer {
+                    group.leave()
+                }
+
+                guard let data = data,
+                      let image = UIImage(data: data) else {
+
+                    self.brandList[index].image = UIImage(named: "Placeholder")
+                    self.brandList[index].imageHeight = 220
+                    return
+                }
+
+                self.brandList[index].image = image
+
+                let ratio = image.size.height / image.size.width
+
+                self.brandList[index].imageHeight = columnWidth * ratio
+
+            }.resume()
+        }
+
+        group.notify(queue: .main) {
+
+            self.collectionView.collectionViewLayout.invalidateLayout()
+
+            self.collectionView.reloadData()
+        }
+    }
+    
     
     func loadViewModel() {
 
@@ -362,56 +423,6 @@ extension BrandListViewController {
             self.menuContainerView.transform = .identity
         }
     }
-    
-    
-    func downloadCategoryImages() {
-
-        let group = DispatchGroup()
-
-        let columnWidth = (self.collectionView.frame.width / 2) - 16
-
-        for index in self.brandList.indices {
-
-            guard let picture = self.brandList[index].picture,
-                  let url = URL(string: APIConstants.baseURLImage + picture) else {
-
-                self.brandList[index].image = UIImage(named: "Placeholder")
-                self.brandList[index].imageHeight = 220
-                continue
-            }
-
-            group.enter()
-
-            URLSession.shared.dataTask(with: url) { data, response, error in
-
-                defer {
-                    group.leave()
-                }
-
-                guard let data = data,
-                      let image = UIImage(data: data) else {
-
-                    self.brandList[index].image = UIImage(named: "Placeholder")
-                    self.brandList[index].imageHeight = 220
-                    return
-                }
-
-                self.brandList[index].image = image
-
-                let ratio = image.size.height / image.size.width
-
-                self.brandList[index].imageHeight = columnWidth * ratio
-
-            }.resume()
-        }
-
-        group.notify(queue: .main) {
-
-            self.collectionView.collectionViewLayout.invalidateLayout()
-
-            self.collectionView.reloadData()
-        }
-    }
 }
 
 extension BrandListViewController: UITextFieldDelegate {
@@ -446,7 +457,7 @@ extension BrandListViewController: UICollectionViewDelegate, UICollectionViewDat
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BrandListCollectionViewCell", for: indexPath) as! BrandListCollectionViewCell
 //        cell.isLoggedIn = self.isLoggedIn
-         cell.configure(with: self.viewModel.brandsList[indexPath.item])
+         cell.configure(with: self.brandList[indexPath.item])//self.viewModel.brandsList[indexPath.item])
 
          return cell
 

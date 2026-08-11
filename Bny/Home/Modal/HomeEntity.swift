@@ -56,6 +56,7 @@ struct CategoryResponseModel: Codable {
     let createdAt: String?
     let updatedAt: String?
     let isFavourite: Int?
+    let distance: Double?
     
     var image: UIImage?
     
@@ -72,5 +73,6 @@ struct CategoryResponseModel: Codable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
         case isFavourite = "is_favourite"
+        case distance = "store_km_from_user"
     }
 }

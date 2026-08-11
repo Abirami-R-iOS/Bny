@@ -9,7 +9,6 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
-    @IBOutlet weak var filterBtn: UIButton!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var searchIcon: UIImageView!
     @IBOutlet weak var searchContainerView: UIView!
@@ -386,13 +385,6 @@ class HomeViewController: UIViewController {
 
     }
     
-    @IBAction func filterBtnAction(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "FilterNearbyShopsViewController") as! FilterNearbyShopsViewController
-        navigationController?.pushViewController(vc, animated: true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-            self.closeMenu()
-        }
-    }
     @IBAction func notificationBtnTapped(_ sender: UIButton) {
         self.highlightMenuButton(sender)
         let vc = storyboard?.instantiateViewController(withIdentifier: "NotificationViewController") as! NotificationViewController

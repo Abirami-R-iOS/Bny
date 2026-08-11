@@ -565,7 +565,6 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" image="left-arrow"/>
                                                         <connections>
-                                                            <action selector="backBtn:" destination="2az-sr-lql" eventType="touchUpInside" id="Vy0-F5-4iE"/>
                                                             <action selector="backTapped:" destination="Lc1-pA-uIF" eventType="touchUpInside" id="0Ch-IR-LrG"/>
                                                             <action selector="backTapped:" destination="I2D-Cf-Y2V" eventType="touchUpInside" id="SGh-nM-784"/>
                                                         </connections>
@@ -681,7 +680,6 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" image="left-arrow"/>
                                                         <connections>
-                                                            <action selector="backBtn:" destination="2az-sr-lql" eventType="touchUpInside" id="xNH-VA-ETx"/>
                                                             <action selector="backTapped:" destination="Lc1-pA-uIF" eventType="touchUpInside" id="lB3-DA-2zk"/>
                                                             <action selector="backTapped:" destination="dZP-fK-jxh" eventType="touchUpInside" id="qR2-nv-v0B"/>
                                                         </connections>
@@ -1002,7 +1000,6 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" image="left-arrow"/>
                                                         <connections>
-                                                            <action selector="backBtn:" destination="2az-sr-lql" eventType="touchUpInside" id="Ngm-eZ-eQN"/>
                                                             <action selector="backTapped:" destination="I2D-Cf-Y2V" eventType="touchUpInside" id="2Ky-DB-cPn"/>
                                                             <action selector="backTapped:" destination="TWx-cQ-hKH" eventType="touchUpInside" id="W61-Qv-1cb"/>
                                                             <action selector="backTapped:" destination="Lc1-pA-uIF" eventType="touchUpInside" id="ZeG-EO-NXK"/>
@@ -1919,7 +1916,6 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" image="left-arrow"/>
                                                         <connections>
-                                                            <action selector="backBtn:" destination="2az-sr-lql" eventType="touchUpInside" id="DEr-bH-aaL"/>
                                                             <action selector="backButtonTapped:" destination="h3W-je-Bj3" eventType="touchUpInside" id="OsW-wG-s2M"/>
                                                             <action selector="backTapped:" destination="TWx-cQ-hKH" eventType="touchUpInside" id="8rN-yM-gTU"/>
                                                             <action selector="backTapped:" destination="Lc1-pA-uIF" eventType="touchUpInside" id="oyS-PK-dr6"/>
@@ -2300,7 +2296,6 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" image="left-arrow"/>
                                                         <connections>
-                                                            <action selector="backBtn:" destination="2az-sr-lql" eventType="touchUpInside" id="AxC-XE-H9S"/>
                                                             <action selector="backBtn:" destination="8KD-ED-5Le" eventType="touchUpInside" id="JDT-Nf-kwo"/>
                                                             <action selector="backTapped:" destination="Lc1-pA-uIF" eventType="touchUpInside" id="5FD-F8-LWn"/>
                                                             <action selector="backTapped:" destination="TWx-cQ-hKH" eventType="touchUpInside" id="htm-D0-vLc"/>
@@ -2831,7 +2826,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ghi-5y-nbG">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Home_bg" translatesAutoresizingMaskIntoConstraints="NO" id="f7S-Wf-Kti">
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Home_bg" translatesAutoresizingMaskIntoConstraints="NO" id="f7S-Wf-Kti">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hc9-vf-yoC">
@@ -2904,18 +2899,6 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GV6-1H-vVm">
                                         <rect key="frame" x="10" y="130" width="373" height="45"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TkZ-H1-lZx">
-                                                <rect key="frame" x="323" y="0.0" width="50" height="45"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="50" id="MP6-9J-ddd"/>
-                                                </constraints>
-                                                <color key="tintColor" name="Bny_Red"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal.decrease" catalog="system"/>
-                                                <connections>
-                                                    <action selector="filterBtnAction:" destination="5LU-gJ-xSF" eventType="touchUpInside" id="kHy-2J-HuI"/>
-                                                </connections>
-                                            </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1W1-ea-GlR">
                                                 <rect key="frame" x="5" y="3.6666666666666536" width="40" height="38.333333333333329"/>
                                                 <color key="tintColor" name="White_Clr"/>
@@ -2938,14 +2921,11 @@
                                         </subviews>
                                         <color key="backgroundColor" name="backgroundClr"/>
                                         <constraints>
-                                            <constraint firstItem="TkZ-H1-lZx" firstAttribute="top" secondItem="GV6-1H-vVm" secondAttribute="top" id="2PF-V5-AbJ"/>
-                                            <constraint firstAttribute="trailing" secondItem="TkZ-H1-lZx" secondAttribute="trailing" id="2qk-b1-nJA"/>
                                             <constraint firstItem="TmT-qy-Vgl" firstAttribute="leading" secondItem="1W1-ea-GlR" secondAttribute="trailing" constant="15" id="7Qf-EC-wxq"/>
                                             <constraint firstItem="1W1-ea-GlR" firstAttribute="centerY" secondItem="GV6-1H-vVm" secondAttribute="centerY" id="LN3-2t-syf"/>
                                             <constraint firstAttribute="trailing" secondItem="TmT-qy-Vgl" secondAttribute="trailing" constant="10" id="QY5-xL-H8Y"/>
                                             <constraint firstItem="TmT-qy-Vgl" firstAttribute="centerY" secondItem="1W1-ea-GlR" secondAttribute="centerY" id="Zo3-IS-Mfg"/>
                                             <constraint firstAttribute="height" constant="45" id="e37-aN-Qvt"/>
-                                            <constraint firstAttribute="bottom" secondItem="TkZ-H1-lZx" secondAttribute="bottom" id="mpJ-68-LBw"/>
                                             <constraint firstItem="1W1-ea-GlR" firstAttribute="leading" secondItem="GV6-1H-vVm" secondAttribute="leading" constant="5" id="nnQ-E6-lqC"/>
                                         </constraints>
                                     </view>
@@ -3121,10 +3101,15 @@
                                     <constraint firstAttribute="trailing" secondItem="WvH-cF-xxM" secondAttribute="trailing" constant="40" id="uDa-Qp-c7q"/>
                                     <constraint firstItem="f7S-Wf-Kti" firstAttribute="top" secondItem="Ghi-5y-nbG" secondAttribute="top" id="wYA-uy-Vb8"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="f7S-Wf-Kti"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1Z4-2q-Qhp"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="Common_Bg"/>
                         <constraints>
                             <constraint firstItem="Ghi-5y-nbG" firstAttribute="leading" secondItem="1Z4-2q-Qhp" secondAttribute="leading" id="0X3-9r-4Pu"/>
                             <constraint firstAttribute="bottom" secondItem="Ghi-5y-nbG" secondAttribute="bottom" id="AzA-dz-2Sw"/>
@@ -3139,7 +3124,6 @@
                         <outlet property="collectionView" destination="nvH-l7-o46" id="s4f-e0-WB1"/>
                         <outlet property="descriptionLbl" destination="aE2-Y0-S5M" id="O9I-ab-Ac7"/>
                         <outlet property="favouriteBtn" destination="AC9-Bg-Vb3" id="Tma-zA-9ll"/>
-                        <outlet property="filterBtn" destination="TkZ-H1-lZx" id="Cuw-yw-h7j"/>
                         <outlet property="giftBtn" destination="nnw-NK-iXX" id="spB-Tc-rJd"/>
                         <outlet property="gridImageView" destination="vOm-XW-0fT" id="kZs-nT-a12"/>
                         <outlet property="gridView" destination="eUW-01-uO6" id="4Dz-Mj-U3A"/>
@@ -3171,7 +3155,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sgp-cg-tcf">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Home_bg" translatesAutoresizingMaskIntoConstraints="NO" id="uMH-na-0Ea">
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Home_bg" translatesAutoresizingMaskIntoConstraints="NO" id="uMH-na-0Ea">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aY8-yg-4mh">
@@ -3190,7 +3174,7 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" image="left-arrow"/>
                                                         <connections>
-                                                            <action selector="backBtn:" destination="2az-sr-lql" eventType="touchUpInside" id="6Rz-X0-x7a"/>
+                                                            <action selector="backBtn:" destination="2az-sr-lql" eventType="touchUpInside" id="ZxZ-ab-qrU"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -3255,6 +3239,19 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="grX-sl-FMl">
                                         <rect key="frame" x="10" y="110" width="373" height="45"/>
                                         <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1c5-qv-1kd">
+                                                <rect key="frame" x="323" y="0.0" width="50" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="pvG-BB-Fum"/>
+                                                </constraints>
+                                                <color key="tintColor" name="Bny_Red"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="line.3.horizontal.decrease" catalog="system"/>
+                                                <connections>
+                                                    <action selector="filterBtnAction:" destination="2az-sr-lql" eventType="touchUpInside" id="3Kg-nq-tGY"/>
+                                                    <action selector="filterBtnAction:" destination="5LU-gJ-xSF" eventType="touchUpInside" id="tlt-7u-GRc"/>
+                                                </connections>
+                                            </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Zl1-zW-Y6W">
                                                 <rect key="frame" x="5" y="3.6666666666666679" width="40" height="38.333333333333329"/>
                                                 <color key="tintColor" name="White_Clr"/>
@@ -3264,7 +3261,7 @@
                                                 </constraints>
                                             </imageView>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search for stores, categories..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7sP-qy-36K">
-                                                <rect key="frame" x="60" y="2.6666666666666714" width="303" height="40"/>
+                                                <rect key="frame" x="60" y="2.6666666666666714" width="263" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" name="placeHolderClr"/>
                                                 <constraints>
@@ -3279,10 +3276,13 @@
                                         <constraints>
                                             <constraint firstItem="7sP-qy-36K" firstAttribute="leading" secondItem="Zl1-zW-Y6W" secondAttribute="trailing" constant="15" id="3gB-2W-Y9h"/>
                                             <constraint firstItem="Zl1-zW-Y6W" firstAttribute="centerY" secondItem="grX-sl-FMl" secondAttribute="centerY" id="6m6-O0-lhP"/>
+                                            <constraint firstItem="1c5-qv-1kd" firstAttribute="leading" secondItem="7sP-qy-36K" secondAttribute="trailing" id="EhR-jC-DK9"/>
+                                            <constraint firstItem="1c5-qv-1kd" firstAttribute="top" secondItem="grX-sl-FMl" secondAttribute="top" id="R3b-WA-A3Z"/>
                                             <constraint firstItem="Zl1-zW-Y6W" firstAttribute="leading" secondItem="grX-sl-FMl" secondAttribute="leading" constant="5" id="S4l-FQ-5Qy"/>
-                                            <constraint firstAttribute="trailing" secondItem="7sP-qy-36K" secondAttribute="trailing" constant="10" id="S93-vT-M9u"/>
+                                            <constraint firstAttribute="bottom" secondItem="1c5-qv-1kd" secondAttribute="bottom" id="STE-2A-UOc"/>
                                             <constraint firstAttribute="height" constant="45" id="oBF-Bh-nXP"/>
                                             <constraint firstItem="7sP-qy-36K" firstAttribute="centerY" secondItem="Zl1-zW-Y6W" secondAttribute="centerY" id="slX-cz-lOh"/>
+                                            <constraint firstAttribute="trailing" secondItem="1c5-qv-1kd" secondAttribute="trailing" id="xy8-Rc-qCd"/>
                                         </constraints>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pVb-xi-3ci">
@@ -3466,6 +3466,7 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
+                                        <exclude reference="uMH-na-0Ea"/>
                                         <exclude reference="XP5-j0-pdi"/>
                                         <exclude reference="LtH-uv-Wm3"/>
                                     </mask>
@@ -3473,7 +3474,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RhL-AI-BGR"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="Common_Bg"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Sgp-cg-tcf" secondAttribute="bottom" id="1Jw-DU-yeP"/>
                             <constraint firstItem="Sgp-cg-tcf" firstAttribute="leading" secondItem="RhL-AI-BGR" secondAttribute="leading" id="Otw-cQ-Axz"/>
@@ -3488,6 +3489,7 @@
                         <outlet property="closeBtn" destination="DM1-ND-UP1" id="BPM-54-UvP"/>
                         <outlet property="collectionView" destination="pVb-xi-3ci" id="PkB-c5-BQf"/>
                         <outlet property="favouriteBtn" destination="tQe-ws-U6a" id="PpU-GQ-nDe"/>
+                        <outlet property="filterBtn" destination="1c5-qv-1kd" id="EpO-2I-mRn"/>
                         <outlet property="giftBtn" destination="dWa-Ta-qbK" id="ht5-9c-eO2"/>
                         <outlet property="gridImageView" destination="92O-wm-Ikt" id="t1t-Rv-EC0"/>
                         <outlet property="gridView" destination="Jgt-P3-dah" id="0rQ-G6-3Jp"/>
@@ -3535,7 +3537,6 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" image="left-arrow"/>
                                                         <connections>
-                                                            <action selector="backBtn:" destination="2az-sr-lql" eventType="touchUpInside" id="HSf-Rm-XGf"/>
                                                             <action selector="backTapped:" destination="Lc1-pA-uIF" eventType="touchUpInside" id="AgK-pe-nXd"/>
                                                         </connections>
                                                     </button>
@@ -4217,7 +4218,6 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" image="left-arrow"/>
                                                         <connections>
-                                                            <action selector="backBtn:" destination="2az-sr-lql" eventType="touchUpInside" id="8EU-cL-Fwx"/>
                                                             <action selector="backBtnAction:" destination="PrS-KF-zsv" eventType="touchUpInside" id="U0t-8h-cmf"/>
                                                             <action selector="backTapped:" destination="I2D-Cf-Y2V" eventType="touchUpInside" id="Bcv-X2-04A"/>
                                                             <action selector="backTapped:" destination="TWx-cQ-hKH" eventType="touchUpInside" id="KOu-p7-Djw"/>
@@ -5384,7 +5384,6 @@ Valid only at the selected store and its participating branches.</string>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" image="left-arrow"/>
                                                         <connections>
-                                                            <action selector="backBtn:" destination="2az-sr-lql" eventType="touchUpInside" id="Gsv-hl-fj9"/>
                                                             <action selector="backButtonTapped:" destination="dti-aL-r6U" eventType="touchUpInside" id="Dyd-Cs-Cbr"/>
                                                             <action selector="backTapped:" destination="TWx-cQ-hKH" eventType="touchUpInside" id="Pww-L1-alX"/>
                                                             <action selector="backTapped:" destination="I2D-Cf-Y2V" eventType="touchUpInside" id="Qko-wr-9N9"/>
@@ -6400,7 +6399,6 @@ Valid only at the selected store and its participating branches.</string>
                                                         <buttonConfiguration key="configuration" style="plain" image="left-arrow"/>
                                                         <connections>
                                                             <action selector="backAction:" destination="yn9-QJ-Rlt" eventType="touchUpInside" id="m6l-fZ-K5k"/>
-                                                            <action selector="backBtn:" destination="2az-sr-lql" eventType="touchUpInside" id="B41-u6-tWd"/>
                                                             <action selector="backTapped:" destination="TWx-cQ-hKH" eventType="touchUpInside" id="4FS-6u-Hvy"/>
                                                             <action selector="backTapped:" destination="I2D-Cf-Y2V" eventType="touchUpInside" id="Ng0-U0-TtA"/>
                                                             <action selector="backTapped:" destination="Lc1-pA-uIF" eventType="touchUpInside" id="SOa-xD-zGH"/>
@@ -6474,24 +6472,27 @@ Valid only at the selected store and its participating branches.</string>
                                                                 <color key="textColor" name="Silver_Clr"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mfr-EC-fUJ">
-                                                                <rect key="frame" x="258" y="-13" width="120" height="70"/>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mfr-EC-fUJ">
+                                                                <rect key="frame" x="293" y="7" width="80" height="30"/>
                                                                 <subviews>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="50 km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71G-JI-h4O">
-                                                                        <rect key="frame" x="20" y="20" width="80" height="30"/>
-                                                                        <color key="backgroundColor" name="Common_Bg"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50 km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WMk-9c-GH4">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="width" constant="80" id="MlH-B5-L0a"/>
-                                                                            <constraint firstAttribute="height" constant="30" id="XzF-1x-Z7D"/>
+                                                                            <constraint firstAttribute="height" constant="30" id="OQM-kb-u94"/>
+                                                                            <constraint firstAttribute="width" constant="80" id="qeN-v6-5Rl"/>
                                                                         </constraints>
                                                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                                                         <color key="textColor" name="Bny_Red"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <color key="backgroundColor" name="Common_Bg"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="trailing" secondItem="71G-JI-h4O" secondAttribute="trailing" constant="20" id="Hlv-SC-Zh2"/>
+                                                                    <constraint firstAttribute="width" constant="80" id="gg9-Vs-xXb"/>
+                                                                    <constraint firstItem="WMk-9c-GH4" firstAttribute="centerX" secondItem="Mfr-EC-fUJ" secondAttribute="centerX" id="mCd-3E-4IU"/>
+                                                                    <constraint firstItem="WMk-9c-GH4" firstAttribute="centerY" secondItem="Mfr-EC-fUJ" secondAttribute="centerY" id="ppO-7p-7Qe"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="vbX-Xs-NvH"/>
                                                                 </constraints>
                                                             </view>
                                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="jMy-CW-dG2">
@@ -6518,7 +6519,9 @@ Valid only at the selected store and its participating branches.</string>
                                                                             <constraint firstAttribute="height" constant="46" id="r3s-Mg-neX"/>
                                                                         </constraints>
                                                                         <state key="normal" title="Button"/>
-                                                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="1 km">
+                                                                            <color key="baseForegroundColor" name="Bny_Red"/>
+                                                                        </buttonConfiguration>
                                                                         <connections>
                                                                             <action selector="oneKmAction:" destination="yn9-QJ-Rlt" eventType="touchUpInside" id="0tN-7T-Ats"/>
                                                                         </connections>
@@ -6529,7 +6532,9 @@ Valid only at the selected store and its participating branches.</string>
                                                                             <constraint firstAttribute="height" constant="46" id="w5P-ez-mn0"/>
                                                                         </constraints>
                                                                         <state key="normal" title="Button"/>
-                                                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="2 km">
+                                                                            <color key="baseForegroundColor" name="Bny_Red"/>
+                                                                        </buttonConfiguration>
                                                                         <connections>
                                                                             <action selector="threeKmAction:" destination="yn9-QJ-Rlt" eventType="touchUpInside" id="SIl-Ri-Hwv"/>
                                                                         </connections>
@@ -6540,7 +6545,9 @@ Valid only at the selected store and its participating branches.</string>
                                                                             <constraint firstAttribute="height" constant="46" id="Nbm-21-N3k"/>
                                                                         </constraints>
                                                                         <state key="normal" title="Button"/>
-                                                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="3 km">
+                                                                            <color key="baseForegroundColor" name="Bny_Red"/>
+                                                                        </buttonConfiguration>
                                                                         <connections>
                                                                             <action selector="fiveKmAction:" destination="yn9-QJ-Rlt" eventType="touchUpInside" id="XgF-dz-XwX"/>
                                                                             <action selector="tenKmAction:" destination="yn9-QJ-Rlt" eventType="touchUpInside" id="HS4-Bt-nwv"/>
@@ -6552,7 +6559,9 @@ Valid only at the selected store and its participating branches.</string>
                                                                             <constraint firstAttribute="height" constant="46" id="wCj-is-Yz6"/>
                                                                         </constraints>
                                                                         <state key="normal" title="Button"/>
-                                                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="10 km">
+                                                                            <color key="baseForegroundColor" name="Bny_Red"/>
+                                                                        </buttonConfiguration>
                                                                     </button>
                                                                 </subviews>
                                                                 <constraints>
@@ -6568,7 +6577,9 @@ Valid only at the selected store and its participating branches.</string>
                                                                             <constraint firstAttribute="height" constant="46" id="Pgy-Wd-RMZ"/>
                                                                         </constraints>
                                                                         <state key="normal" title="Button"/>
-                                                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="30 km">
+                                                                            <color key="baseForegroundColor" name="Bny_Red"/>
+                                                                        </buttonConfiguration>
                                                                         <connections>
                                                                             <action selector="twentyFiveKmAction:" destination="yn9-QJ-Rlt" eventType="touchUpInside" id="lqi-IF-Idm"/>
                                                                         </connections>
@@ -6579,7 +6590,9 @@ Valid only at the selected store and its participating branches.</string>
                                                                             <constraint firstAttribute="height" constant="46" id="Y6V-Sc-Yub"/>
                                                                         </constraints>
                                                                         <state key="normal" title="Button"/>
-                                                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" title="50 km">
+                                                                            <color key="baseForegroundColor" name="Bny_Red"/>
+                                                                        </buttonConfiguration>
                                                                         <connections>
                                                                             <action selector="fiftyKmAction:" destination="yn9-QJ-Rlt" eventType="touchUpInside" id="ARK-rA-mG2"/>
                                                                         </connections>
@@ -6604,6 +6617,7 @@ Valid only at the selected store and its participating branches.</string>
                                                             <constraint firstItem="WVY-iF-DfF" firstAttribute="top" secondItem="Yes-ya-NWG" secondAttribute="bottom" constant="4" id="AA2-tU-0Na"/>
                                                             <constraint firstItem="Yes-ya-NWG" firstAttribute="top" secondItem="mPE-L2-xmB" secondAttribute="top" id="Ari-FA-rZk"/>
                                                             <constraint firstItem="lFI-RF-ac3" firstAttribute="leading" secondItem="hvs-La-sF8" secondAttribute="leading" id="DiE-Fq-mdA"/>
+                                                            <constraint firstItem="Mfr-EC-fUJ" firstAttribute="centerY" secondItem="Yes-ya-NWG" secondAttribute="centerY" id="FuV-5p-VxE"/>
                                                             <constraint firstItem="lFI-RF-ac3" firstAttribute="top" secondItem="hvs-La-sF8" secondAttribute="bottom" constant="15" id="JaM-MZ-VRY"/>
                                                             <constraint firstItem="mPE-L2-xmB" firstAttribute="top" secondItem="w3X-ya-stS" secondAttribute="top" constant="10" id="Kcl-mN-uDD"/>
                                                             <constraint firstItem="hvs-La-sF8" firstAttribute="trailing" secondItem="N8H-tH-Rzr" secondAttribute="trailing" id="Oml-bQ-sxw"/>
@@ -6616,6 +6630,7 @@ Valid only at the selected store and its participating branches.</string>
                                                             <constraint firstItem="jMy-CW-dG2" firstAttribute="leading" secondItem="mPE-L2-xmB" secondAttribute="leading" id="eb9-ZN-14e"/>
                                                             <constraint firstItem="lFI-RF-ac3" firstAttribute="trailing" secondItem="hvs-La-sF8" secondAttribute="trailing" id="hG3-bx-UGh"/>
                                                             <constraint firstItem="hvs-La-sF8" firstAttribute="leading" secondItem="N8H-tH-Rzr" secondAttribute="leading" id="hrm-By-FFJ"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Mfr-EC-fUJ" secondAttribute="trailing" id="oZn-dy-aGZ"/>
                                                             <constraint firstItem="Yes-ya-NWG" firstAttribute="leading" secondItem="mPE-L2-xmB" secondAttribute="trailing" constant="14" id="xlq-Xy-E69"/>
                                                             <constraint firstItem="mPE-L2-xmB" firstAttribute="leading" secondItem="w3X-ya-stS" secondAttribute="leading" constant="15" id="zDZ-wP-gxU"/>
                                                             <constraint firstAttribute="bottom" secondItem="lFI-RF-ac3" secondAttribute="bottom" constant="20" id="zOf-if-Fh9"/>
@@ -6933,8 +6948,9 @@ Try increasing your search radius.</string>
                         <outlet property="radiusSlider" destination="jMy-CW-dG2" id="Zca-1m-T6O"/>
                         <outlet property="radiusSubTitleLbl" destination="WVY-iF-DfF" id="0rD-fT-APp"/>
                         <outlet property="radiusTitleLbl" destination="Yes-ya-NWG" id="9uR-sB-xkF"/>
-                        <outlet property="radiusValueLbl" destination="71G-JI-h4O" id="G4J-oh-hze"/>
+                        <outlet property="radiusValueView" destination="Mfr-EC-fUJ" id="H4N-XD-s9c"/>
                         <outlet property="scrollView" destination="dIT-M8-vUX" id="rFE-Kx-Wtq"/>
+                        <outlet property="searchRadiusCardView" destination="w3X-ya-stS" id="BZN-R5-hJ6"/>
                         <outlet property="subTitleLbl" destination="Idn-zu-OOj" id="8s3-jG-fWY"/>
                         <outlet property="tenKmBtn" destination="KSH-R4-LKG" id="gsP-sY-UFv"/>
                         <outlet property="threeKmBtn" destination="TK7-sj-Kyv" id="vB5-rM-U2E"/>
@@ -7023,9 +7039,6 @@ Try increasing your search radius.</string>
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemTealColor">
             <color red="0.18823529410000001" green="0.69019607839999997" blue="0.78039215689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

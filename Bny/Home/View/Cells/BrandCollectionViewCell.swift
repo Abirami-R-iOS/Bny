@@ -40,7 +40,7 @@ class BrandCollectionViewCell: UICollectionViewCell {
         }
         self.titleLbl.text = category.name
 
-        self.subtitleLbl.text = category.offerDescription
+        self.subtitleLbl.text = String(category.distance ?? 0.0) + "km" + " | " + (category.offerDescription ?? "")
 
         self.dealImageView.image = category.image ?? UIImage(named: "Placeholder")
 
