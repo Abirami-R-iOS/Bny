@@ -3550,16 +3550,16 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="4VP-HW-cK0">
-                                                <rect key="frame" x="62" y="19" width="224" height="42"/>
+                                                <rect key="frame" x="62" y="19" width="316" height="42"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discover the best deals" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Evt-ef-05X">
-                                                        <rect key="frame" x="0.0" y="0.0" width="224" height="21"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="316" height="21"/>
                                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="15"/>
                                                         <color key="textColor" name="White_Clr"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find top stores, offers and more" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QBn-Q8-5bf">
-                                                        <rect key="frame" x="0.0" y="21" width="224" height="21"/>
+                                                        <rect key="frame" x="0.0" y="21" width="316" height="21"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                         <color key="textColor" name="Silver_Clr"/>
                                                         <nil key="highlightedColor"/>
@@ -3567,12 +3567,12 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="42" id="26s-VE-6nm"/>
-                                                    <constraint firstAttribute="width" constant="224" id="RAY-PU-VVQ"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="4VP-HW-cK0" secondAttribute="trailing" constant="15" id="Trj-BG-9Yj"/>
                                             <constraint firstItem="4VP-HW-cK0" firstAttribute="centerY" secondItem="Nq7-J5-HxB" secondAttribute="centerY" id="etI-wE-cWg"/>
                                             <constraint firstItem="xIH-rG-Non" firstAttribute="leading" secondItem="Nq7-J5-HxB" secondAttribute="leading" constant="12" id="myL-7g-YvP"/>
                                             <constraint firstAttribute="height" constant="80" id="oca-A1-RTU"/>
@@ -3604,7 +3604,7 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Rewards">
                                                             <fontDescription key="titleFontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
-                                                            <color key="baseForegroundColor" name="Silver_Clr"/>
+                                                            <color key="baseForegroundColor" name="profile_Desc_Clr"/>
                                                         </buttonConfiguration>
                                                         <connections>
                                                             <action selector="specialsTapped:" destination="Lc1-pA-uIF" eventType="touchUpInside" id="Puy-xN-1b7"/>
@@ -3616,7 +3616,7 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Rewards">
                                                             <fontDescription key="titleFontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
-                                                            <color key="baseForegroundColor" name="Silver_Clr"/>
+                                                            <color key="baseForegroundColor" name="profile_Desc_Clr"/>
                                                         </buttonConfiguration>
                                                         <connections>
                                                             <action selector="historyTapped:" destination="Lc1-pA-uIF" eventType="touchUpInside" id="XHb-KB-RGT"/>

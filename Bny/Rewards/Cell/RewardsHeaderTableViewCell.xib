@@ -26,17 +26,25 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOP-7k-M3x">
                         <rect key="frame" x="10" y="0.0" width="327" height="45"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1KA-7z-On7">
+                                <rect key="frame" x="0.0" y="16" width="4" height="13"/>
+                                <color key="backgroundColor" name="Bny_Red"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="13" id="NnM-4m-2CY"/>
+                                    <constraint firstAttribute="width" constant="4" id="ahu-Rj-tex"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOUR REWARDS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ToM-hE-jRY">
-                                <rect key="frame" x="0.0" y="14" width="94.666666666666671" height="17"/>
+                                <rect key="frame" x="11" y="14" width="94.666666666666671" height="17"/>
                                 <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="12"/>
                                 <color key="textColor" name="White_Clr"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQY-AQ-h0U">
-                                <rect key="frame" x="267.33333333333331" y="9.3333333333333339" width="59.666666666666686" height="26.666666666666664"/>
+                                <rect key="frame" x="255.33333333333329" y="7" width="71.666666666666657" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="View All">
-                                    <fontDescription key="titleFontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="9"/>
+                                    <fontDescription key="titleFontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="12"/>
                                     <color key="baseForegroundColor" name="Bny_Red"/>
                                 </buttonConfiguration>
                                 <connections>
@@ -47,9 +55,11 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ToM-hE-jRY" firstAttribute="centerY" secondItem="cOP-7k-M3x" secondAttribute="centerY" id="79u-1I-HPX"/>
+                            <constraint firstItem="1KA-7z-On7" firstAttribute="centerY" secondItem="ToM-hE-jRY" secondAttribute="centerY" id="81m-le-5Gk"/>
+                            <constraint firstItem="1KA-7z-On7" firstAttribute="leading" secondItem="cOP-7k-M3x" secondAttribute="leading" id="NxP-oJ-aiz"/>
+                            <constraint firstItem="ToM-hE-jRY" firstAttribute="leading" secondItem="1KA-7z-On7" secondAttribute="trailing" constant="7" id="OAE-q8-mwL"/>
                             <constraint firstItem="UQY-AQ-h0U" firstAttribute="centerY" secondItem="cOP-7k-M3x" secondAttribute="centerY" id="Q1g-e6-mKt"/>
                             <constraint firstAttribute="trailing" secondItem="UQY-AQ-h0U" secondAttribute="trailing" id="VAr-hM-RTB"/>
-                            <constraint firstItem="ToM-hE-jRY" firstAttribute="leading" secondItem="cOP-7k-M3x" secondAttribute="leading" id="iUk-Lw-Jz8"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -73,7 +83,7 @@
     </objects>
     <resources>
         <namedColor name="Bny_Red">
-            <color red="0.88235294117647056" green="0.11372549019607843" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.7686274509803922" green="0.0" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="White_Clr">
             <color red="0.96078431372549022" green="0.96862745098039216" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -7,32 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F77C9FAD-17D4-4AED-9FAC-1B6DE0914D0E"
+            uuid = "CFCC4D4A-C584-4C6E-B38B-488CDB077EA0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Bny/BrandList/BrandListCollectionViewCell.swift"
+            filePath = "Bny/Rewards/RewardsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "configure(with:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E61F9984-4C2F-48C9-83E3-C0EBBF318706"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Bny/BrandList/BrandListViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "460"
-            endingLineNumber = "460"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "537"
+            endingLineNumber = "537"
+            landmarkName = "didReceiveHistory()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

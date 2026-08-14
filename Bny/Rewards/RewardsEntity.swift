@@ -26,6 +26,9 @@ typealias RewardsResponse = BaseResponse<[RewardData]>
 struct RewardData: Codable {
 
     let id: Int?
+    let rewardCode: String?
+    let status: String?
+    let claimedId: Int?
     let userId: String?
     let storeId: String?
     let rewardValue: String?
@@ -35,10 +38,14 @@ struct RewardData: Codable {
     let validity: String?
     let createdAt: String?
     let updatedAt: String?
+    let currency: String?
     let store: RewardStore?
 
     enum CodingKeys: String, CodingKey {
         case id
+        case rewardCode = "reward_code"
+        case status
+        case claimedId = "claimed_id"
         case userId = "user_id"
         case storeId = "store_id"
         case rewardValue = "reward_value"
@@ -48,6 +55,7 @@ struct RewardData: Codable {
         case validity
         case createdAt = "created_at"
         case updatedAt = "updated_at"
+        case currency = "currency"
         case store
     }
 }
@@ -96,4 +104,12 @@ struct RewardStore: Codable {
         case createdAt = "created_at"
         case updatedAt = "updated_at"
     }
+}
+
+typealias HistoryResponse = BaseResponse<[RewardData]>
+
+struct HistoryData:Codable{
+    var status:String? = nil
+    var message:String? = nil
+    var data:[RewardData]? = []
 }

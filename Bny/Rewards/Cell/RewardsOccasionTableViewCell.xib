@@ -29,8 +29,16 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z9v-rU-v3F">
                         <rect key="frame" x="10" y="8" width="406" height="207"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOt-Mc-STr">
+                                <rect key="frame" x="0.0" y="3.6666666666666661" width="4" height="12.999999999999998"/>
+                                <color key="backgroundColor" name="Bny_Red"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="4" id="5M9-13-4x7"/>
+                                    <constraint firstAttribute="height" constant="13" id="kwq-pn-psw"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gift Vouchers will be credited on following occasions" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dqu-m1-8Rj">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="20"/>
+                                <rect key="frame" x="11" y="0.0" width="379" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="H38-Ds-Moq"/>
                                 </constraints>
@@ -166,11 +174,13 @@ Joining Bonus</string>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="LOt-Mc-STr" firstAttribute="centerY" secondItem="dqu-m1-8Rj" secondAttribute="centerY" id="3Ns-AN-fKX"/>
                             <constraint firstAttribute="trailing" secondItem="dqu-m1-8Rj" secondAttribute="trailing" constant="16" id="6N1-O0-Qeu"/>
+                            <constraint firstItem="dqu-m1-8Rj" firstAttribute="leading" secondItem="LOt-Mc-STr" secondAttribute="trailing" constant="7" id="8i9-Cp-Ztv"/>
                             <constraint firstItem="eMR-wW-nyE" firstAttribute="leading" secondItem="Z9v-rU-v3F" secondAttribute="leading" id="Hke-Cu-KLT"/>
                             <constraint firstItem="eMR-wW-nyE" firstAttribute="top" secondItem="dqu-m1-8Rj" secondAttribute="bottom" constant="10" id="Vfk-TV-C4K"/>
+                            <constraint firstItem="LOt-Mc-STr" firstAttribute="leading" secondItem="Z9v-rU-v3F" secondAttribute="leading" id="dRc-UN-GeD"/>
                             <constraint firstItem="dqu-m1-8Rj" firstAttribute="top" secondItem="Z9v-rU-v3F" secondAttribute="top" id="iRF-35-qg8"/>
-                            <constraint firstItem="dqu-m1-8Rj" firstAttribute="leading" secondItem="Z9v-rU-v3F" secondAttribute="leading" id="mSy-j5-l0Y"/>
                             <constraint firstAttribute="trailing" secondItem="eMR-wW-nyE" secondAttribute="trailing" id="rca-iT-bE5"/>
                         </constraints>
                     </view>
@@ -208,6 +218,9 @@ Joining Bonus</string>
         <image name="reward_bonus1" width="508" height="492"/>
         <image name="reward_occasions" width="507" height="492"/>
         <image name="reward_redeem" width="507" height="522"/>
+        <namedColor name="Bny_Red">
+            <color red="0.7686274509803922" green="0.0" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="White_Clr">
             <color red="0.96078431372549022" green="0.96862745098039216" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

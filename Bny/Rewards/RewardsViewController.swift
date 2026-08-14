@@ -5,11 +5,6 @@
 //  Created by Abirami on 28/06/26.
 //
 
-//
-//  RewardsViewController.swift
-//  Bny
-//
-
 import UIKit
 
 class RewardsViewController: UIViewController {
@@ -42,14 +37,12 @@ class RewardsViewController: UIViewController {
     // MARK: - Variables
     let viewModel = RewardsViewModel()
     var selectedTab: RewardTab = .rewards
-    var rewards = [1,2,3]
-    var history = [Int]()
+    var history = [RewardData]()
     var specials = [Int]()
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.delegate = self
-        self.viewModel.getRewards()
         self.setupUI()
         self.setupTableView()
         self.updateTabs()
@@ -58,15 +51,16 @@ class RewardsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateTabs()
+        self.viewModel.getRewards()
+        self.viewModel.getHistory()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        mainView.applyRewardBackgroundGradient()
+        
+        //        mainView.applyRewardBackgroundGradient()
         tabContainerView.applyTabParentStyle()
-
-        //updateTabs() // button bounds கிடைத்த பிறகு gradient apply ஆகும்
+        
     }
     
     // MARK: - UI
@@ -90,12 +84,16 @@ class RewardsViewController: UIViewController {
         self.historyBtn.setTitle(RewardTab.history.title, for: .normal)
         
         [self.rewardsBtn, self.specialsBtn, self.historyBtn].forEach {
-//            $0?.titleLabel?.font = UIFont(name: "poppins_medium", size: 12)
-            $0?.titleLabel?.font = .poppinsMedium(size: 12)
+            //            $0?.titleLabel?.font = UIFont(name: "poppins_medium", size: 12)
+            let font = UIFont.poppinsMedium(size: 14)
+            $0?.titleLabel?.font = font
             $0?.clipsToBounds = true
             $0?.layer.cornerRadius = 12
+            $0?.setButtonFont(size: 14, font: font)
             
         }
+        
+        
         
         self.setUpBackView()
     }
@@ -113,7 +111,7 @@ class RewardsViewController: UIViewController {
     
     func setupTableView() {
         self.RewardsTableView.rowHeight = UITableView.automaticDimension
-
+        
         self.RewardsTableView.estimatedRowHeight = 220
         
         self.RewardsTableView.delegate = self
@@ -141,7 +139,7 @@ class RewardsViewController: UIViewController {
         self.RewardsTableView.register(historyNib, forCellReuseIdentifier: "HistoryTableViewCell")
         
         let bannerNib = UINib(nibName: "RewardsBannerTableViewCell",bundle: nil)
-
+        
         self.RewardsTableView.register(bannerNib, forCellReuseIdentifier: "RewardsBannerTableViewCell" )
         
         self.RewardsTableView.register(UINib(nibName: "RewardsOccasionTableViewCell", bundle: nil), forCellReuseIdentifier: "RewardsOccasionTableViewCell")
@@ -154,8 +152,8 @@ class RewardsViewController: UIViewController {
             UINib(nibName: "RewardsEmptyTableViewCell", bundle: nil),
             forCellReuseIdentifier: "RewardsEmptyTableViewCell")
         self.RewardsTableView.register(
-                UINib(nibName: "HistoryItemTableViewCell", bundle: nil),
-                forCellReuseIdentifier: "HistoryItemTableViewCell")
+            UINib(nibName: "HistoryItemTableViewCell", bundle: nil),
+            forCellReuseIdentifier: "HistoryItemTableViewCell")
     }
     
     func updateTabs() {
@@ -179,18 +177,18 @@ class RewardsViewController: UIViewController {
     }
     
     func resetButtons() {
-
+        
         let buttons = [
             rewardsBtn,
             specialsBtn,
             historyBtn
         ]
-
+        
         buttons.forEach {
-
+            
             $0?.removeSelectedTabGradient()
             $0?.backgroundColor = .clear
-            $0?.setTitleColor(.silverClr, for: .normal)
+            $0?.setTitleColor(.profileDescClr, for: .normal)
         }
     }
     
@@ -234,112 +232,108 @@ class RewardsViewController: UIViewController {
         
         self.navigateBack(sender: sender)
     }
+    
 }
 
 extension RewardsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
         switch self.selectedTab {
-
+            
         case .rewards:
-
-            return self.rewards.isEmpty ? 5 : self.rewards.count + 4//6
-
+            
+            return self.viewModel.rewards.isEmpty ? 5 : min(self.viewModel.rewards.count, 3) + 4//6
+            
         case .specials:
-
+            
             return 3
-
+            
         case .history:
-
-            return history.isEmpty ? 3 : history.count + 2
+            
+            return self.viewModel.history.isEmpty ? 3 : self.viewModel.history.count + 2
         }
         
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         switch self.selectedTab {
-
+            
         case .rewards:
-
+            
             switch indexPath.row {
-
+                
             case 0:
-
+                
                 let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsBannerTableViewCell", for: indexPath) as! RewardsBannerTableViewCell
                 cell.configure()
                 return cell
-
+                
             case 1:
-
+                
                 let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsOccasionTableViewCell", for: indexPath) as! RewardsOccasionTableViewCell
                 return cell
-
+                
             case 2:
-
+                
                 let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsHeaderTableViewCell", for: indexPath) as! RewardsHeaderTableViewCell
-
+                
+                cell.configure(title: AppStrings.Your_Rewards, buttonTitle: AppStrings.View_All, showViewAll: self.viewModel.rewards.count > 3)
                 cell.viewAllAction = { [weak self] in
-                    guard let self else { return }
                     // Navigate
                 }
-
+                
                 return cell
-
+                
             default:
-
-                if self.rewards.isEmpty {
-
+                
+                if self.viewModel.rewards.isEmpty {
+                    
                     if indexPath.row == 3 {
-
+                        
                         let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsEmptyTableViewCell", for: indexPath) as! RewardsEmptyTableViewCell
                         cell.configure()
                         return cell
-
+                        
                     } else {
-
+                        
                         let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsInfoTableViewCell", for: indexPath) as! RewardsInfoTableViewCell
                         return cell
                     }
-
+                    
                 } else {
-
-                    if indexPath.row == self.rewards.count + 3 {
-
+                    
+                    if indexPath.row == min(self.viewModel.rewards.count,3) + 3 {
+                        
                         let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsInfoTableViewCell", for: indexPath) as! RewardsInfoTableViewCell
                         return cell
-
+                        
                     } else {
-
-                        let colors: [UIColor] = [
-                            UIColor(hex: "A22024"),
-                            UIColor(hex: "ECA424"),
-                            UIColor(hex: "1CBFB2")
-                        ]
-
-                        let color = colors[(indexPath.row - 3) % colors.count]
-
                         let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsTableViewCell", for: indexPath) as! RewardsTableViewCell
-
-                        cell.configure(
-                            image: "Deal1",
-                            title: "LUXURY WATCHES",
-                            location: "Tambaram",
-                            amount: "$700",
-                            color: color
-                        )
+                        
+                        let rewardIndex = indexPath.row - 3
+                        guard rewardIndex >= 0,
+                              rewardIndex < self.viewModel.rewards.count else {
+                            return UITableViewCell()
+                        }
+                        
+                        let rewardsData = self.viewModel.rewards[rewardIndex]
+                        
+                        
+                        
+                        cell.configure(image: rewardsData.store?.logo ?? "", title: rewardsData.store?.name ?? "", location: rewardsData.store?.area ?? "", amount: "\((rewardsData.currency ?? "") + (rewardsData.rewardValue ?? ""))", color: rewardsData.colorCode ?? "",offerValueLbl: AppStrings.offerValid, offerValueLblValue: rewardsData.rewardValue ?? "")
                         
                         cell.redeemAction = { [weak self] in
                             guard let self = self else { return }
-
+                            
                             let vc = self.storyboard?.instantiateViewController(
                                 withIdentifier: "RewardVoucherViewController"
                             ) as? RewardVoucherViewController
-
+                            
                             guard let vc else { return }
-
+                            
                             self.navigationController?.pushViewController(
                                 vc,
                                 animated: true
@@ -348,57 +342,62 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource {
                         return cell
                     }
                 }
-
+                
             }
-
-
+            
+            
         case .history:
-
+            
             switch indexPath.row {
-
+                
             case 0:
-
+                
                 let cell = tableView.dequeueReusableCell(
                     withIdentifier: "HistoryTableViewCell",
                     for: indexPath
                 ) as! HistoryTableViewCell
                 cell.configure()
                 return cell
-
+                
             case 1:
-
+                
                 let cell = tableView.dequeueReusableCell(
                     withIdentifier: "RewardsHeaderTableViewCell",
                     for: indexPath
                 ) as! RewardsHeaderTableViewCell
-
+                
                 cell.titleLbl.text = AppStrings.Your_History
                 cell.viewAllBtn.isHidden = true
-
+                
                 return cell
-
+                
             default:
-
-                if history.isEmpty {
-
+                
+                if self.viewModel.history.isEmpty {
+                    
                     let cell = tableView.dequeueReusableCell(
                         withIdentifier: "RewardsEmptyTableViewCell",
                         for: indexPath
                     ) as! RewardsEmptyTableViewCell
-
+                    
                     cell.configure(
                         title: AppStrings.No_History_Title
                     )
-
+                    
                     return cell
-
+                    
                 } else {
-
+                    
                     let cell = tableView.dequeueReusableCell(
-                        withIdentifier: "RewardsTableViewCell",
+                        withIdentifier: "HistoryItemTableViewCell",
                         for: indexPath
-                    ) as! RewardsTableViewCell
-
+                    ) as! HistoryItemTableViewCell
+                    
+                    
+                    let historyData = self.viewModel.history[indexPath.row - 2]
+                    
+                    cell.configure(image: historyData.store?.logo ?? "", title: historyData.store?.name ?? "", location: historyData.store?.area ?? "", amount: "\((historyData.currency ?? "") + (historyData.rewardValue ?? ""))", color: historyData.colorCode ?? "", redeemedCode: historyData.rewardCode ?? "", giftedOn: historyData.validity ?? "", status: HistoryStatus(rawValue: historyData.status ?? ""), claimedId: historyData.claimedId, userId: UserSession.shared.userId)
+                    
                     return cell
                 }
             }
@@ -406,217 +405,101 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource {
             switch indexPath.row {
                 
             case 0:
-
+                
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SpecialsTableViewCell", for: indexPath) as! SpecialsTableViewCell
                 
                 return cell
-
+                
             case 1:
-
+                
                 let cell = tableView.dequeueReusableCell(
                     withIdentifier: "RewardsHeaderTableViewCell",
                     for: indexPath
                 ) as! RewardsHeaderTableViewCell
-
+                
                 cell.titleLbl.text = AppStrings.Your_Coupon
                 cell.viewAllBtn.isHidden = true
-
+                
                 return cell
-
+                
             default:
-
+                
                 if specials.isEmpty {
-
+                    
                     let cell = tableView.dequeueReusableCell(
                         withIdentifier: "RewardsEmptyTableViewCell",
                         for: indexPath
                     ) as! RewardsEmptyTableViewCell
-
+                    
                     cell.configure(
                         title: AppStrings.nocoupons
                     )
-
+                    
                     return cell
-
+                    
                 } else {
-
+                    
                     let cell = tableView.dequeueReusableCell(
                         withIdentifier: "RewardsTableViewCell",
                         for: indexPath
                     ) as! RewardsTableViewCell
-
+                    
                     return cell
                 }
             }
         }
     }
     
-    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        
-//        switch selectedTab {
-//            
-//        case .rewards:
-//            switch indexPath.row {
-//            case 0:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsBannerTableViewCell", for: indexPath) as! RewardsBannerTableViewCell
-//                cell.configure()
-//                return cell
-//                
-//            case 1:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsOccasionTableViewCell", for: indexPath) as! RewardsOccasionTableViewCell
-//                return cell
-//                
-//            case 2:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsHeaderTableViewCell", for: indexPath) as! RewardsHeaderTableViewCell
-//                cell.viewAllAction = { [weak self] in
-//                    guard let self else { return }
-//                    
-//                    // Navigate to Rewards List Screen
-//                }
-//                
-//                return cell
-//                
-//            case 6:
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsInfoTableViewCell", for: indexPath) as! RewardsInfoTableViewCell
-//                return cell
-//                
-//                //            case 5:
-//                //                let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsTableViewCell", for: indexPath) as! RewardsTableViewCell
-//                //                cell.configure(image: "Deal1", title: "LUXURY WATCHES", location: "Tambaram", amount: "$700", color: UIColor(hex: "1CBFB2"))
-//                //                return cell
-//                //
-//                //            case 3:
-//                //                let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsTableViewCell", for: indexPath) as! RewardsTableViewCell
-//                //                cell.configure(image: "Deal1", title: "LUXURY WATCHES", location: "Tambaram", amount: "$700", color: UIColor(hex: "ECA424"))
-//                //                return cell
-//                //
-//                //            default:
-//                //                let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsTableViewCell", for: indexPath) as! RewardsTableViewCell
-//                //                cell.configure(image: "Deal1", title: "LUXURY WATCHES", location: "Tambaram", amount: "$700", color: UIColor(hex: "A22024"))
-//                //                return cell
-//                
-//                
-//            default:
-//                if rewards.isEmpty {
-//                    
-//                    if indexPath.row == 3 {
-//                        
-//                        // Empty Cell
-//                        
-//                    } else {
-//                        
-//                        // How It Works
-//                    }
-//                    
-//                } else {
-//                    
-//                    if indexPath.row == rewards.count + 3 {
-//                        
-//                        // How It Works
-//                        
-//                    } else {
-//                        
-//                        // Reward Cell
-//                    }
-//                    
-//                }
-//            }
-//            
-//            
-//            //            switch indexPath.row {
-//            //            case 0:
-//            //                let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsBannerTableViewCell", for: indexPath) as! RewardsBannerTableViewCell
-//            //                cell.configure()
-//            //                return cell
-//            //
-//            //            default:
-//            //                let cell = tableView.dequeueReusableCell(withIdentifier: "RewardsTableViewCell", for: indexPath) as! RewardsTableViewCell
-//            //                cell.configure(image: "Deal1", title: "Luxury Watches", location: "Chennai", amount: "₹1000", color: .systemTeal)
-//            //                return cell
-//            //            }
-//            
-//        case .specials:
-//            
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "SpecialsTableViewCell", for: indexPath) as! SpecialsTableViewCell
-//            
-//            return cell
-//            
-//        case .history:
-//            
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryTableViewCell", for: indexPath) as! HistoryTableViewCell
-//            
-//            return cell
-//        }
-//    }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        switch selectedTab {
-//        case .rewards:
-//            switch indexPath.row {
-//            case 0: return 150   // Banner
-//            case 1: return 180   // Occasion
-//            case 2: return 30    // Header
-//            case 6: return 180    //RewardInfo
-//            default: return 150  // Reward Cell
-//            }
-//        case .specials:
-//            return 300
-//        case .history:
-//            return 220
-//        }
-//    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
+        
         switch self.selectedTab {
-
+            
         case .rewards:
-
+            
             switch indexPath.row {
-
+                
             case 0:
                 return 150
-
+                
             case 1:
                 return 180
-
+                
             case 2:
                 return 30
-
+                
             default:
-
-                if self.rewards.isEmpty {
-
+                
+                if self.viewModel.rewards.isEmpty {
+                    
                     if indexPath.row == 3 {
                         return 230
                     } else {
                         return 180
                     }
-
+                    
                 } else {
-
-                    if indexPath.row == self.rewards.count + 3 {
-                        return 180
+                    
+                    if indexPath.row == min(self.viewModel.rewards.count,3) + 3 {
+                        return 150
                     } else {
                         return 150
                     }
                 }
             }
-
+            
         case .history:
-
+            
             switch indexPath.row {
-
+                
             case 0:
                 return 150
-
+                
             case 1:
                 return 30
-
+                
             default:
-
-                if history.isEmpty {
+                
+                if self.viewModel.history.isEmpty {
                     return 230
                 } else {
                     return 150
@@ -624,15 +507,15 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource {
             }
         case .specials:
             switch indexPath.row {
-
+                
             case 0:
                 return 150
-
+                
             case 1:
                 return 30
-
+                
             default:
-
+                
                 if specials.isEmpty {
                     return 230
                 } else {
@@ -641,26 +524,6 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-
-    
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//
-//        switch indexPath.row {
-//
-//        case 0:
-//            return 180
-//
-//        case 1:
-//            return 180
-//
-//        case 2:
-//            return 50
-//
-//        default:
-//            return 180
-//        }
-//    }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -669,16 +532,24 @@ extension RewardsViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension RewardsViewController: RewardViewModelDelegate {
-
-    func didReceiveRewards() {
-
-        print(self.viewModel.rewards)
-
+    func didReceiveHistory() {
+        print(self.viewModel.history)
         self.RewardsTableView.reloadData()
     }
-
+    
+    func didReceiveHistoryError(_ message: String) {
+        print(message)
+    }
+    
+    func didReceiveRewards() {
+        
+        print(self.viewModel.rewards)
+        
+        self.RewardsTableView.reloadData()
+    }
+    
     func didReceiveRewardsError(_ message: String) {
-
+        
         print(message)
     }
 }

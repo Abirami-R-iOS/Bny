@@ -35,8 +35,13 @@ class RewardsHeaderTableViewCell: UITableViewCell {
 
         titleLbl.text = AppStrings.Your_Rewards
         
-        viewAllBtn.titleLabel?.font = .poppinsMedium(size: 9.0)
-        viewAllBtn.setTitle(AppStrings.View_All, for: .normal)
+        viewAllBtn.setButtonFont(size: 12, font: .poppinsMedium(size: 12.0))
+    }
+    
+    func configure(title : String, buttonTitle: String, showViewAll : Bool) {
+        self.titleLbl.text = title
+        self.viewAllBtn.setTitle(buttonTitle, for: .normal)
+        self.viewAllBtn.isHidden = !showViewAll
     }
 
     // MARK: - Actions

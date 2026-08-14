@@ -25,8 +25,12 @@ class RewardsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var amountLbl: UILabel!
 
+    @IBOutlet weak var offerValidLabel: UILabel!
     @IBOutlet weak var voucherLbl: UILabel!
 
+    @IBOutlet weak var offerValidLblValue: UILabel!
+    @IBOutlet weak var calendarImage: UIImageView!
+    @IBOutlet weak var locationImage: UIImageView!
     @IBOutlet weak var logoImageView: UIImageView!
 
     @IBOutlet weak var titleLbl: UILabel!
@@ -115,8 +119,20 @@ class RewardsTableViewCell: UITableViewCell {
     
     func setButtonUI() {
         self.giftBtn.layer.cornerRadius = 12
+        self.giftBtn.layer.masksToBounds = true
+        
         self.redeemBtn.layer.cornerRadius = 12
-
+        self.redeemBtn.layer.masksToBounds = true
+        
+        [self.giftBtn, self.redeemBtn].forEach { btn in
+            if var configuration = btn.configuration {
+                configuration.cornerStyle = .fixed
+                configuration.background.cornerRadius = 12
+                btn.configuration = configuration
+            }
+        }
+       
+        
         self.giftBtn.titleLabel?.font = .poppinsSemiBold(size: 12)
         self.redeemBtn.titleLabel?.font = .poppinsSemiBold(size: 12)
 
@@ -139,65 +155,34 @@ class RewardsTableViewCell: UITableViewCell {
             self.rightView.clipsToBounds = true
             self.logoImageView.clipsToBounds = true
             self.dividerView.clipsToBounds = false
-//
-//            self.amountLbl.font = .poppinsBold(size: 28)
-//            self.voucherLbl.font = .poppinsMedium(size: 16)
-//            self.titleLbl.font = .poppinsSemiBold(size: 18)
-//            self.locationLbl.font = .poppinsRegular(size: 16)
-//
-//            
-//            let font = UIFont.poppinsSemiBold(size: 12)
-//
-//            giftBtn.titleLabel?.font = font
-//            redeemBtn.titleLabel?.font = font
-//
-//            if #available(iOS 15.0, *) {
-//
-//                giftBtn.configuration?.titleTextAttributesTransformer =
-//                UIConfigurationTextAttributesTransformer { incoming in
-//                    var outgoing = incoming
-//                    outgoing.font = font
-//                    return outgoing
-//                }
-//
-//                redeemBtn.configuration?.titleTextAttributesTransformer =
-//                UIConfigurationTextAttributesTransformer { incoming in
-//                    var outgoing = incoming
-//                    outgoing.font = font
-//                    return outgoing
-//                }
-//            }
-            
-//            self.giftBtn.titleLabel?.font = .poppinsSemiBold(size: 16)
-//            self.redeemBtn.titleLabel?.font = .poppinsSemiBold(size: 16)
-
-//            self.giftBtn.titleLabel?.numberOfLines = 2
-//            self.giftBtn.titleLabel?.textAlignment = .center
-//            self.redeemBtn.titleLabel?.numberOfLines = 2
-//            self.redeemBtn.titleLabel?.textAlignment = .center
-
-//            self.giftBtn.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
-//            self.redeemBtn.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
-
             self.voucherLbl.text = AppStrings.Voucher
             self.giftBtn.setTitle(AppStrings.Gift_This_Voucher, for: .normal)
             self.redeemBtn.setTitle(AppStrings.Redeem_Voucher, for: .normal)
         }
 
-        func configure(image:String,title:String,location:String,amount:String,color:UIColor) {
-
+        func configure(image:String, title:String, location:String, amount:String, color:String, offerValueLbl:String, offerValueLblValue:String) {
+            self.logoImageView.image = UIImage(named:"Placeholder")
             self.logoImageView.image = UIImage(named: image)
+            self.offerValidLabel.text = offerValueLbl
+            self.offerValidLblValue.text = offerValueLblValue
             self.titleLbl.text = title
             self.locationLbl.text = location
             self.amountLbl.text = amount
+            
+            ImageDownloader.shared.loadImage(
+                    from:image,
+                    into:self.logoImageView
+                )
 
+            let color = UIColor(hex: color)
             self.leftView.backgroundColor = color
 
-            
+            self.calendarImage.tintColor = color
+            self.offerValidLblValue.textColor = color
             self.giftBtn.setTitleColor(color, for: .normal)
             self.giftBtn.layer.borderWidth = 1
-//            self.giftBtn.layer.borderColor = UIColor(hex: "A22024").cgColor
             self.giftBtn.layer.borderColor = color.cgColor
+            self.giftBtn.backgroundColor = .whiteClr
             self.redeemBtn.backgroundColor = color
             self.redeemBtn.setTitleColor(.whiteClr, for: .normal)
         }
